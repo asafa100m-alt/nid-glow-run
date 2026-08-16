@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>NID FAMILY DAY ’26 — 螢光夜跑 GLOW RUN</title>
+<meta name="description" content="9/12 彩虹橋河濱・NID Family Day｜白天跑速度，晚上跑氛圍。一人一支螢光手環，自備發光造型，天黑一起開跑！" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Climate+Crisis&family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --night:#0a0d28;
+    --night-2:#12163f;
+    --grape:#7b3ff2;
+    --mint:#a8f0c6;
+    --mint-deep:#37c87a;
+    --pink:#ffb3d9;
+    --hotpink:#ff3eb5;
+    --yolk:#ffe45c;
+    --cream:#fff6e0;
+    --ink:#160a2e;
+    --paper:#f4efff;
+    --g-green:#39ff14;
+    --g-pink:#ff4fd8;
+    --g-blue:#2ad8ff;
+    --g-yellow:#ecff3a;
+    --g-orange:#ff8a2b;
+    --shadow:6px 6px 0 var(--ink);
+    --shadow-sm:3px 3px 0 var(--ink);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Noto Sans TC',sans-serif;
+    background:#090c22;
+    color:#eef0ff;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(255,79,216,.20) 0%, transparent 24%),
+      radial-gradient(circle at 92% 18%, rgba(42,216,255,.20) 0%, transparent 26%),
+      radial-gradient(circle at 12% 78%, rgba(123,63,242,.22) 0%, transparent 30%),
+      radial-gradient(circle at 88% 88%, rgba(57,255,20,.16) 0%, transparent 24%),
+      linear-gradient(180deg,#0a0d28 0%,#0b0f30 55%,#090b22 100%);
+    background-attachment:fixed;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity:.2;mix-blend-mode:multiply;
+  }
+
+  /* ───── HEADER ───── */
+  header{
+    position:relative;padding:18px 28px;display:flex;justify-content:space-between;
+    align-items:center;border-bottom:3px solid var(--ink);background:var(--cream);color:var(--ink);z-index:5;
+  }
+  .logo{font-family:'Climate Crisis',sans-serif;font-size:22px;letter-spacing:.02em;}
+  .logo span{color:var(--hotpink);}
+  .header-right{display:flex;align-items:center;gap:10px;}
+  .tag-pill{
+    font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;background:#fff;
+    color:var(--ink);padding:7px 12px;border-radius:50px;border:2px solid var(--ink);text-transform:uppercase;
+  }
+  .tag-pill strong{color:var(--grape);margin-left:2px;font-weight:800;letter-spacing:.05em;}
+  @media(max-width:520px){ .tag-pill{display:none;} }
+  .nav-pill{
+    font-family:'DM Mono',monospace;font-size:12px;background:var(--ink);color:var(--g-green);
+    padding:8px 14px;border-radius:50px;text-transform:uppercase;letter-spacing:.08em;
+  }
+  .nav-pill::before{content:"●";color:var(--g-green);margin-right:6px;animation:blink 1.2s infinite;}
+  @keyframes blink{50%{opacity:.3;}}
+
+  /* ───── HERO (night) ───── */
+  .hero{
+    position:relative;padding:60px 28px 84px;text-align:center;overflow:hidden;z-index:2;
+    background:
+      radial-gradient(900px 520px at 78% 0%, rgba(42,216,255,.18), transparent 60%),
+      radial-gradient(760px 520px at 15% 10%, rgba(255,79,216,.16), transparent 60%),
+      linear-gradient(180deg,#0a0d28 0%, #0c1030 60%, #090b22 100%);
+    border-bottom:3px solid var(--ink);
+    color:var(--cream);
+  }
+  .hero-stars{position:absolute;inset:0;z-index:0;opacity:.7;}
+  .hero-eyebrow{
+    position:relative;z-index:2;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.3em;
+    display:inline-block;padding:6px 16px;background:var(--g-green);color:var(--ink);
+    border-radius:50px;margin-bottom:24px;transform:rotate(-2deg);font-weight:600;
+  }
+  h1.title{
+    position:relative;z-index:2;font-family:'Bagel Fat One',sans-serif;font-weight:normal;
+    font-size:clamp(58px,11vw,146px);line-height:.88;letter-spacing:-.02em;margin-bottom:14px;
+  }
+  h1.title .l1{
+    display:block;color:#eafff0;transform:rotate(-2deg);
+    text-shadow:0 0 8px rgba(57,255,20,.9),0 0 26px rgba(57,255,20,.6),0 0 60px rgba(57,255,20,.4);
+  }
+  h1.title .l2{display:block;color:var(--cream);transform:rotate(1deg) translateX(-8px);}
+  h1.title .l2 em{
+    font-style:normal;background:var(--g-pink);color:var(--ink);padding:0 12px;display:inline-block;
+    transform:rotate(-3deg);box-shadow:0 0 0 3px var(--ink),0 0 26px rgba(255,79,216,.7);border:3px solid var(--ink);
+  }
+  .hero-sub{position:relative;z-index:2;font-size:17px;font-weight:500;max-width:560px;margin:24px auto 0;line-height:1.7;}
+  .hero-sub b{color:var(--g-yellow);}
+
+  .sticker{
+    position:absolute;font-family:'Bagel Fat One',sans-serif;background:#fff;border:3px solid var(--ink);
+    box-shadow:var(--shadow);padding:8px 16px;border-radius:50px;font-size:14px;letter-spacing:.04em;z-index:3;color:var(--ink);
+  }
+  .stk-1{top:20%;left:4%;background:var(--g-pink);--r:-12deg;transform:rotate(-12deg);animation:float 4s ease-in-out infinite;}
+  .stk-2{top:30%;right:5%;background:var(--g-green);--r:8deg;transform:rotate(8deg);animation:float 5s ease-in-out infinite .5s;}
+  .stk-3{top:64%;left:7%;background:var(--g-yellow);--r:6deg;transform:rotate(6deg);animation:float 4.5s ease-in-out infinite 1s;}
+  .stk-4{top:72%;right:6%;background:var(--g-blue);--r:-9deg;transform:rotate(-9deg);animation:float 5.2s ease-in-out infinite .3s;}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(var(--r,0deg));}50%{transform:translateY(-12px) rotate(var(--r,0deg));}}
+
+  .glow-stage{margin:48px auto 0;max-width:340px;position:relative;z-index:2;}
+  .glow-stage svg{width:100%;height:auto;display:block;}
+  .glow-spin{animation:spin 20s linear infinite;transform-origin:center;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @media(prefers-reduced-motion:reduce){.glow-spin,.sticker{animation:none;}}
+
+  /* ───── MARQUEE ───── */
+  .info-strip{
+    background:var(--ink);color:var(--cream);padding:18px 0;overflow:hidden;
+    border-bottom:3px solid var(--ink);position:relative;z-index:4;
+  }
+  .marquee{display:flex;gap:48px;white-space:nowrap;animation:scroll 30s linear infinite;
+    font-family:'Climate Crisis',sans-serif;font-size:22px;letter-spacing:.02em;}
+  .marquee span{flex-shrink:0;}
+  .marquee span.a{color:var(--g-green);} .marquee span.b{color:var(--g-pink);} .marquee span.c{color:var(--g-yellow);} .marquee span.d{color:var(--g-blue);}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* ───── DETAILS ───── */
+  .details{
+    padding:80px 28px 30px;max-width:1100px;margin:0 auto;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;position:relative;z-index:2;
+  }
+  .card{
+    background:rgba(20,26,68,.72);border:2.5px solid var(--g-blue);border-radius:24px;padding:28px;
+    box-shadow:0 0 20px rgba(42,216,255,.28),inset 0 0 22px rgba(42,216,255,.06);
+    position:relative;transition:transform .2s ease;color:#eef0ff;
+  }
+  .card:hover{transform:translate(-2px,-2px);}
+  .card:nth-child(1){border-color:var(--g-pink);box-shadow:0 0 20px rgba(255,79,216,.32),inset 0 0 22px rgba(255,79,216,.07);}
+  .card:nth-child(2){border-color:var(--g-green);box-shadow:0 0 20px rgba(57,255,20,.30),inset 0 0 22px rgba(57,255,20,.06);}
+  .card:nth-child(3){border-color:var(--g-yellow);box-shadow:0 0 20px rgba(236,255,58,.30),inset 0 0 22px rgba(236,255,58,.06);}
+  .card:nth-child(4){border-color:var(--grape);box-shadow:0 0 20px rgba(123,63,242,.42),inset 0 0 22px rgba(123,63,242,.10);}
+  .card:nth-child(5){border-color:var(--g-blue);box-shadow:0 0 20px rgba(42,216,255,.30),inset 0 0 22px rgba(42,216,255,.06);}
+  .card-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9aa3d6;margin-bottom:8px;}
+  .card-value{font-family:'Bagel Fat One',sans-serif;font-size:30px;line-height:1.1;margin-bottom:4px;color:#fff;}
+  .card:nth-child(1) .card-value{color:var(--g-pink);text-shadow:0 0 14px rgba(255,79,216,.65);}
+  .card:nth-child(2) .card-value{color:var(--g-green);text-shadow:0 0 14px rgba(57,255,20,.65);}
+  .card:nth-child(3) .card-value{color:var(--g-yellow);text-shadow:0 0 14px rgba(236,255,58,.6);}
+  .card:nth-child(4) .card-value{color:#c6a9ff;text-shadow:0 0 14px rgba(123,63,242,.75);}
+  .card:nth-child(5) .card-value{color:var(--g-blue);text-shadow:0 0 14px rgba(42,216,255,.6);}
+  .card-note{font-size:13px;font-weight:500;color:#c8cdf0;}
+
+  /* ───── GATHER NOTICE ───── */
+  .route-notice{padding:20px 28px 20px;max-width:1100px;margin:0 auto;position:relative;z-index:2;}
+  .route-notice-card{
+    background:rgba(20,26,68,.72);border:2.5px solid var(--g-yellow);border-radius:24px;padding:24px 28px;
+    box-shadow:0 0 22px rgba(236,255,58,.26),inset 0 0 22px rgba(236,255,58,.05);display:flex;align-items:center;gap:20px;color:#eef0ff;
+  }
+  .route-notice-icon{font-size:56px;line-height:1;flex-shrink:0;}
+  .route-notice-content{flex:1;}
+  .route-notice-label{font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:.02em;color:var(--g-yellow);}
+  .route-notice-flow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .station{background:rgba(9,12,34,.55);border:2px solid #3a4487;border-radius:14px;padding:10px 16px;flex:1;min-width:150px;color:#eef0ff;}
+  .station.start{border-color:var(--g-green);box-shadow:0 0 16px rgba(57,255,20,.25);}
+  .station.finish{border-color:var(--g-pink);box-shadow:0 0 16px rgba(255,79,216,.25);}
+  .station-tag{display:inline-block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;background:var(--g-yellow);color:var(--ink);padding:3px 8px;border-radius:50px;margin-bottom:6px;font-weight:700;}
+  .station.start .station-tag{background:var(--g-green);}
+  .station.finish .station-tag{background:var(--g-pink);}
+  .station strong{display:block;font-size:16px;line-height:1.2;margin-bottom:2px;color:#fff;}
+  .station-exit{font-size:13px;font-weight:600;color:#c8cdf0;}
+  .route-arrow{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;}
+  .route-arrow span{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.05em;background:var(--g-yellow);color:var(--ink);padding:3px 10px;border-radius:50px;}
+  .route-arrow svg{width:60px;height:20px;}
+  .route-notice-tip{font-size:13px;line-height:1.6;margin-top:12px;font-weight:600;color:#eef0ff;}
+  @media(max-width:600px){
+    .route-notice-card{flex-direction:column;text-align:center;align-items:stretch;}
+    .route-notice-icon{align-self:center;}
+    .route-notice-flow{flex-direction:column;}
+    .route-arrow{transform:rotate(90deg);margin:4px 0;}
+    .station{width:100%;}
+  }
+
+  /* ───── HOW IT WORKS ───── */
+  .how{padding:50px 28px 70px;max-width:1100px;margin:0 auto;position:relative;z-index:2;}
+  .section-title{font-family:'Bagel Fat One',sans-serif;font-size:clamp(40px,7vw,72px);line-height:1;margin-bottom:44px;transform:rotate(-1deg);display:inline-block;color:#fff;}
+  .section-title em{font-style:normal;background:var(--g-green);color:var(--ink);padding:2px 14px;border:3px solid var(--ink);box-shadow:0 0 20px rgba(57,255,20,.5);display:inline-block;transform:rotate(2deg);}
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+  .step{background:rgba(20,26,68,.72);border:2.5px solid #3a4487;border-radius:20px;padding:24px;box-shadow:0 0 16px rgba(0,0,0,.25);position:relative;color:#eef0ff;}
+  .step:nth-child(1){border-color:var(--g-green);box-shadow:0 0 18px rgba(57,255,20,.22);}
+  .step:nth-child(2){border-color:var(--g-blue);box-shadow:0 0 18px rgba(42,216,255,.22);}
+  .step:nth-child(3){border-color:var(--g-pink);box-shadow:0 0 18px rgba(255,79,216,.22);}
+  .step:nth-child(4){border-color:var(--g-yellow);box-shadow:0 0 18px rgba(236,255,58,.22);}
+  .step-num{font-family:'Climate Crisis',sans-serif;font-size:60px;line-height:1;color:var(--g-green);text-shadow:0 0 16px rgba(57,255,20,.6);}
+  .step:nth-child(2) .step-num{color:var(--g-blue);text-shadow:0 0 16px rgba(42,216,255,.6);}
+  .step:nth-child(3) .step-num{color:var(--g-pink);text-shadow:0 0 16px rgba(255,79,216,.6);}
+  .step:nth-child(4) .step-num{color:var(--g-yellow);text-shadow:0 0 16px rgba(236,255,58,.6);}
+  .step h3{font-family:'Bagel Fat One',sans-serif;font-weight:normal;font-size:22px;margin:8px 0 10px;color:#fff;}
+  .step p{font-size:14px;line-height:1.6;color:#c8cdf0;}
+
+  /* ───── DISTANCE ───── */
+  .dist-wrap{padding:0 28px 30px;max-width:1100px;margin:0 auto;position:relative;z-index:2;}
+  .dist-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .dchip{border:2.5px solid #3a4487;border-radius:20px;padding:24px 14px;text-align:center;background:rgba(20,26,68,.72);color:#eef0ff;transition:transform .15s;}
+  .dchip:hover{transform:translateY(-3px);}
+  .dchip .dn{font-family:'Bagel Fat One',sans-serif;font-size:40px;line-height:1;}
+  .dchip .dc{font-size:13px;font-weight:600;margin-top:8px;color:#c8cdf0;}
+  .dchip:nth-child(1){border-color:var(--g-orange);box-shadow:0 0 16px rgba(255,138,43,.25);} .dchip:nth-child(1) .dn{color:var(--g-orange);text-shadow:0 0 14px rgba(255,138,43,.6);}
+  .dchip:nth-child(2){border-color:var(--g-green);box-shadow:0 0 16px rgba(57,255,20,.25);} .dchip:nth-child(2) .dn{color:var(--g-green);text-shadow:0 0 14px rgba(57,255,20,.6);}
+  .dchip:nth-child(3){border-color:var(--g-blue);box-shadow:0 0 16px rgba(42,216,255,.25);} .dchip:nth-child(3) .dn{color:var(--g-blue);text-shadow:0 0 14px rgba(42,216,255,.6);}
+  .dchip:nth-child(4){border-color:var(--g-pink);box-shadow:0 0 16px rgba(255,79,216,.25);} .dchip:nth-child(4) .dn{color:var(--g-pink);text-shadow:0 0 14px rgba(255,79,216,.6);}
+  @media(max-width:560px){.dist-grid{grid-template-columns:1fr 1fr;}}
+
+  /* ───── INFO / FEE ───── */
+  .recipe{padding:20px 28px 70px;max-width:1100px;margin:0 auto;position:relative;z-index:2;}
+  .recipe-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:start;}
+  .recipe-card{background:rgba(20,26,68,.72);border:2.5px solid var(--grape);border-radius:24px;padding:32px 28px;box-shadow:0 0 22px rgba(123,63,242,.32),inset 0 0 22px rgba(123,63,242,.06);color:#eef0ff;}
+  .recipe-card h3{font-family:'Bagel Fat One',sans-serif;font-weight:normal;font-size:26px;margin-bottom:18px;line-height:1.1;color:#fff;}
+  .ingredients{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .ingredients li{background:rgba(9,12,34,.5);border:2px solid #3a4487;border-radius:50px;padding:8px 14px;font-size:13px;font-weight:600;color:#eef0ff;}
+  .ingredients li small{color:#9aa3d6;}
+  .ingredients li.ours{border-color:var(--g-green);box-shadow:0 0 12px rgba(57,255,20,.22);}
+  .ingredients li.byo{border-color:var(--g-pink);box-shadow:0 0 12px rgba(255,79,216,.22);}
+  .recipe-steps{list-style:none;counter-reset:rstep;}
+  .recipe-steps li{counter-increment:rstep;padding:12px 0 12px 44px;position:relative;font-size:14px;line-height:1.6;border-bottom:1.5px dashed rgba(154,163,214,.25);color:#c8cdf0;}
+  .recipe-steps li strong{color:#fff;}
+  .recipe-steps li:last-child{border-bottom:none;}
+  .recipe-steps li::before{content:counter(rstep);position:absolute;left:0;top:10px;width:30px;height:30px;background:var(--grape);color:#fff;border:2px solid #fff;border-radius:50%;font-family:'Bagel Fat One',sans-serif;font-size:15px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 12px rgba(123,63,242,.6);}
+  .must-bring{margin-top:20px;background:var(--hotpink);color:#fff;border:2.5px solid var(--g-pink);border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;box-shadow:0 0 18px rgba(255,79,216,.4);}
+  .must-bring-icon{font-size:32px;line-height:1;flex-shrink:0;}
+  .must-bring strong{font-size:14px;display:inline-block;margin-bottom:4px;}
+  .must-bring span{font-size:12.5px;line-height:1.5;opacity:.95;}
+
+  .fee-notice{background:rgba(20,26,68,.72);border:2.5px solid var(--g-green);border-radius:24px;padding:28px 24px;box-shadow:0 0 22px rgba(57,255,20,.28),inset 0 0 22px rgba(57,255,20,.06);position:relative;color:#eef0ff;}
+  .fee-notice::before{content:"💸";position:absolute;top:-16px;left:-10px;background:var(--g-pink);border:2.5px solid var(--ink);border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 16px rgba(255,79,216,.6);transform:rotate(-8deg);}
+  .fee-notice h4{font-family:'Bagel Fat One',sans-serif;font-weight:normal;font-size:22px;margin-bottom:14px;line-height:1.2;color:#fff;}
+  .fee-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:2px dashed rgba(154,163,214,.3);font-size:14px;}
+  .fee-row:first-of-type{border-top:none;}
+  .fee-row .who{font-weight:600;color:#eef0ff;}
+  .fee-row .price{font-family:'Bagel Fat One',sans-serif;font-size:20px;background:#fff;color:var(--ink);padding:4px 12px;border-radius:50px;}
+  .fee-row .price.free{background:var(--g-green);color:var(--ink);box-shadow:0 0 14px rgba(57,255,20,.5);}
+  .cash-note{margin-top:18px;background:rgba(9,12,34,.5);border:2px solid var(--g-green);border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;box-shadow:0 0 16px rgba(57,255,20,.22);color:#eef0ff;}
+  .cash-ico{font-size:28px;line-height:1;flex-shrink:0;}
+  .cash-note strong{color:var(--g-green);}
+  @media(max-width:760px){.recipe-grid{grid-template-columns:1fr;}}
+
+  /* ───── FORM (night) ───── */
+  .form-wrap{
+    padding:80px 28px;position:relative;z-index:2;border-top:3px solid var(--ink);
+    background:
+      radial-gradient(700px 400px at 80% 0%, rgba(42,216,255,.16), transparent 60%),
+      radial-gradient(700px 400px at 12% 100%, rgba(57,255,20,.12), transparent 60%),
+      linear-gradient(180deg,#0a0d28,#0b0f30);
+  }
+  .form-inner{max-width:680px;margin:0 auto;}
+  .form-eyebrow{text-align:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.3em;color:var(--g-green);margin-bottom:14px;}
+  .form-title{text-align:center;font-family:'Bagel Fat One',sans-serif;font-size:clamp(40px,7vw,68px);color:var(--cream);line-height:1;margin-bottom:14px;}
+  .form-title em{font-style:normal;background:var(--g-green);color:var(--ink);padding:2px 12px;display:inline-block;transform:rotate(-2deg);border:3px solid var(--cream);}
+  .quota-pill{display:block;margin:0 auto 36px;width:fit-content;font-family:'DM Mono',monospace;font-size:13px;background:var(--cream);color:var(--ink);padding:8px 18px;border-radius:50px;border:2px solid var(--cream);}
+  .quota-pill b{color:var(--hotpink);}
+
+  form{background:var(--cream);color:var(--ink);border-radius:28px;padding:40px 32px;border:3px solid var(--cream);box-shadow:0 0 0 3px var(--ink),10px 10px 0 var(--g-pink);}
+  .field{margin-bottom:22px;}
+  .field label{display:block;font-weight:700;font-size:14px;margin-bottom:8px;font-family:'DM Mono',monospace;letter-spacing:.05em;}
+  .field label .req{color:var(--hotpink);}
+  .field input[type=text],.field input[type=email],.field input[type=number],.field input[type=tel],.field select{
+    width:100%;padding:14px 16px;border:2.5px solid var(--ink);border-radius:12px;font-family:'Noto Sans TC',sans-serif;font-size:15px;background:#fff;transition:all .15s ease;
+  }
+  .field input:focus,.field select:focus{outline:none;background:var(--g-yellow);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink);}
+  .field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%23160a2e' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 18px center;padding-right:42px;}
+
+  .opt-group{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .opt-group.one-col{grid-template-columns:1fr;}
+  .opt{position:relative;cursor:pointer;}
+  .opt input{position:absolute;opacity:0;pointer-events:none;}
+  .opt span{display:block;padding:14px 16px;border:2.5px solid var(--ink);border-radius:12px;background:#fff;font-size:14px;font-weight:500;text-align:center;transition:all .15s ease;}
+  .opt:hover span{background:var(--pink);}
+  .opt input:checked + span{background:var(--grape);color:var(--cream);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink);}
+  .opt input:focus-visible + span{outline:3px dashed var(--hotpink);outline-offset:3px;}
+
+  #friendCountField{display:none;animation:slideDown .25s ease;}
+  #friendCountField.show{display:block;}
+  @keyframes slideDown{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+  .cash-note-inline{margin-top:14px;background:#eafff2;border:2px dashed var(--mint-deep);border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.6;color:var(--ink);}
+  .cash-note-inline strong{color:var(--mint-deep);}
+
+  #friendsDetailField{display:none;}
+  #friendsDetailField.show{display:block;animation:slideDown .25s ease;}
+  .friends-detail-title{font-family:'DM Mono',monospace;font-size:12px;font-weight:700;letter-spacing:.1em;background:var(--grape);color:var(--cream);padding:8px 14px;border-radius:50px;display:inline-block;margin-bottom:14px;}
+  .friend-block{background:#fff;border:2.5px solid var(--ink);border-radius:14px;padding:14px 16px;margin-bottom:12px;position:relative;}
+  .friend-block-label{font-size:13px;font-weight:700;margin-bottom:10px;color:var(--grape);font-family:'DM Mono',monospace;letter-spacing:.05em;}
+  .friend-input{width:100%;padding:10px 14px;border:2px solid var(--ink);border-radius:10px;font-family:'Noto Sans TC',sans-serif;font-size:14px;background:#fff;margin-bottom:8px;transition:all .15s ease;}
+  .friend-input:last-child{margin-bottom:0;}
+  .friend-input:focus{outline:none;background:var(--g-yellow);transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--ink);}
+  .friend-input.has-error{background:#ffebee;border-color:var(--hotpink);}
+
+  .submit-btn{width:100%;padding:20px;background:var(--ink);color:var(--g-green);border:none;border-radius:14px;font-family:'Bagel Fat One',sans-serif;font-size:24px;cursor:pointer;margin-top:12px;letter-spacing:.04em;transition:all .15s ease;position:relative;overflow:hidden;}
+  .submit-btn:hover{background:var(--g-pink);color:var(--ink);transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--mint-deep);}
+  .submit-btn:disabled{background:#888;color:#ccc;cursor:not-allowed;transform:none;box-shadow:none;}
+  .err{color:var(--hotpink);font-size:13px;margin-top:6px;font-weight:500;display:none;}
+  .err.show{display:block;}
+
+  .success{display:none;background:var(--mint);color:var(--ink);border:3px solid var(--ink);border-radius:28px;padding:48px 32px;text-align:center;box-shadow:0 0 0 3px var(--ink),10px 10px 0 var(--g-pink);}
+  .success.show{display:block;animation:pop .4s ease;}
+  @keyframes pop{0%{transform:scale(.85);opacity:0;}60%{transform:scale(1.03);}100%{transform:scale(1);opacity:1;}}
+  .success-emoji{font-size:64px;margin-bottom:10px;}
+  .success h2{font-family:'Bagel Fat One',sans-serif;font-weight:normal;font-size:42px;line-height:1;margin-bottom:14px;}
+  .success p{font-size:15px;line-height:1.7;margin-bottom:24px;}
+  .line-btn{display:inline-block;background:var(--ink);color:var(--cream);text-decoration:none;padding:18px 32px;border-radius:50px;font-family:'Bagel Fat One',sans-serif;font-size:18px;letter-spacing:.04em;transition:all .15s ease;border:3px solid var(--ink);}
+  .line-btn:hover{background:#06c755;color:#fff;transform:translate(-3px,-3px);box-shadow:5px 5px 0 var(--ink);}
+  .line-btn::before{content:"💚 ";}
+  .loader{display:none;width:32px;height:32px;border:4px solid var(--cream);border-top-color:var(--hotpink);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto;}
+  .loader.show{display:block;}
+
+  footer{background:var(--ink);color:var(--cream);padding:40px 28px;text-align:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.1em;border-top:3px solid var(--g-green);position:relative;z-index:2;}
+  footer .heart{color:var(--g-pink);}
+
+  @media(max-width:640px){
+    .sticker{font-size:11px;padding:6px 12px;}
+    .glow-stage{max-width:240px;margin-top:30px;}
+    form{padding:28px 20px;}
+    .opt-group{grid-template-columns:1fr;}
+    header{padding:14px 18px;}
+    .logo{font-size:18px;}
+    .nav-pill{font-size:10px;padding:6px 10px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">NID<span>★</span>RUN CLUB</div>
+  <div class="header-right">
+    <span class="tag-pill">白天跑速度 · <strong>晚上跑氛圍</strong></span>
+    <div class="nav-pill">09.12 · GLOW RUN ’26</div>
+  </div>
+</header>
+
+<!-- ════════════ HERO ════════════ -->
+<section class="hero">
+  <svg class="hero-stars" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="#fff">
+      <circle cx="9%" cy="20%" r="1.4"/><circle cx="24%" cy="12%" r="1"/><circle cx="38%" cy="26%" r="1.3"/>
+      <circle cx="63%" cy="14%" r="1"/><circle cx="77%" cy="24%" r="1.4"/><circle cx="90%" cy="12%" r="1"/>
+      <circle cx="16%" cy="46%" r="1"/><circle cx="52%" cy="40%" r="1.2"/><circle cx="86%" cy="44%" r="1.2"/>
+    </g>
+  </svg>
+
+  <div class="sticker stk-1">🌙 GLOW NIGHT</div>
+  <div class="sticker stk-2">★ 手環 FOR ALL ★</div>
+  <div class="sticker stk-3">3 / 5 / 7 / 10K</div>
+  <div class="sticker stk-4">SO BRIGHT!</div>
+
+  <span class="hero-eyebrow">NID FAMILY DAY · VOL.3</span>
+  <h1 class="title">
+    <span class="l1">GLOW RUN</span>
+    <span class="l2">夜跑 <em>2026</em></span>
+  </h1>
+  <p class="hero-sub">河濱亮起來的那一夜。<br>一人一支<b>螢光手環</b>，穿上你自己準備的發光造型，<br>天黑了，我們一起跑進夜色裡。</p>
+
+  <div class="glow-stage">
+    <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="band" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#39ff14"/>
+          <stop offset="50%" stop-color="#2ad8ff"/>
+          <stop offset="100%" stop-color="#ff4fd8"/>
+        </linearGradient>
+        <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="8" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <g class="glow-spin" style="transform-origin:150px 150px;">
+        <g fill="#ffe45c" stroke="#160a2e" stroke-width="3">
+          <path d="M40 70 L46 84 L61 86 L49 96 L53 112 L40 104 L27 112 L31 96 L19 86 L34 84 Z"/>
+          <path d="M258 74 L263 85 L276 87 L266 95 L269 108 L258 101 L247 108 L250 95 L240 87 L253 85 Z" transform="scale(.8) translate(56 22)"/>
+          <path d="M256 214 L261 225 L274 227 L264 235 L267 248 L256 241 L245 248 L248 235 L238 227 L251 225 Z" transform="scale(.72) translate(96 82)"/>
+        </g>
+      </g>
+
+      <circle cx="150" cy="150" r="82" fill="none" stroke="url(#band)" stroke-width="26" filter="url(#glow)"/>
+      <circle cx="150" cy="150" r="95" fill="none" stroke="#160a2e" stroke-width="3"/>
+      <circle cx="150" cy="150" r="69" fill="none" stroke="#160a2e" stroke-width="3"/>
+      <rect x="138" y="42" width="24" height="20" rx="5" fill="#fff" stroke="#160a2e" stroke-width="3"/>
+      <circle cx="150" cy="68" r="7" fill="#ecff3a" stroke="#160a2e" stroke-width="3"/>
+      <circle cx="232" cy="150" r="7" fill="#ff4fd8" stroke="#160a2e" stroke-width="3"/>
+      <circle cx="150" cy="232" r="7" fill="#2ad8ff" stroke="#160a2e" stroke-width="3"/>
+      <circle cx="68" cy="150" r="7" fill="#39ff14" stroke="#160a2e" stroke-width="3"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ════════════ MARQUEE ════════════ -->
+<div class="info-strip">
+  <div class="marquee">
+    <span>★ 9/12 SAT</span><span class="a">彩虹橋 河濱</span><span class="b">白天跑速度 晚上跑氛圍</span>
+    <span class="c">GLOW BRACELET FOR ALL</span><span class="d">BRING A FRIEND</span>
+    <span>★ 9/12 SAT</span><span class="a">彩虹橋 河濱</span><span class="b">白天跑速度 晚上跑氛圍</span>
+    <span class="c">GLOW BRACELET FOR ALL</span><span class="d">BRING A FRIEND</span>
+  </div>
+</div>
+
+<!-- ════════════ DETAILS ════════════ -->
+<section class="details">
+  <div class="card">
+    <div class="card-label">DATE / 日期</div>
+    <div class="card-value">09.12</div>
+    <div class="card-note">Saturday · 週六 2026</div>
+  </div>
+  <div class="card">
+    <div class="card-label">TIME / 時間</div>
+    <div class="card-value">17:00–19:00</div>
+    <div class="card-note">18:40 天黑後起跑</div>
+  </div>
+  <div class="card">
+    <div class="card-label">START / 集合</div>
+    <div class="card-value">彩虹橋</div>
+    <div class="card-note">橋頭集合 · 河濱自行車道</div>
+  </div>
+  <div class="card">
+    <div class="card-label">DISTANCE / 距離</div>
+    <div class="card-value">3–10K</div>
+    <div class="card-note">3K 親子 / 5K / 7K / 10K</div>
+  </div>
+  <div class="card">
+    <div class="card-label">FEE / 費用</div>
+    <div class="card-value">學員免費</div>
+    <div class="card-note">同行朋友 NT$100/人<br>現場現金繳費</div>
+  </div>
+</section>
+
+<!-- ════════════ GATHER NOTICE ════════════ -->
+<section class="route-notice">
+  <div class="route-notice-card">
+    <div class="route-notice-icon">🌇</div>
+    <div class="route-notice-content">
+      <p class="route-notice-label">⚠️ 集合與起跑時間，請特別注意！</p>
+      <div class="route-notice-flow">
+        <div class="station start">
+          <span class="station-tag">GATHER</span>
+          <strong>17:00 報到 · 領手環</strong>
+          <span class="station-exit">彩虹橋橋頭 · 螢光造型站</span>
+        </div>
+        <div class="route-arrow">
+          <span>天黑後</span>
+          <svg viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 2 10 L 50 10" stroke="#ecff3a" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4"/>
+            <path d="M 45 4 L 56 10 L 45 16" fill="none" stroke="#ecff3a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="station finish">
+          <span class="station-tag">START</span>
+          <strong>18:40 分波起跑</strong>
+          <span class="station-exit">螢光最亮的那一刻</span>
+        </div>
+      </div>
+      <p class="route-notice-tip">💡 建議 17:00 就到，先領手環、上螢光造型、拍團體大合照，天黑再起跑！</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ HOW IT WORKS ════════════ -->
+<section class="how">
+  <h2 class="section-title">這一夜 <em>怎麼玩</em></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>領螢光手環</h3>
+      <p>每人報到都會拿到一支螢光小手環。現場只發手環，其他造型請自行準備喔！</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>換上發光造型</h3>
+      <p>穿上你自己準備的發光、螢光配件，越亮越顯眼，當晚最亮的那顆星就是你。</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>河濱光點開跑</h3>
+      <p>沿河濱車道夜跑，彩虹橋夜景當背景，邊跑邊拍，夜色就是你的天然濾鏡。</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>最亮造型票選</h3>
+      <p>大家一起票選出「最會發光」的造型，把這一夜的高光時刻留下來。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ DISTANCE ════════════ -->
+<section class="dist-wrap">
+  <div class="dist-grid">
+    <div class="dchip"><div class="dn">3K</div><div class="dc">親子 / 散步組</div></div>
+    <div class="dchip"><div class="dn">5K</div><div class="dc">入門夜跑</div></div>
+    <div class="dchip"><div class="dn">7K</div><div class="dc">進階節奏</div></div>
+    <div class="dchip"><div class="dn">10K</div><div class="dc">跑好跑滿</div></div>
+  </div>
+</section>
+
+<!-- ════════════ INFO / FEE ════════════ -->
+<section class="recipe">
+  <h2 class="section-title">報名前 <em>先知道</em></h2>
+  <div class="recipe-grid">
+    <div class="recipe-card">
+      <h3>🌙 帶什麼 & 拿什麼</h3>
+
+      <p style="font-size:12px;font-family:'DM Mono',monospace;letter-spacing:.1em;margin-bottom:10px;color:#9aa3d6;">現場提供（每人）</p>
+      <ul class="ingredients">
+        <li class="ours">螢光手環 ×1 <small>(每人一支)</small></li>
+      </ul>
+
+      <p style="font-size:12px;font-family:'DM Mono',monospace;letter-spacing:.1em;margin:18px 0 10px;color:#9aa3d6;">請自行準備造型</p>
+      <ul class="ingredients">
+        <li class="byo">發光 / 螢光配件</li>
+        <li class="byo">造型服裝</li>
+        <li class="byo">螢光棒 / 手燈</li>
+        <li class="byo">好穿的跑鞋</li>
+      </ul>
+
+      <p style="font-size:12px;font-family:'DM Mono',monospace;letter-spacing:.1em;margin:18px 0 10px;color:#9aa3d6;">須知</p>
+      <ol class="recipe-steps">
+        <li><strong>安全第一：</strong>夜跑請跟隨路口志工指引，未成年須家長陪同。</li>
+        <li><strong>不計時、不排名：</strong>重點是氛圍與拍照，跑完進場就算完賽。</li>
+        <li><strong>雨天備案：</strong>九月為颱風季，若天候不佳將於前一日 18:00 前公告延期，報名自動保留。</li>
+        <li><strong>拍照分享：</strong>歡迎標記 <strong>#NID發光家族</strong>，一起把這一夜傳出去 ✨</li>
+      </ol>
+
+      <div class="must-bring">
+        <span class="must-bring-icon">✨</span>
+        <div>
+          <strong>造型自己來！</strong><br>
+          <span>現場每人只發一支螢光手環，其他造型請自行準備 —— 發光手環、螢光配件、亮色服裝都很讚，越亮越好認！</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="fee-notice">
+      <h4>材料費說明</h4>
+      <div class="fee-row"><span class="who">NID 學員本人</span><span class="price free">免費</span></div>
+      <div class="fee-row"><span class="who">每位同行朋友</span><span class="price">$100</span></div>
+
+      <div class="cash-note">
+        <span class="cash-ico">💵</span>
+        <div>
+          <strong>現場現金繳款</strong><br>
+          當天報到時，同行朋友的材料費直接繳給工作人員即可，免轉帳、免匯款。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ FORM ════════════ -->
+<section class="form-wrap" id="register">
+  <div class="form-inner">
+    <p class="form-eyebrow">// REGISTRATION OPEN //</p>
+    <h2 class="form-title">立刻 <em>報名</em></h2>
+    <span class="quota-pill">剩餘名額 <b id="quotaLeft">查詢中…</b> / <span id="quotaTotal">100</span></span>
+
+    <form id="regForm" novalidate>
+      <div class="field">
+        <label for="name">姓名 <span class="req">*</span></label>
+        <input type="text" id="name" name="name" required autocomplete="name" placeholder="你的名字" />
+        <p class="err" data-for="name">請填寫姓名</p>
+      </div>
+
+      <div class="field">
+        <label for="team">隸屬戰隊 <span class="req">*</span></label>
+        <select id="team" name="team" required>
+          <option value="">請選擇你的戰隊</option>
+          <option>凱為戰隊</option>
+          <option>承勳戰隊</option>
+          <option>姚姚戰隊</option>
+          <option>佩珊戰隊</option>
+          <option>明志戰隊</option>
+          <option>竺均戰隊</option>
+          <option>智遠戰隊</option>
+          <option>阿飛戰隊</option>
+          <option>柏鈞戰隊</option>
+          <option>肯尼戰隊</option>
+        </select>
+        <p class="err" data-for="team">請選擇戰隊</p>
+      </div>
+
+      <div class="field">
+        <label for="email">Email <span class="req">*</span></label>
+        <input type="email" id="email" name="email" required autocomplete="email" placeholder="name@example.com" />
+        <p class="err" data-for="email">請填寫正確的 Email</p>
+      </div>
+
+      <div class="field">
+        <label>報名組別 <span class="req">*</span></label>
+        <div class="opt-group">
+          <label class="opt"><input type="radio" name="distance" value="3K 親子/散步" required /><span>3K 親子 / 散步</span></label>
+          <label class="opt"><input type="radio" name="distance" value="5K" /><span>5K</span></label>
+          <label class="opt"><input type="radio" name="distance" value="7K" /><span>7K</span></label>
+          <label class="opt"><input type="radio" name="distance" value="10K" /><span>10K</span></label>
+        </div>
+        <p class="err" data-for="distance">請選擇報名組別</p>
+      </div>
+
+      <div class="field">
+        <label>是否帶朋友來？ <span class="req">*</span></label>
+        <div class="opt-group">
+          <label class="opt"><input type="radio" name="bringFriend" value="是" required /><span>是 · 帶朋友</span></label>
+          <label class="opt"><input type="radio" name="bringFriend" value="否" /><span>否 · 自己來</span></label>
+        </div>
+        <p class="err" data-for="bringFriend">請選擇</p>
+      </div>
+
+      <div class="field" id="friendCountField">
+        <label for="friendCount">帶幾位朋友？ <span class="req">*</span></label>
+        <input type="number" id="friendCount" name="friendCount" min="1" max="5" placeholder="例如：2" />
+        <p class="err" data-for="friendCount">請填入 1-5 之間的數字</p>
+
+        <div class="cash-note-inline">
+          💵 朋友材料費 <strong>NT$100/人</strong>，當天報到時<strong>現場現金繳款</strong>即可，免轉帳。
+        </div>
+      </div>
+
+      <!-- 朋友詳細資料 (動態產生：姓名 + Email + 電話) -->
+      <div class="field" id="friendsDetailField"></div>
+
+      <div class="field">
+        <label>平常跑步的頻率？ <span class="req">*</span></label>
+        <div class="opt-group">
+          <label class="opt"><input type="radio" name="frequency" value="每週 1 次以下" required /><span>每週 1 次以下</span></label>
+          <label class="opt"><input type="radio" name="frequency" value="每週 1-2 次" /><span>每週 1-2 次</span></label>
+          <label class="opt"><input type="radio" name="frequency" value="每週 3-4 次" /><span>每週 3-4 次</span></label>
+          <label class="opt"><input type="radio" name="frequency" value="每週 5 次以上" /><span>每週 5 次以上</span></label>
+        </div>
+        <p class="err" data-for="frequency">請選擇</p>
+      </div>
+
+      <div class="field">
+        <label>這次為什麼會想來參加？ <span class="req">*</span></label>
+        <div class="opt-group one-col">
+          <label class="opt"><input type="radio" name="reason" value="想認識更多 NID 的夥伴" required /><span>想認識更多 NID 的夥伴</span></label>
+          <label class="opt"><input type="radio" name="reason" value="覺得螢光夜跑主題很特別" /><span>覺得螢光夜跑主題很特別</span></label>
+          <label class="opt"><input type="radio" name="reason" value="想拍美美的夜景/螢光照" /><span>想拍美美的夜景 / 螢光照 📸</span></label>
+          <label class="opt"><input type="radio" name="reason" value="想穿發光造型跑一場" /><span>想穿發光造型跑一場 ✨</span></label>
+          <label class="opt"><input type="radio" name="reason" value="教練/朋友揪我來" /><span>教練 / 朋友揪我來</span></label>
+          <label class="opt"><input type="radio" name="reason" value="想換個方式跑步" /><span>想換個方式跑步</span></label>
+        </div>
+        <p class="err" data-for="reason">請選擇</p>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">SEND IT! →</button>
+      <div class="loader" id="loader"></div>
+    </form>
+
+    <div class="success" id="successScreen">
+      <div class="success-emoji">🌙✨</div>
+      <h2>報名成功！</h2>
+      <p>
+        確認信會在幾分鐘內寄到你的信箱。<br>
+        最後一步 — 加入活動 LINE 社群，<br>
+        當天集合地點、注意事項都在裡面！
+      </p>
+      <a class="line-btn" id="lineBtn" href="#REPLACE_WITH_GLOW_RUN_LINE_GROUP" target="_blank" rel="noopener">
+        加入活動 LINE 社群
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © NID RUN CLUB · 恩艾迪有限公司 · 白天跑速度，晚上跑氛圍 · made with <span class="heart">♥</span> in TAIPEI
+</footer>
+
+<script>
+  /* ═══════════════════════════════════════════
+     ⚙️  CONFIG —— 部署螢光夜跑時，把這兩個換成「本活動專用」的網址
+        1) SCRIPT_URL：這場活動自己的 Google Apps Script /exec（不要沿用冰淇淋跑那份，否則資料會寫錯表）
+        2) 成功畫面的 LINE 連結：在 #lineBtn 的 href 換成螢光夜跑的社群
+     ═══════════════════════════════════════════ */
+  const SCRIPT_URL = "REPLACE_WITH_YOUR_APPS_SCRIPT_URL";
+  const TOTAL_QUOTA = 100;
+  document.getElementById("quotaTotal").textContent = TOTAL_QUOTA;
+
+  const DEMO = !SCRIPT_URL || SCRIPT_URL.includes("REPLACE_WITH");
+
+  const friendField = document.getElementById("friendCountField");
+  const friendInput = document.getElementById("friendCount");
+  const friendsDetailField = document.getElementById("friendsDetailField");
+
+  function renderFriendInputs(n) {
+    if (!n || n < 1) {
+      friendsDetailField.innerHTML = "";
+      friendsDetailField.classList.remove("show");
+      return;
+    }
+    if (n > 5) n = 5;
+    let html = `<div class="friends-detail-title">📝 朋友資料 (${n} 位)</div>`;
+    for (let i = 1; i <= n; i++) {
+      html += `
+        <div class="friend-block">
+          <div class="friend-block-label">朋友 ${i} <span class="req">*</span></div>
+          <input type="text"  name="friend${i}Name"  class="friend-input" placeholder="姓名（必填）"   autocomplete="off" required />
+          <input type="email" name="friend${i}Email" class="friend-input" placeholder="Email（必填）"  autocomplete="off" required />
+          <input type="tel"   name="friend${i}Phone" class="friend-input" placeholder="電話（必填）"   inputmode="numeric" autocomplete="off" required />
+        </div>`;
+    }
+    html += `<p style="font-size:12px;color:#666;line-height:1.6;margin-top:4px;">
+      💡 所有朋友的姓名、Email、電話皆為<strong>必填</strong>；報名成功後所有人的資訊會整合寄給<strong>你（主登記者）</strong>。
+    </p>
+    <p class="err" id="friendsErr" style="margin-top:6px;">請完整填寫所有朋友的姓名、Email 與電話</p>`;
+    friendsDetailField.innerHTML = html;
+    friendsDetailField.classList.add("show");
+  }
+
+  friendInput.addEventListener("input", e => {
+    let n = parseInt(e.target.value, 10);
+    if (n > 5) { n = 5; e.target.value = 5; }
+    if (n < 0) { e.target.value = ""; n = 0; }
+    renderFriendInputs(n);
+  });
+
+  document.querySelectorAll('input[name="bringFriend"]').forEach(r => {
+    r.addEventListener("change", e => {
+      if (e.target.value === "是") {
+        friendField.classList.add("show");
+        friendInput.required = true;
+      } else {
+        friendField.classList.remove("show");
+        friendsDetailField.classList.remove("show");
+        friendsDetailField.innerHTML = "";
+        friendInput.required = false;
+        friendInput.value = "";
+        document.querySelector('[data-for="friendCount"]').classList.remove("show");
+      }
+    });
+  });
+
+  const form = document.getElementById("regForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const loader = document.getElementById("loader");
+  const successScreen = document.getElementById("successScreen");
+
+  function showErr(name, show){
+    const el = document.querySelector(`.err[data-for="${name}"]`);
+    if (el) el.classList.toggle("show", show);
+  }
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    document.querySelectorAll(".err").forEach(x => x.classList.remove("show"));
+
+    const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
+
+    let valid = true;
+    if (!payload.name?.trim())  { showErr("name", true); valid = false; }
+    if (!payload.team)          { showErr("team", true); valid = false; }
+    if (!payload.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(payload.email)) { showErr("email", true); valid = false; }
+    if (!payload.distance)      { showErr("distance", true); valid = false; }
+    if (!payload.bringFriend)   { showErr("bringFriend", true); valid = false; }
+
+    if (payload.bringFriend === "是") {
+      const n = parseInt(payload.friendCount, 10);
+      if (!n || n < 1 || n > 5) { showErr("friendCount", true); valid = false; }
+
+      document.querySelectorAll(".friend-input").forEach(el => el.classList.remove("has-error"));
+      const emailRe = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      const phoneRe = /^[0-9\-\+\s]{8,}$/;
+      let friendsValid = true;
+      for (let i = 1; i <= (n || 0); i++) {
+        const nm = (payload[`friend${i}Name`]  || "").trim();
+        const em = (payload[`friend${i}Email`] || "").trim();
+        const ph = (payload[`friend${i}Phone`] || "").trim();
+        if (!nm) { document.querySelector(`[name="friend${i}Name"]`)?.classList.add("has-error");  valid = false; friendsValid = false; }
+        if (!em || !emailRe.test(em)) { document.querySelector(`[name="friend${i}Email"]`)?.classList.add("has-error"); valid = false; friendsValid = false; }
+        if (!ph || !phoneRe.test(ph)) { document.querySelector(`[name="friend${i}Phone"]`)?.classList.add("has-error"); valid = false; friendsValid = false; }
+      }
+      const friendsErr = document.getElementById("friendsErr");
+      if (friendsErr) friendsErr.classList.toggle("show", !friendsValid);
+    }
+
+    if (!payload.frequency)     { showErr("frequency", true); valid = false; }
+    if (!payload.reason)        { showErr("reason", true); valid = false; }
+
+    if (!valid) {
+      const firstErr = document.querySelector(".err.show, .friend-input.has-error");
+      if (firstErr) firstErr.scrollIntoView({behavior:"smooth", block:"center"});
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.style.display = "none";
+    loader.classList.add("show");
+
+    if (DEMO) {
+      console.log("【DEMO】報名資料：", payload);
+      setTimeout(() => {
+        loader.classList.remove("show");
+        form.style.display = "none";
+        successScreen.classList.add("show");
+        successScreen.scrollIntoView({behavior:"smooth", block:"center"});
+      }, 600);
+      return;
+    }
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: {"Content-Type": "text/plain;charset=utf-8"},
+        body: JSON.stringify(payload)
+      });
+      const result = await res.json();
+      loader.classList.remove("show");
+
+      if (result.status === "ok") {
+        form.style.display = "none";
+        successScreen.classList.add("show");
+        successScreen.scrollIntoView({behavior:"smooth", block:"center"});
+      } else if (result.status === "full") {
+        alert("很可惜，活動名額已滿了 😢\n請關注 NID 之後的活動！");
+        submitBtn.disabled = false; submitBtn.style.display = "block";
+      } else {
+        throw new Error(result.message || "送出失敗");
+      }
+    } catch (err) {
+      loader.classList.remove("show");
+      alert("送出時發生錯誤，請稍後再試或聯絡 NID 教練。\n\n" + err.message);
+      submitBtn.disabled = false; submitBtn.style.display = "block";
+    }
+  });
+
+  async function loadQuota(){
+    if (DEMO) { document.getElementById("quotaLeft").textContent = "—"; return; }
+    try {
+      const res = await fetch(SCRIPT_URL + "?action=quota");
+      const j = await res.json();
+      if (typeof j.left === "number") document.getElementById("quotaLeft").textContent = j.left;
+      if (typeof j.total === "number") document.getElementById("quotaTotal").textContent = j.total;
+    } catch(e){ document.getElementById("quotaLeft").textContent = "—"; }
+  }
+  loadQuota();
+</script>
+</body>
+</html>
