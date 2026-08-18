@@ -842,15 +842,22 @@
         form.style.display = "none";
         successScreen.classList.add("show");
         successScreen.scrollIntoView({behavior:"smooth", block:"center"});
-      } else if (result.status === "full") {
-        alert("很可惜，活動名額已滿了 😢\n請關注 NID 之後的活動！");
-        submitBtn.disabled = false; submitBtn.style.display = "block";
-      } else {
-        throw new Error(result.message || "送出失敗");
+        return;
       }
+
+      if (result.status === "full") {
+        alert("很可惜，活動名額已滿了 😢\n請關注 NID 之後的活動！");
+      } else {
+        // 後端的資料檢查訊息，直接照原文顯示，不要再包一層「發生錯誤」
+        alert(result.message || "資料好像有地方沒填對，請檢查後再送出一次。");
+      }
+      submitBtn.disabled = false; submitBtn.style.display = "block";
+      loadQuota();
+
     } catch (err) {
+      // 只有真的連線失敗 / 回應解析不了才會走到這裡
       loader.classList.remove("show");
-      alert("送出時發生錯誤，請稍後再試或聯絡 NID 教練。\n\n" + err.message);
+      alert("連線好像有點問題，請確認網路後再送出一次。\n如果一直失敗，請聯絡 NID 教練。");
       submitBtn.disabled = false; submitBtn.style.display = "block";
     }
   });
