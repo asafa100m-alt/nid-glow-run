@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>NID FAMILY DAY ’26 — 螢光夜跑 GLOW RUN</title>
-<meta name="description" content="9/12 彩虹橋河濱・NID Family Day｜白天跑速度，晚上跑氛圍。一人一支螢光手環，自備發光造型，天黑一起開跑！" />
+<title>NID FAMILY DAY ’26 — 螢光路跑 GLOW RUN 12K</title>
+<meta name="description" content="9/12 成美長壽橋籃球場・NID Family Day｜一圈 3K、跑滿 4 圈 12K。個人組、兩人接力、四人接力，各組第一名都有獎品！" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -332,15 +332,55 @@
     .logo{font-size:18px;}
     .nav-pill{font-size:10px;padding:6px 10px;}
   }
+
+  /* ───── CATEGORY (12K) ───── */
+  .cat-wrap{padding:0 28px 30px;max-width:1100px;margin:0 auto;position:relative;z-index:2;}
+  .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .catcard{border:2.5px solid #3a4487;border-radius:22px;padding:26px 20px;background:rgba(20,26,68,.72);color:#eef0ff;transition:transform .15s;text-align:center;}
+  .catcard:hover{transform:translateY(-3px);}
+  .catcard .ct{font-family:'Bagel Fat One',sans-serif;font-size:26px;line-height:1.15;}
+  .catcard .cd{font-family:'Bagel Fat One',sans-serif;font-size:38px;line-height:1;margin-top:6px;}
+  .catcard .cl{font-size:13.5px;font-weight:600;margin-top:10px;color:#c8cdf0;line-height:1.6;}
+  .catcard .cq{display:inline-block;margin-top:14px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.08em;background:rgba(9,12,34,.6);border:2px solid currentColor;border-radius:50px;padding:6px 14px;font-weight:700;}
+  .catcard:nth-child(1){border-color:var(--g-green);box-shadow:0 0 18px rgba(57,255,20,.26);} .catcard:nth-child(1) .ct,.catcard:nth-child(1) .cd,.catcard:nth-child(1) .cq{color:var(--g-green);}
+  .catcard:nth-child(2){border-color:var(--g-blue);box-shadow:0 0 18px rgba(42,216,255,.26);} .catcard:nth-child(2) .ct,.catcard:nth-child(2) .cd,.catcard:nth-child(2) .cq{color:var(--g-blue);}
+  .catcard:nth-child(3){border-color:var(--g-pink);box-shadow:0 0 18px rgba(255,79,216,.26);} .catcard:nth-child(3) .ct,.catcard:nth-child(3) .cd,.catcard:nth-child(3) .cq{color:var(--g-pink);}
+  .catcard .cd,.catcard .ct{text-shadow:0 0 14px currentColor;}
+  @media(max-width:720px){.cat-grid{grid-template-columns:1fr;}}
+
+  /* ───── LAP / ROUTE ───── */
+  .lap-note{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+  .lap-chip{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.06em;background:rgba(9,12,34,.55);border:2px solid var(--g-yellow);color:var(--g-yellow);border-radius:50px;padding:6px 14px;font-weight:700;}
+
+  /* ───── QUOTA (3 組) ───── */
+  .quota-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:560px;margin:0 auto 36px;}
+  .qbox{background:var(--cream);color:var(--ink);border-radius:16px;padding:12px 10px;text-align:center;border:2px solid var(--cream);}
+  .qbox .qn{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;color:#5a5470;}
+  .qbox .qv{font-family:'Bagel Fat One',sans-serif;font-size:26px;line-height:1.1;color:var(--hotpink);margin-top:2px;}
+  .qbox .qu{font-size:11px;font-weight:700;color:#5a5470;}
+  @media(max-width:520px){.quota-grid{grid-template-columns:1fr;gap:8px;}.qbox{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;}.qbox .qv{font-size:22px;}}
+
+  /* ───── 隊友 / 費用 ───── */
+  #teamNameField{display:none;}
+  #teamNameField.show{display:block;animation:slideDown .25s ease;}
+  #membersField{display:none;}
+  #membersField.show{display:block;animation:slideDown .25s ease;}
+  .member-select{width:100%;padding:10px 14px;border:2px solid var(--ink);border-radius:10px;font-family:'Noto Sans TC',sans-serif;font-size:14px;background:#fff;margin-bottom:8px;appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%23160a2e' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;}
+  .member-select:focus{outline:none;background-color:var(--g-yellow);}
+  .member-select.has-error{background-color:#ffebee;border-color:var(--hotpink);}
+  .fee-live{margin-top:6px;background:#fffaf0;border:2.5px solid var(--ink);border-radius:14px;padding:16px 18px;font-size:14px;line-height:1.7;color:var(--ink);}
+  .fee-live .fee-amt{font-family:'Bagel Fat One',sans-serif;font-size:30px;color:var(--hotpink);display:block;margin:4px 0 2px;}
+  .fee-live small{color:#5a5470;font-size:12.5px;}
 </style>
-</head>
+
 <body>
 
 <header>
   <div class="logo">NID<span>★</span>RUN CLUB</div>
   <div class="header-right">
     <span class="tag-pill">白天跑速度 · <strong>晚上跑氛圍</strong></span>
-    <div class="nav-pill">09.12 · GLOW RUN ’26</div>
+    <div class="nav-pill">09.12 · GLOW RUN 12K</div>
   </div>
 </header>
 
@@ -355,16 +395,16 @@
   </svg>
 
   <div class="sticker stk-1">🌙 GLOW NIGHT</div>
-  <div class="sticker stk-2">★ 手環 FOR ALL ★</div>
-  <div class="sticker stk-3">5 / 7K</div>
-  <div class="sticker stk-4">SO BRIGHT!</div>
+  <div class="sticker stk-2">★ 黃色手環 FOR ALL ★</div>
+  <div class="sticker stk-3">12K · 4 圈</div>
+  <div class="sticker stk-4">冠軍有獎！</div>
 
   <span class="hero-eyebrow">NID FAMILY DAY · VOL.3</span>
   <h1 class="title">
     <span class="l1">GLOW RUN</span>
-    <span class="l2">夜跑 <em>2026</em></span>
+    <span class="l2">螢光路跑 <em>12K</em></span>
   </h1>
-  <p class="hero-sub">河濱亮起來的那一夜。<br>一人一支<b>螢光手環</b>，穿上你自己準備的發光造型，<br>天黑了，我們一起跑進夜色裡。</p>
+  <p class="hero-sub">河濱亮起來的那一夜。<br>一圈 3K，跑滿 <b>4 圈 = 12K</b>。<br>個人單跑、兩人接力、四人接力 —— 三組各取第一名，<b>都有獎品</b>。</p>
 
   <div class="glow-stage">
     <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
@@ -403,10 +443,10 @@
 <!-- ════════════ MARQUEE ════════════ -->
 <div class="info-strip">
   <div class="marquee">
-    <span>★ 9/12 SAT</span><span class="a">彩虹橋 河濱</span><span class="b">白天跑速度 晚上跑氛圍</span>
-    <span class="c">GLOW BRACELET FOR ALL</span><span class="d">BRING A FRIEND</span>
-    <span>★ 9/12 SAT</span><span class="a">彩虹橋 河濱</span><span class="b">白天跑速度 晚上跑氛圍</span>
-    <span class="c">GLOW BRACELET FOR ALL</span><span class="d">BRING A FRIEND</span>
+    <span>★ 9/12 SAT</span><span class="a">成美長壽橋籃球場</span><span class="b">12K · 一圈 3K 跑四圈</span>
+    <span class="c">個人 / 兩人接力 / 四人接力</span><span class="d">各組第一名有獎</span>
+    <span>★ 9/12 SAT</span><span class="a">成美長壽橋籃球場</span><span class="b">12K · 一圈 3K 跑四圈</span>
+    <span class="c">個人 / 兩人接力 / 四人接力</span><span class="d">各組第一名有獎</span>
   </div>
 </div>
 
@@ -424,59 +464,64 @@
   </div>
   <div class="card">
     <div class="card-label">START / 集合</div>
-    <div class="card-value">饒河疏散門・彩虹橋</div>
-    <div class="card-note">基4號（饒河）疏散門進 · LOVE 字樣處集合</div>
+    <div class="card-value">成美長壽橋籃球場</div>
+    <div class="card-note">報到、起跑、終點都在這裡</div>
   </div>
   <div class="card">
     <div class="card-label">DISTANCE / 距離</div>
-    <div class="card-value">5–7K</div>
-    <div class="card-note">5K / 7K</div>
+    <div class="card-value">12K</div>
+    <div class="card-note">一圈 3K × 4 圈</div>
   </div>
   <div class="card">
     <div class="card-label">FEE / 費用</div>
     <div class="card-value">學員免費</div>
-    <div class="card-note">同行朋友 NT$350/人<br>現場現金繳費</div>
+    <div class="card-note">非當期學員 NT$350/人<br>現場現金繳費</div>
   </div>
 </section>
 
-<!-- ════════════ GATHER NOTICE ════════════ -->
+<!-- ════════════ ROUTE ════════════ -->
 <section class="route-notice">
   <div class="route-notice-card">
-    <div class="route-notice-icon">🌇</div>
+    <div class="route-notice-icon">🛣️</div>
     <div class="route-notice-content">
-      <p class="route-notice-label">⚠️ 集合與起跑時間，請特別注意！</p>
+      <p class="route-notice-label">🏃 路線：一圈 3K，來回折返</p>
       <div class="route-notice-flow">
         <div class="station start">
-          <span class="station-tag">GATHER</span>
-          <strong>17:30 報到 · 領手環</strong>
-          <span class="station-exit">基4號（饒河）疏散門進 · LOVE 字樣處集合</span>
+          <span class="station-tag">START</span>
+          <strong>成美長壽橋籃球場</strong>
+          <span class="station-exit">起點 · 終點 · 交接區都在這</span>
         </div>
         <div class="route-arrow">
-          <span>天黑後</span>
+          <span>折返</span>
           <svg viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg">
             <path d="M 2 10 L 50 10" stroke="#ecff3a" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4"/>
             <path d="M 45 4 L 56 10 L 45 16" fill="none" stroke="#ecff3a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
         <div class="station finish">
-          <span class="station-tag">START</span>
-          <strong>18:00 一起開跑</strong>
-          <span class="station-exit">螢光最亮的那一刻</span>
+          <span class="station-tag">TURN</span>
+          <strong>成功橋</strong>
+          <span class="station-exit">折返點 · 原路跑回籃球場</span>
         </div>
       </div>
-      <p class="route-notice-tip">💡 建議 17:30 準時到，先領手環、上螢光造型、拍團體大合照，18:00 一起開跑！</p>
+      <div class="lap-note">
+        <span class="lap-chip">籃球場 → 成功橋 → 籃球場 ＝ 1 圈 3K</span>
+        <span class="lap-chip">4 圈 ＝ 12K</span>
+        <span class="lap-chip">每圈回到籃球場由教練記錄</span>
+      </div>
+      <p class="route-notice-tip">💡 17:30 準時報到領黃色螢光手環與號碼編碼，上好造型、拍完大合照，18:00 一起開跑！</p>
     </div>
   </div>
 </section>
 
 <!-- ════════════ HOW IT WORKS ════════════ -->
 <section class="how">
-  <h2 class="section-title">這一夜 <em>怎麼玩</em></h2>
+  <h2 class="section-title">這一夜 <em>怎麼跑</em></h2>
   <div class="steps">
     <div class="step">
       <div class="step-num">01</div>
-      <h3>領螢光手環</h3>
-      <p>每人報到都會拿到一支螢光小手環。現場只發手環，其他造型請自行準備喔！</p>
+      <h3>報到領手環</h3>
+      <p>每人拿到一支<strong>黃色螢光手環</strong>，工作人員會把你的<strong>號碼編碼</strong>貼在手環上，這就是你今晚的身分。</p>
     </div>
     <div class="step">
       <div class="step-num">02</div>
@@ -485,22 +530,38 @@
     </div>
     <div class="step">
       <div class="step-num">03</div>
-      <h3>河濱光點開跑</h3>
-      <p>從集合點沿河濱車道往關山河濱公園方向夜跑，抵折返點後原路折返；河濱夜景當背景，邊跑邊拍。</p>
+      <h3>跑滿四圈 12K</h3>
+      <p>從籃球場出發跑到成功橋折返，回到籃球場算一圈。每經過一次，教練就依名單上的編碼<strong>畫一筆正字</strong>記圈。</p>
     </div>
     <div class="step">
       <div class="step-num">04</div>
-      <h3>最亮造型票選</h3>
-      <p>大家一起票選出「最會發光」的造型，把這一夜的高光時刻留下來。</p>
+      <h3>各組頒獎</h3>
+      <p>個人組、兩人接力、四人接力 —— <strong>三組各取第一名，都有獎品</strong>。跑完別急著走，一起等頒獎！</p>
     </div>
   </div>
 </section>
 
-<!-- ════════════ DISTANCE ════════════ -->
-<section class="dist-wrap">
-  <div class="dist-grid">
-    <div class="dchip"><div class="dn">5K</div><div class="dc">入門夜跑</div></div>
-    <div class="dchip"><div class="dn">7K</div><div class="dc">進階節奏</div></div>
+<!-- ════════════ CATEGORIES ════════════ -->
+<section class="cat-wrap">
+  <div class="cat-grid">
+    <div class="catcard">
+      <div class="ct">個人組</div>
+      <div class="cd">12K</div>
+      <div class="cl">一個人跑完四圈<br>（4 × 3K）</div>
+      <div class="cq">22 個名額</div>
+    </div>
+    <div class="catcard">
+      <div class="ct">兩人接力</div>
+      <div class="cd">12K</div>
+      <div class="cl">一人跑 2 圈，共 4 圈<br>籃球場交接</div>
+      <div class="cq">15 隊名額</div>
+    </div>
+    <div class="catcard">
+      <div class="ct">四人接力</div>
+      <div class="cd">12K</div>
+      <div class="cl">一人跑 1 圈，共 4 圈<br>籃球場交接</div>
+      <div class="cq">12 隊名額</div>
+    </div>
   </div>
 </section>
 
@@ -509,11 +570,12 @@
   <h2 class="section-title">報名前 <em>先知道</em></h2>
   <div class="recipe-grid">
     <div class="recipe-card">
-      <h3>🌙 帶什麼 & 拿什麼</h3>
+      <h3>🌙 帶什麼 &amp; 拿什麼</h3>
 
       <p style="font-size:12px;font-family:'DM Mono',monospace;letter-spacing:.1em;margin-bottom:10px;color:#9aa3d6;">現場提供（每人）</p>
       <ul class="ingredients">
-        <li class="ours">螢光手環 ×1 <small>(每人一支)</small></li>
+        <li class="ours">黃色螢光手環 ×1 <small>(每人一支)</small></li>
+        <li class="ours">手環號碼編碼 <small>(貼在手環上)</small></li>
       </ul>
 
       <p style="font-size:12px;font-family:'DM Mono',monospace;letter-spacing:.1em;margin:18px 0 10px;color:#9aa3d6;">請自行準備造型</p>
@@ -526,8 +588,10 @@
 
       <p style="font-size:12px;font-family:'DM Mono',monospace;letter-spacing:.1em;margin:18px 0 10px;color:#9aa3d6;">須知</p>
       <ol class="recipe-steps">
+        <li><strong>怎麼記圈：</strong>每圈跑回籃球場，教練會依照名單上的手環編碼畫正字，滿 4 圈（12K）即完賽。</li>
+        <li><strong>接力怎麼換：</strong>交接區固定在成美長壽橋籃球場，跑回終點線後由下一棒接續出發。</li>
+        <li><strong>名次與獎品：</strong>個人組、兩人接力、四人接力<strong>各取第一名，都有獎品</strong>。</li>
         <li><strong>安全第一：</strong>夜跑請跟隨教練指引，未成年須家長陪同。</li>
-        <li><strong>不計時、不排名：</strong>重點是氛圍與拍照，跑完進場就算完賽。</li>
         <li><strong>雨天備案：</strong>九月為颱風季，若天候不佳將於前一日 18:00 前公告延期，報名自動保留。</li>
         <li><strong>拍照分享：</strong>歡迎標記 <strong>@NIDRUNCLUB</strong>，一起把這一夜傳出去 ✨</li>
       </ol>
@@ -536,21 +600,21 @@
         <span class="must-bring-icon">✨</span>
         <div>
           <strong>造型自己來！</strong><br>
-          <span>現場每人只發一支螢光手環，其他造型請自行準備 —— 發光手環、螢光配件、亮色服裝都很讚，越亮越好認！</span>
+          <span>現場每人只發一支黃色螢光手環（上面貼你的號碼編碼），其他造型請自行準備 —— 發光配件、亮色服裝都很讚，越亮越好認！</span>
         </div>
       </div>
     </div>
 
     <div class="fee-notice">
       <h4>材料費說明</h4>
-      <div class="fee-row"><span class="who">NID 學員本人</span><span class="price free">免費</span></div>
-      <div class="fee-row"><span class="who">每位同行朋友</span><span class="price">$350</span></div>
+      <div class="fee-row"><span class="who">NID 當期學員</span><span class="price free">免費</span></div>
+      <div class="fee-row"><span class="who">非 NID 當期學員</span><span class="price">$350</span></div>
 
       <div class="cash-note">
         <span class="cash-ico">💵</span>
         <div>
           <strong>現場現金繳款</strong><br>
-          當天報到時，同行朋友的材料費直接繳給工作人員即可，免轉帳、免匯款。
+          接力隊伍中若有非當期學員，每人 NT$350，當天報到時一起繳給工作人員即可，免轉帳、免匯款。
         </div>
       </div>
     </div>
@@ -562,18 +626,39 @@
   <div class="form-inner">
     <p class="form-eyebrow">// REGISTRATION OPEN //</p>
     <h2 class="form-title">立刻 <em>報名</em></h2>
-    <span class="quota-pill">剩餘名額 <b id="quotaLeft">查詢中…</b> / <span id="quotaTotal">100</span></span>
+
+    <div class="quota-grid">
+      <div class="qbox"><div class="qn">個人組</div><div class="qv" id="qSolo">…</div><div class="qu">/ 22 名額</div></div>
+      <div class="qbox"><div class="qn">兩人接力</div><div class="qv" id="qDuo">…</div><div class="qu">/ 15 隊</div></div>
+      <div class="qbox"><div class="qn">四人接力</div><div class="qv" id="qQuad">…</div><div class="qu">/ 12 隊</div></div>
+    </div>
 
     <form id="regForm" novalidate>
       <div class="field">
-        <label for="name">姓名 <span class="req">*</span></label>
+        <label>報名組別 <span class="req">*</span></label>
+        <div class="opt-group one-col">
+          <label class="opt"><input type="radio" name="category" value="個人組" required /><span>個人組 12K · 一人跑四圈</span></label>
+          <label class="opt"><input type="radio" name="category" value="兩人接力" /><span>兩人接力 12K · 一人跑 2 圈</span></label>
+          <label class="opt"><input type="radio" name="category" value="四人接力" /><span>四人接力 12K · 一人跑 1 圈</span></label>
+        </div>
+        <p class="err" data-for="category">請選擇報名組別</p>
+      </div>
+
+      <div class="field" id="teamNameField">
+        <label for="teamName">隊伍名稱 <span class="req">*</span></label>
+        <input type="text" id="teamName" name="teamName" placeholder="幫你們的隊伍取個名字" autocomplete="off" />
+        <p class="err" data-for="teamName">請填寫隊伍名稱</p>
+      </div>
+
+      <div class="field">
+        <label for="name">姓名（報名代表人） <span class="req">*</span></label>
         <input type="text" id="name" name="name" required autocomplete="name" placeholder="你的名字" />
         <p class="err" data-for="name">請填寫姓名</p>
       </div>
 
       <div class="field">
-        <label for="team">隸屬戰隊 <span class="req">*</span></label>
-        <select id="team" name="team" required>
+        <label for="club">隸屬戰隊 <span class="req">*</span></label>
+        <select id="club" name="club" required>
           <option value="">請選擇你的戰隊</option>
           <option>凱為戰隊</option>
           <option>承勳戰隊</option>
@@ -585,8 +670,9 @@
           <option>阿飛戰隊</option>
           <option>柏鈞戰隊</option>
           <option>肯尼戰隊</option>
+          <option>非 NID 當期學員</option>
         </select>
-        <p class="err" data-for="team">請選擇戰隊</p>
+        <p class="err" data-for="club">請選擇戰隊</p>
       </div>
 
       <div class="field">
@@ -595,46 +681,27 @@
         <p class="err" data-for="email">請填寫正確的 Email</p>
       </div>
 
-      <div class="field">
-        <label>報名組別 <span class="req">*</span></label>
-        <div class="opt-group">
-          <label class="opt"><input type="radio" name="distance" value="5K" required /><span>5K</span></label>
-          <label class="opt"><input type="radio" name="distance" value="7K" /><span>7K</span></label>
-        </div>
-        <p class="err" data-for="distance">請選擇報名組別</p>
-      </div>
+      <!-- 隊友資料（依組別動態產生） -->
+      <div class="field" id="membersField"></div>
 
       <div class="field">
-        <label>是否帶朋友來？ <span class="req">*</span></label>
-        <div class="opt-group">
-          <label class="opt"><input type="radio" name="bringFriend" value="是" required /><span>是 · 帶朋友</span></label>
-          <label class="opt"><input type="radio" name="bringFriend" value="否" /><span>否 · 自己來</span></label>
-        </div>
-        <p class="err" data-for="bringFriend">請選擇</p>
-      </div>
-
-      <div class="field" id="friendCountField">
-        <label for="friendCount">帶幾位朋友？ <span class="req">*</span></label>
-        <input type="number" id="friendCount" name="friendCount" min="1" max="5" placeholder="例如：2" />
-        <p class="err" data-for="friendCount">請填入 1-5 之間的數字</p>
-
-        <div class="cash-note-inline">
-          💵 朋友材料費 <strong>NT$350/人</strong>，當天報到時<strong>現場現金繳款</strong>即可，免轉帳。
+        <label>現場需繳材料費</label>
+        <div class="fee-live">
+          <span class="fee-amt" id="feeAmount">NT$0</span>
+          <span id="feeDetail">選好組別與戰隊後，這裡會自動算出當天要繳的金額。</span><br>
+          <small>💵 非 NID 當期學員每人 NT$350，當天報到時現場現金繳款即可。</small>
         </div>
       </div>
-
-      <!-- 朋友詳細資料 (動態產生：姓名 + Email + 電話) -->
-      <div class="field" id="friendsDetailField"></div>
 
       <div class="field">
         <label>這次為什麼會想來參加？ <span class="req">*</span></label>
         <div class="opt-group one-col">
           <label class="opt"><input type="radio" name="reason" value="想認識更多 NID 的夥伴" required /><span>想認識更多 NID 的夥伴</span></label>
-          <label class="opt"><input type="radio" name="reason" value="覺得螢光夜跑主題很特別" /><span>覺得螢光夜跑主題很特別</span></label>
-          <label class="opt"><input type="radio" name="reason" value="想拍美美的夜景/螢光照" /><span>想拍美美的夜景 / 螢光照 📸</span></label>
+          <label class="opt"><input type="radio" name="reason" value="覺得螢光路跑主題很特別" /><span>覺得螢光路跑主題很特別</span></label>
+          <label class="opt"><input type="radio" name="reason" value="想挑戰 12K" /><span>想挑戰 12K 🏃</span></label>
+          <label class="opt"><input type="radio" name="reason" value="想跟隊友一起接力拚名次" /><span>想跟隊友一起接力拚名次 🏆</span></label>
           <label class="opt"><input type="radio" name="reason" value="想穿發光造型跑一場" /><span>想穿發光造型跑一場 ✨</span></label>
           <label class="opt"><input type="radio" name="reason" value="教練/朋友揪我來" /><span>教練 / 朋友揪我來</span></label>
-          <label class="opt"><input type="radio" name="reason" value="想換個方式跑步" /><span>想換個方式跑步</span></label>
         </div>
         <p class="err" data-for="reason">請選擇</p>
       </div>
@@ -679,8 +746,8 @@
     <div class="success" id="successScreen">
       <div class="success-emoji">🌙✨</div>
       <h2>報名成功！</h2>
-      <p>
-        確認信會在幾分鐘內寄到你的信箱。<br>
+      <p id="successMsg">
+        確認信會在幾分鐘內寄到你的信箱（隊友也會各自收到）。<br>
         最後一步 — 加入活動 LINE 社群，<br>
         當天集合地點、注意事項都在裡面！
       </p>
@@ -697,120 +764,165 @@
 
 <script>
   /* ═══════════════════════════════════════════
-     ⚙️  CONFIG —— 部署螢光夜跑時，把這兩個換成「本活動專用」的網址
-        1) SCRIPT_URL：這場活動自己的 Google Apps Script /exec（不要沿用冰淇淋跑那份，否則資料會寫錯表）
-        2) 成功畫面的 LINE 連結：在 #lineBtn 的 href 換成螢光夜跑的社群
+     ⚙️  CONFIG
+        SCRIPT_URL：本活動專用的 Google Apps Script /exec
+        成功畫面的 LINE 連結：在 #lineBtn 的 href
      ═══════════════════════════════════════════ */
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzwQQt2Bb7U-u9w3GU_m7ZRaykKEzlhihK8_vkpxW3FlapCp-Pypmbry7D43_scuqzEjA/exec";
-  const TOTAL_QUOTA = 100;
-  document.getElementById("quotaTotal").textContent = TOTAL_QUOTA;
+  const NON_MEMBER = "非 NID 當期學員";
+  const FEE_PER_PERSON = 350;
 
-  const DEMO = !SCRIPT_URL || SCRIPT_URL.includes("REPLACE_WITH");
+  // 組別設定：teamSize = 一隊幾個人（含報名代表人）
+  const CATS = {
+    "個人組":   { size: 1, quotaKey: "solo", unit: "人" },
+    "兩人接力": { size: 2, quotaKey: "duo",  unit: "隊" },
+    "四人接力": { size: 4, quotaKey: "quad", unit: "隊" }
+  };
 
-  const friendField = document.getElementById("friendCountField");
-  const friendInput = document.getElementById("friendCount");
-  const friendsDetailField = document.getElementById("friendsDetailField");
+  const DEMO = !SCRIPT_URL || SCRIPT_URL.indexOf("REPLACE_WITH") !== -1;
 
-  function renderFriendInputs(n) {
-    if (!n || n < 1) {
-      friendsDetailField.innerHTML = "";
-      friendsDetailField.classList.remove("show");
-      return;
-    }
-    if (n > 5) n = 5;
-    let html = `<div class="friends-detail-title">📝 朋友資料 (${n} 位)</div>`;
-    for (let i = 1; i <= n; i++) {
-      html += `
-        <div class="friend-block">
-          <div class="friend-block-label">朋友 ${i} <span class="req">*</span></div>
-          <input type="text"  name="friend${i}Name"  class="friend-input" placeholder="姓名（必填）"   autocomplete="off" required />
-          <input type="email" name="friend${i}Email" class="friend-input" placeholder="Email（必填）"  autocomplete="off" required />
-          <input type="tel"   name="friend${i}Phone" class="friend-input" placeholder="電話（必填）"   inputmode="numeric" autocomplete="off" required />
-        </div>`;
-    }
-    html += `<p style="font-size:12px;color:#666;line-height:1.6;margin-top:4px;">
-      💡 所有朋友的姓名、Email、電話皆為<strong>必填</strong>；報名成功後所有人的資訊會整合寄給<strong>你（主登記者）</strong>。
-    </p>
-    <p class="err" id="friendsErr" style="margin-top:6px;">請完整填寫所有朋友的姓名、Email 與電話</p>`;
-    friendsDetailField.innerHTML = html;
-    friendsDetailField.classList.add("show");
+  const form            = document.getElementById("regForm");
+  const submitBtn       = document.getElementById("submitBtn");
+  const loader          = document.getElementById("loader");
+  const successScreen   = document.getElementById("successScreen");
+  const teamNameField   = document.getElementById("teamNameField");
+  const teamNameInput   = document.getElementById("teamName");
+  const membersField    = document.getElementById("membersField");
+  const clubSelect      = document.getElementById("club");
+  const feeAmountEl     = document.getElementById("feeAmount");
+  const feeDetailEl     = document.getElementById("feeDetail");
+
+  // 戰隊清單直接沿用主報名者的下拉選單，之後只要改一處
+  const CLUB_OPTIONS = Array.prototype.slice.call(clubSelect.options)
+    .filter(function (o) { return o.value !== ""; })
+    .map(function (o) { return o.textContent; });
+
+  function currentCategory() {
+    const el = form.querySelector('input[name="category"]:checked');
+    return el ? el.value : "";
   }
 
-  friendInput.addEventListener("input", e => {
-    let n = parseInt(e.target.value, 10);
-    if (n > 5) { n = 5; e.target.value = 5; }
-    if (n < 0) { e.target.value = ""; n = 0; }
-    renderFriendInputs(n);
-  });
+  function clubOptionsHtml() {
+    return '<option value="">請選擇戰隊</option>' + CLUB_OPTIONS.map(function (c) {
+      return '<option>' + c + '</option>';
+    }).join("");
+  }
 
-  document.querySelectorAll('input[name="bringFriend"]').forEach(r => {
-    r.addEventListener("change", e => {
-      if (e.target.value === "是") {
-        friendField.classList.add("show");
-        friendInput.required = true;
+  // ── 依組別產生隊友欄位（第 2 位開始，第 1 位就是上面的報名代表人）
+  function renderMembers(cat) {
+    const cfg = CATS[cat];
+    if (!cfg || cfg.size < 2) {
+      membersField.innerHTML = "";
+      membersField.classList.remove("show");
+      return;
+    }
+    let html = '<div class="friends-detail-title">👥 隊友資料（' + (cfg.size - 1) + ' 位）</div>';
+    for (let i = 2; i <= cfg.size; i++) {
+      html += ''
+        + '<div class="friend-block">'
+        +   '<div class="friend-block-label">第 ' + i + ' 棒 <span class="req">*</span></div>'
+        +   '<input type="text"  name="member' + i + 'Name"  class="friend-input" placeholder="姓名（必填）" autocomplete="off" />'
+        +   '<select name="member' + i + 'Club" class="member-select">' + clubOptionsHtml() + '</select>'
+        +   '<input type="email" name="member' + i + 'Email" class="friend-input" placeholder="Email（必填）" autocomplete="off" />'
+        + '</div>';
+    }
+    html += '<p style="font-size:12px;color:#666;line-height:1.6;margin-top:4px;">'
+         +  '💡 每位隊友的姓名、戰隊、Email 皆為<strong>必填</strong>；報名成功後，每個人都會收到自己的確認信與手環編碼。'
+         +  '</p>'
+         +  '<p class="err" id="membersErr" style="margin-top:6px;">請完整填寫所有隊友的姓名、戰隊與 Email</p>';
+    membersField.innerHTML = html;
+    membersField.classList.add("show");
+    membersField.querySelectorAll(".member-select").forEach(function (s) {
+      s.addEventListener("change", updateFee);
+    });
+  }
+
+  // ── 即時試算現場要繳的材料費
+  function updateFee() {
+    const cat = currentCategory();
+    const cfg = CATS[cat];
+    if (!cfg) {
+      feeAmountEl.textContent = "NT$0";
+      feeDetailEl.textContent = "選好組別與戰隊後，這裡會自動算出當天要繳的金額。";
+      return;
+    }
+    let nonMembers = 0;
+    if (clubSelect.value === NON_MEMBER) nonMembers++;
+    for (let i = 2; i <= cfg.size; i++) {
+      const sel = form.querySelector('[name="member' + i + 'Club"]');
+      if (sel && sel.value === NON_MEMBER) nonMembers++;
+    }
+    const total = nonMembers * FEE_PER_PERSON;
+    feeAmountEl.textContent = "NT$" + total;
+    feeDetailEl.textContent = nonMembers === 0
+      ? "全隊都是 NID 當期學員，當天不用繳費 🎉"
+      : "隊上有 " + nonMembers + " 位非當期學員 × NT$" + FEE_PER_PERSON + "，當天報到時一起繳現金。";
+  }
+
+  document.querySelectorAll('input[name="category"]').forEach(function (r) {
+    r.addEventListener("change", function (e) {
+      const cfg = CATS[e.target.value];
+      if (cfg && cfg.size > 1) {
+        teamNameField.classList.add("show");
+        teamNameInput.required = true;
       } else {
-        friendField.classList.remove("show");
-        friendsDetailField.classList.remove("show");
-        friendsDetailField.innerHTML = "";
-        friendInput.required = false;
-        friendInput.value = "";
-        document.querySelector('[data-for="friendCount"]').classList.remove("show");
+        teamNameField.classList.remove("show");
+        teamNameInput.required = false;
+        teamNameInput.value = "";
+        document.querySelector('[data-for="teamName"]').classList.remove("show");
       }
+      renderMembers(e.target.value);
+      updateFee();
     });
   });
+  clubSelect.addEventListener("change", updateFee);
 
-  const form = document.getElementById("regForm");
-  const submitBtn = document.getElementById("submitBtn");
-  const loader = document.getElementById("loader");
-  const successScreen = document.getElementById("successScreen");
-
-  function showErr(name, show){
-    const el = document.querySelector(`.err[data-for="${name}"]`);
+  function showErr(name, show) {
+    const el = document.querySelector('.err[data-for="' + name + '"]');
     if (el) el.classList.toggle("show", show);
   }
 
-  form.addEventListener("submit", async e => {
+  const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+  form.addEventListener("submit", async function (e) {
     e.preventDefault();
-    document.querySelectorAll(".err").forEach(x => x.classList.remove("show"));
+    document.querySelectorAll(".err").forEach(function (x) { x.classList.remove("show"); });
+    document.querySelectorAll(".friend-input, .member-select").forEach(function (el) { el.classList.remove("has-error"); });
 
-    const data = new FormData(form);
-    const payload = Object.fromEntries(data.entries());
-
+    const payload = Object.fromEntries(new FormData(form).entries());
     let valid = true;
-    if (!payload.name?.trim())  { showErr("name", true); valid = false; }
-    if (!payload.team)          { showErr("team", true); valid = false; }
-    if (!payload.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(payload.email)) { showErr("email", true); valid = false; }
-    if (!payload.distance)      { showErr("distance", true); valid = false; }
-    if (!payload.bringFriend)   { showErr("bringFriend", true); valid = false; }
 
-    if (payload.bringFriend === "是") {
-      const n = parseInt(payload.friendCount, 10);
-      if (!n || n < 1 || n > 5) { showErr("friendCount", true); valid = false; }
+    const cat = payload.category || "";
+    const cfg = CATS[cat];
+    if (!cfg) { showErr("category", true); valid = false; }
 
-      document.querySelectorAll(".friend-input").forEach(el => el.classList.remove("has-error"));
-      const emailRe = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-      const phoneRe = /^[0-9\-\+\s]{8,}$/;
-      let friendsValid = true;
-      for (let i = 1; i <= (n || 0); i++) {
-        const nm = (payload[`friend${i}Name`]  || "").trim();
-        const em = (payload[`friend${i}Email`] || "").trim();
-        const ph = (payload[`friend${i}Phone`] || "").trim();
-        if (!nm) { document.querySelector(`[name="friend${i}Name"]`)?.classList.add("has-error");  valid = false; friendsValid = false; }
-        if (!em || !emailRe.test(em)) { document.querySelector(`[name="friend${i}Email"]`)?.classList.add("has-error"); valid = false; friendsValid = false; }
-        if (!ph || !phoneRe.test(ph)) { document.querySelector(`[name="friend${i}Phone"]`)?.classList.add("has-error"); valid = false; friendsValid = false; }
+    if (cfg && cfg.size > 1 && !(payload.teamName || "").trim()) { showErr("teamName", true); valid = false; }
+    if (!(payload.name || "").trim())  { showErr("name", true);  valid = false; }
+    if (!payload.club)                 { showErr("club", true);  valid = false; }
+    if (!payload.email || !EMAIL_RE.test(payload.email)) { showErr("email", true); valid = false; }
+
+    if (cfg && cfg.size > 1) {
+      let membersValid = true;
+      for (let i = 2; i <= cfg.size; i++) {
+        const nm = (payload["member" + i + "Name"]  || "").trim();
+        const cl = (payload["member" + i + "Club"]  || "").trim();
+        const em = (payload["member" + i + "Email"] || "").trim();
+        if (!nm) { form.querySelector('[name="member' + i + 'Name"]').classList.add("has-error");  valid = false; membersValid = false; }
+        if (!cl) { form.querySelector('[name="member' + i + 'Club"]').classList.add("has-error");  valid = false; membersValid = false; }
+        if (!em || !EMAIL_RE.test(em)) { form.querySelector('[name="member' + i + 'Email"]').classList.add("has-error"); valid = false; membersValid = false; }
       }
-      const friendsErr = document.getElementById("friendsErr");
-      if (friendsErr) friendsErr.classList.toggle("show", !friendsValid);
+      const membersErr = document.getElementById("membersErr");
+      if (membersErr) membersErr.classList.toggle("show", !membersValid);
     }
 
-    if (!payload.reason)        { showErr("reason", true); valid = false; }
+    if (!payload.reason) { showErr("reason", true); valid = false; }
 
     const agreeEl = form.querySelector('[name="agree"]');
     if (!agreeEl || !agreeEl.checked) { showErr("agree", true); valid = false; }
 
     if (!valid) {
-      const firstErr = document.querySelector(".err.show, .friend-input.has-error");
-      if (firstErr) firstErr.scrollIntoView({behavior:"smooth", block:"center"});
+      const firstErr = document.querySelector(".err.show, .has-error");
+      if (firstErr) firstErr.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
 
@@ -820,11 +932,11 @@
 
     if (DEMO) {
       console.log("【DEMO】報名資料：", payload);
-      setTimeout(() => {
+      setTimeout(function () {
         loader.classList.remove("show");
         form.style.display = "none";
         successScreen.classList.add("show");
-        successScreen.scrollIntoView({behavior:"smooth", block:"center"});
+        successScreen.scrollIntoView({ behavior: "smooth", block: "center" });
       }, 600);
       return;
     }
@@ -832,46 +944,61 @@
     try {
       const res = await fetch(SCRIPT_URL, {
         method: "POST",
-        headers: {"Content-Type": "text/plain;charset=utf-8"},
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(payload)
       });
       const result = await res.json();
       loader.classList.remove("show");
 
       if (result.status === "ok") {
+        if (result.codes && result.codes.length) {
+          document.getElementById("successMsg").innerHTML =
+            '你的手環編碼是 <b style="font-size:20px;">' + result.codes.join("、") + '</b><br>' +
+            '確認信會在幾分鐘內寄到信箱（隊友也會各自收到）。<br>' +
+            '最後一步 — 加入活動 LINE 社群，<br>當天集合地點、注意事項都在裡面！';
+        }
         form.style.display = "none";
         successScreen.classList.add("show");
-        successScreen.scrollIntoView({behavior:"smooth", block:"center"});
+        successScreen.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
       }
 
       if (result.status === "full") {
-        alert("很可惜，活動名額已滿了 😢\n請關注 NID 之後的活動！");
+        alert("很可惜，「" + (result.category || "這個組別") + "」的名額已經滿了 😢\n可以換另一個組別，或關注 NID 之後的活動！");
       } else {
-        // 後端的資料檢查訊息，直接照原文顯示，不要再包一層「發生錯誤」
+        // 後端的資料檢查訊息，直接照原文顯示
         alert(result.message || "資料好像有地方沒填對，請檢查後再送出一次。");
       }
       submitBtn.disabled = false; submitBtn.style.display = "block";
       loadQuota();
 
     } catch (err) {
-      // 只有真的連線失敗 / 回應解析不了才會走到這裡
       loader.classList.remove("show");
       alert("連線好像有點問題，請確認網路後再送出一次。\n如果一直失敗，請聯絡 NID 教練。");
       submitBtn.disabled = false; submitBtn.style.display = "block";
     }
   });
 
-  async function loadQuota(){
-    if (DEMO) { document.getElementById("quotaLeft").textContent = "—"; return; }
+  async function loadQuota() {
+    const map = { solo: "qSolo", duo: "qDuo", quad: "qQuad" };
+    if (DEMO) {
+      Object.values(map).forEach(function (id) { document.getElementById(id).textContent = "—"; });
+      return;
+    }
     try {
       const res = await fetch(SCRIPT_URL + "?action=quota");
       const j = await res.json();
-      if (typeof j.left === "number") document.getElementById("quotaLeft").textContent = j.left;
-      if (typeof j.total === "number") document.getElementById("quotaTotal").textContent = j.total;
-    } catch(e){ document.getElementById("quotaLeft").textContent = "—"; }
+      Object.keys(map).forEach(function (k) {
+        const el = document.getElementById(map[k]);
+        el.textContent = (j[k] && typeof j[k].left === "number") ? j[k].left : "—";
+      });
+    } catch (e) {
+      Object.values(map).forEach(function (id) { document.getElementById(id).textContent = "—"; });
+    }
   }
   loadQuota();
+  updateFee();
 </script>
 </body>
+
 </html>
