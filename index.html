@@ -109,6 +109,7 @@
   }
   .hero-sub{position:relative;z-index:2;font-size:16px;font-weight:500;max-width:540px;margin:18px auto 0;line-height:1.65;}
   .hero-sub b{color:var(--g-yellow);}
+  .hero-sub .hook{display:inline-block;font-size:23px;font-weight:900;color:var(--cream);letter-spacing:.02em;line-height:1.4;}
 
   .sticker{
     position:absolute;font-family:'Bagel Fat One',sans-serif;background:#fff;border:3px solid var(--ink);
@@ -144,6 +145,14 @@
   /* ───── SECTION TITLE ───── */
   .section-title{font-family:'Bagel Fat One',sans-serif;font-size:clamp(28px,4.6vw,46px);line-height:1.05;margin-bottom:22px;transform:rotate(-1deg);display:inline-block;color:#fff;}
   .section-title em{font-style:normal;background:var(--cream);color:var(--ink);padding:2px 13px;border-radius:5px;display:inline-block;transform:rotate(1.5deg);}
+  /* 第二種強調樣式，讓兩個章節標題不要長得一樣 */
+  .section-title.alt em{background:none;color:var(--calm);padding:0 3px;border-radius:0;box-shadow:inset 0 -.34em 0 rgba(140,217,240,.16);border-bottom:3px solid var(--calm-dim);transform:rotate(-1deg);}
+  .sec-head{margin-bottom:4px;}
+  .sec-head .section-title{margin-bottom:10px;}
+  .sec-eyebrow{display:block;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.28em;color:var(--calm-dim);margin-bottom:12px;}
+  .sec-eyebrow::before{content:"";display:inline-block;width:26px;height:2px;background:var(--calm-dim);vertical-align:middle;margin-right:10px;opacity:.7;}
+  .sec-lead{font-size:14px;line-height:1.75;color:var(--muted);max-width:620px;margin:0 0 22px;}
+  .sec-lead b{color:var(--cream);font-weight:700;}
 
   /* ───── 須知 ───── */
   .notes{padding:8px 28px 60px;max-width:1100px;margin:0 auto;position:relative;z-index:2;}
@@ -303,7 +312,7 @@
     <span class="l1">GLOW RUN</span>
     <span class="l2">螢光路跑 <em>12K</em></span>
   </h1>
-  <p class="hero-sub">一圈 3K，跑滿 <b>4 圈 ＝ 12K</b>。<br>個人單跑、兩人接力、四人接力，<b>三組各取第一名</b>。</p>
+  <p class="hero-sub"><span class="hook">天黑之後，換我們發光。</span><br>12K，你想<b>一個人扛完</b>，還是<b>揪人接力</b>？</p>
 
   <div class="glow-stage">
     <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
@@ -365,7 +374,11 @@
 
 <!-- ════════════ CATEGORIES ════════════ -->
 <section class="cat-wrap">
-  <h2 class="section-title">選一個 <em>組別</em></h2>
+  <div class="sec-head">
+    <span class="sec-eyebrow">PICK YOUR RACE</span>
+    <h2 class="section-title">選一個 <em>組別</em></h2>
+    <p class="sec-lead">三組同時開跑，跑滿 12K 就完賽。差別只在 —— 你想<b>一個人扛完四圈</b>，還是<b>跟隊友分著跑</b>。</p>
+  </div>
   <div class="cat-grid">
     <div class="catcard">
       <div class="ct">個人組</div>
@@ -394,7 +407,11 @@
 
 <!-- ════════════ 須知 ════════════ -->
 <section class="notes">
-  <h2 class="section-title">報名前 <em>先知道</em></h2>
+  <div class="sec-head">
+    <span class="sec-eyebrow">BEFORE YOU RUN</span>
+    <h2 class="section-title alt">報名前 <em>先知道</em></h2>
+    <p class="sec-lead">八件事，<b>30 秒看完</b>，當天就不會手忙腳亂。</p>
+  </div>
   <div class="notes-card">
     <ul class="notes-list">
       <li><strong>手環與編碼：</strong>報到時每人拿到一支黃色螢光手環，工作人員會把你的號碼編碼貼在上面。</li>
