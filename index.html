@@ -63,7 +63,7 @@
     align-items:center;border-bottom:3px solid var(--ink);background:var(--cream);color:var(--ink);z-index:5;
   }
   .logo{font-family:'Climate Crisis',sans-serif;font-size:22px;letter-spacing:.02em;}
-  .logo span{color:var(--hotpink);}
+  .logo span{color:#ff3eb5;}
   .header-right{display:flex;align-items:center;gap:10px;}
   .tag-pill{
     font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;background:#fff;
@@ -72,10 +72,10 @@
   .tag-pill strong{color:var(--grape);margin-left:2px;font-weight:800;letter-spacing:.05em;}
   @media(max-width:520px){ .tag-pill{display:none;} }
   .nav-pill{
-    font-family:'DM Mono',monospace;font-size:12px;background:var(--ink);color:var(--calm);
+    font-family:'DM Mono',monospace;font-size:12px;background:var(--ink);color:var(--g-green);
     padding:8px 14px;border-radius:50px;text-transform:uppercase;letter-spacing:.08em;
   }
-  .nav-pill::before{content:"●";color:var(--calm);margin-right:6px;animation:blink 1.2s infinite;}
+  .nav-pill::before{content:"●";color:var(--g-green);margin-right:6px;animation:blink 1.2s infinite;}
   @keyframes blink{50%{opacity:.3;}}
 
   /* ───── HERO (night) ───── */
@@ -91,7 +91,7 @@
   .hero-stars{position:absolute;inset:0;z-index:0;opacity:.7;}
   .hero-eyebrow{
     position:relative;z-index:2;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.3em;
-    display:inline-block;padding:6px 16px;background:var(--cream);color:var(--ink);
+    display:inline-block;padding:6px 16px;background:var(--g-green);color:var(--ink);
     border-radius:50px;margin-bottom:24px;transform:rotate(-2deg);font-weight:600;
   }
   h1.title{
@@ -100,22 +100,22 @@
   }
   h1.title .l1{
     display:block;color:#eafff0;transform:rotate(-2deg);
-    text-shadow:0 0 10px rgba(150,240,190,.45),0 0 34px rgba(90,200,230,.30),0 0 70px rgba(60,150,200,.20);
+    text-shadow:0 0 8px rgba(57,255,20,.9),0 0 26px rgba(57,255,20,.6),0 0 60px rgba(57,255,20,.4);
   }
   h1.title .l2{display:block;color:var(--cream);transform:rotate(1deg) translateX(-8px);}
   h1.title .l2 em{
     font-style:normal;background:var(--g-pink);color:var(--ink);padding:0 12px;display:inline-block;
-    transform:rotate(-3deg);box-shadow:0 0 0 3px var(--ink),0 0 22px rgba(255,79,216,.35);border:3px solid var(--ink);
+    transform:rotate(-3deg);box-shadow:0 0 0 3px var(--ink),0 0 26px rgba(255,79,216,.7);border:3px solid var(--ink);
   }
   .hero-sub{position:relative;z-index:2;font-size:16px;font-weight:500;max-width:540px;margin:18px auto 0;line-height:1.65;}
-  .hero-sub b{color:var(--calm);}
+  .hero-sub b{color:var(--g-yellow);}
 
   .sticker{
     position:absolute;font-family:'Bagel Fat One',sans-serif;background:#fff;border:3px solid var(--ink);
     box-shadow:var(--shadow);padding:8px 16px;border-radius:50px;font-size:14px;letter-spacing:.04em;z-index:3;color:var(--ink);
   }
-  .stk-1{top:20%;left:4%;background:var(--calm);--r:-12deg;transform:rotate(-12deg);animation:float 4s ease-in-out infinite;}
-  .stk-2{top:30%;right:5%;background:var(--cream);--r:8deg;transform:rotate(8deg);animation:float 5s ease-in-out infinite .5s;}
+  .stk-1{top:20%;left:4%;background:var(--g-pink);--r:-12deg;transform:rotate(-12deg);animation:float 4s ease-in-out infinite;}
+  .stk-2{top:30%;right:5%;background:var(--g-green);--r:8deg;transform:rotate(8deg);animation:float 5s ease-in-out infinite .5s;}
   .stk-3{top:64%;left:7%;background:var(--g-yellow);--r:6deg;transform:rotate(6deg);animation:float 4.5s ease-in-out infinite 1s;}
   .stk-4{top:72%;right:6%;background:var(--g-blue);--r:-9deg;transform:rotate(-9deg);animation:float 5.2s ease-in-out infinite .3s;}
   @keyframes float{0%,100%{transform:translateY(0) rotate(var(--r,0deg));}50%{transform:translateY(-12px) rotate(var(--r,0deg));}}
@@ -219,9 +219,15 @@
   footer{background:var(--ink);color:var(--cream);padding:40px 28px;text-align:center;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.1em;border-top:1.5px solid var(--line);position:relative;z-index:2;}
   footer .heart{color:var(--g-pink);}
 
-  @media(max-width:900px){
-    .sticker{display:none;}
+  /* 窄螢幕：貼紙原位會壓住標題文字，移到手環圖兩側；再窄就收掉 */
+  @media(max-width:1100px){
     .tag-pill{display:none;}
+    .stk-1{top:auto;bottom:8%;left:3%;}
+    .stk-2{top:auto;bottom:15%;right:3%;}
+    .stk-3,.stk-4{display:none;}
+  }
+  @media(max-width:620px){
+    .sticker{display:none;}
   }
   @media(max-width:640px){
     .glow-stage{max-width:240px;margin-top:30px;}
@@ -303,9 +309,9 @@
     <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="band" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#8ad9f0"/>
-          <stop offset="50%" stop-color="#a9b6e8"/>
-          <stop offset="100%" stop-color="#c9a9f0"/>
+          <stop offset="0%" stop-color="#39ff14"/>
+          <stop offset="50%" stop-color="#2ad8ff"/>
+          <stop offset="100%" stop-color="#ff4fd8"/>
         </linearGradient>
         <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
           <feGaussianBlur stdDeviation="8" result="b"/>
@@ -314,7 +320,7 @@
       </defs>
 
       <g class="glow-spin" style="transform-origin:150px 150px;">
-        <g fill="#fff6e0" stroke="#160a2e" stroke-width="3">
+        <g fill="#ffe45c" stroke="#160a2e" stroke-width="3">
           <path d="M40 70 L46 84 L61 86 L49 96 L53 112 L40 104 L27 112 L31 96 L19 86 L34 84 Z"/>
           <path d="M258 74 L263 85 L276 87 L266 95 L269 108 L258 101 L247 108 L250 95 L240 87 L253 85 Z" transform="scale(.8) translate(56 22)"/>
           <path d="M256 214 L261 225 L274 227 L264 235 L267 248 L256 241 L245 248 L248 235 L238 227 L251 225 Z" transform="scale(.72) translate(96 82)"/>
@@ -325,10 +331,10 @@
       <circle cx="150" cy="150" r="95" fill="none" stroke="#160a2e" stroke-width="3"/>
       <circle cx="150" cy="150" r="69" fill="none" stroke="#160a2e" stroke-width="3"/>
       <rect x="138" y="42" width="24" height="20" rx="5" fill="#fff" stroke="#160a2e" stroke-width="3"/>
-      <circle cx="150" cy="68" r="7" fill="#fff6e0" stroke="#160a2e" stroke-width="3"/>
-      <circle cx="232" cy="150" r="7" fill="#c9a9f0" stroke="#160a2e" stroke-width="3"/>
-      <circle cx="150" cy="232" r="7" fill="#8ad9f0" stroke="#160a2e" stroke-width="3"/>
-      <circle cx="68" cy="150" r="7" fill="#fff6e0" stroke="#160a2e" stroke-width="3"/>
+      <circle cx="150" cy="68" r="7" fill="#ecff3a" stroke="#160a2e" stroke-width="3"/>
+      <circle cx="232" cy="150" r="7" fill="#ff4fd8" stroke="#160a2e" stroke-width="3"/>
+      <circle cx="150" cy="232" r="7" fill="#2ad8ff" stroke="#160a2e" stroke-width="3"/>
+      <circle cx="68" cy="150" r="7" fill="#39ff14" stroke="#160a2e" stroke-width="3"/>
     </svg>
   </div>
 </section>
