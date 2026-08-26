@@ -18,7 +18,7 @@
  *   個人組   1 人跑 4 圈   · 22 個名額
  *   兩人接力 1 人跑 2 圈   · 15 隊名額
  *   四人接力 1 人跑 1 圈   · 12 隊名額
- *   三組各取第一名，都有獎品
+ *   三組各取前三名，獎品由合作廠商 Viimun 提供；每位參賽者另有 Viimun 試用包
  *
  * 名單編碼：個人 A01…／兩人 B01-1、B01-2…／四人 C01-1…C01-4
  *          列印頁把編碼剪下貼在（黃色）螢光手環上，教練依名單畫正字記圈。
@@ -36,6 +36,9 @@ const SENDER_NAME          = 'NID RUN CLUB';
 const EVENT_DATETIME = '2026/9/12（六）17:30 報到領手環 · 18:00 一起開跑（活動至 19:30）';
 const EVENT_LOCATION = '成美長壽橋籃球場（起點 / 終點 / 接力交接區都在這裡）';
 const EVENT_ROUTE    = '成美長壽橋籃球場 → 成功橋 折返 → 成美長壽橋籃球場 ＝ 一圈 3K，跑滿 4 圈 ＝ 12K';
+// 合作廠商
+const SPONSOR_NAME = 'Viimun';
+const SPONSOR_URL  = 'https://www.viimun.com';
 const LINE_GROUP_URL = 'https://line.me/ti/g2/5BBOmVbrCiD6m8Uzy6xigwzM1qihEJ_U0JUcKA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default';
 // ───────────────────────────────────────
 
@@ -351,6 +354,7 @@ function adminBody_(d, teamNo) {
     + row_('人數', d.members.length)
     + row_('報名原因', d.reason)
     + row_('應收材料費', d.feeTotal > 0 ? 'NT$' + d.feeTotal : '0（全員學員）')
+    + row_('試用包份數', d.members.length + ' 份（' + SPONSOR_NAME + '）')
     + '</table>'
     + '<p style="font-size:14px;margin-top:16px"><b>隊伍名單</b></p>'
     + teamTable_(d, teamNo);
@@ -372,7 +376,10 @@ function runnerBody_(d, teamNo, m) {
     + '你負責 <b>' + esc_(cfg.laps) + ' 圈</b>（' + esc_(cfg.laps * LAP_KM) + 'K）'
     + (isSolo ? '' : '，接力交接就在籃球場終點線')
     + '。全隊跑滿 ' + TOTAL_LAPS + ' 圈 12K 即完賽。</p>'
-    + '<p style="font-size:14px">🏆 個人組、兩人接力、四人接力<b>各取第一名，都有獎品</b>，跑完別急著走，一起等頒獎！</p>'
+    + '<p style="font-size:14px">🎁 <b>參賽好禮：</b>每位參賽者都會拿到合作廠商 '
+    + '<a href="' + esc_(SPONSOR_URL) + '">' + esc_(SPONSOR_NAME) + '</a> 提供的<b>試用包</b>。</p>'
+    + '<p style="font-size:14px">🏆 個人組、兩人接力、四人接力<b>各取前三名</b>，獎品同樣由 '
+    + esc_(SPONSOR_NAME) + ' 提供，跑完別急著走，一起等頒獎！</p>'
     + (isSolo ? feeLine_({ feeTotal: m.fee })
               : '<p style="font-size:14px">💵 你的材料費：' + (m.fee > 0 ? '<b>NT$' + esc_(m.fee) + '</b>（非當期學員），當天報到時現場現金繳款' : '免費（NID 當期學員）') + '。</p>')
     + (isSolo ? '' : teamTable_(d, teamNo))
@@ -481,7 +488,8 @@ function printPage_(rows) {
     + '· 螢光手環<b>全部都是黃色</b>，每人一支，報到時把下面的編碼剪下貼在手環上。<br>'
     + '· 工作人員共 <b>3 位</b>：建議 1 位負責報到 / 發手環 / 收現金，2 位在終點線負責計圈畫正字與接力交接。<br>'
     + '· 每跑回成美長壽橋籃球場算一圈，依編碼在計圈表畫正字；個人組 4 圈、兩人接力每人 2 圈、四人接力每人 1 圈。<br>'
-    + '· 三組各取第一名，記得記錄完賽順序。</div>';
+    + '· 每人報到時發一份 <b>' + esc_(SPONSOR_NAME) + ' 試用包</b>，跟手環一起給，發完在名單上打勾。<br>'
+    + '· 三組各取<b>前三名</b>（獎品由 ' + esc_(SPONSOR_NAME) + ' 提供），務必記錄每組的完賽順序。</div>';
 
   // ── 1) 手環編碼貼紙
   html += '<h2>① 手環編碼貼紙（剪下貼在黃色螢光手環上）</h2><div class="labels">';
@@ -500,7 +508,7 @@ function printPage_(rows) {
     if (!group.length) { html += '<p class="sub">目前沒有這個組別的報名。</p>'; return; }
     html += '<table><tr><th style="width:92px">手環編碼</th><th style="width:96px">姓名</th>'
       + '<th style="width:96px">戰隊</th>' + (CATEGORIES[cat].size > 1 ? '<th style="width:110px">隊伍</th>' : '')
-      + '<th style="width:120px">圈數 □</th><th>正字紀錄</th><th style="width:78px">材料費</th><th style="width:86px">完賽時間</th></tr>';
+      + '<th style="width:120px">圈數 □</th><th>正字紀錄</th><th style="width:58px">試用包</th><th style="width:78px">材料費</th><th style="width:86px">完賽時間</th></tr>';
     let lastNo = '';
     group.forEach(function (p) {
       let boxes = '';
@@ -512,6 +520,7 @@ function printPage_(rows) {
         + (CATEGORIES[cat].size > 1 ? '<td>' + esc_(p.team) + '</td>' : '')
         + '<td class="lapbox">' + boxes + '</td>'
         + '<td class="tally"></td>'
+        + '<td style="text-align:center">□</td>'
         + '<td class="' + (p.pay ? 'pay' : 'free') + '">' + (p.pay ? 'NT$' + p.fee : '免費') + '</td>'
         + '<td></td></tr>';
     });
