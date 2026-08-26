@@ -422,12 +422,12 @@
   <div class="sec-head">
     <span class="sec-eyebrow">THE ROUTE</span>
     <h2 class="section-title alt">一圈 <em>3K</em></h2>
-    <p class="sec-lead">沿<b>基隆河</b>繞一圈：從籃球場往東跑到<b>成功橋</b>，過橋後沿對岸河濱往西跑，再從<b>成美橋</b>過河回到籃球場。跑滿 <b>4 圈 ＝ 12K</b>。</p>
+    <p class="sec-lead">沿<b>基隆河</b>繞一圈：從<b>成美長壽橋</b>旁的籃球場出發，沿南岸往東跑到<b>成功橋</b>，過橋後沿北岸往西跑回<b>成美長壽橋</b>過河，回到起點。跑滿 <b>4 圈 ＝ 12K</b>。</p>
   </div>
 
   <div class="route-card">
     <svg class="route-map" viewBox="0 0 720 470" xmlns="http://www.w3.org/2000/svg" role="img"
-         aria-label="路線示意圖：從成美長壽橋籃球場沿基隆河南岸往東跑到成功橋，過橋後沿北岸往西跑，再經成美橋過河回到籃球場，一圈約 3 公里">
+         aria-label="路線示意圖：從成美長壽橋旁的籃球場出發，沿基隆河南岸往東跑到成功橋，過橋後沿北岸往西跑回成美長壽橋過河回到起點，中途會經過成美橋下，一圈約 3 公里">
       <defs>
         <linearGradient id="rtRiver" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stop-color="#2f5f96"/><stop offset="100%" stop-color="#4384c0"/>
@@ -452,7 +452,15 @@
       <path d="M 100 393 C 245 373, 425 301, 668 161" fill="none"
             stroke="#8ad9f0" stroke-width="7" stroke-linecap="round" filter="url(#rtGlow)"/>
 
-      <!-- 兩座橋 -->
+      <!-- 成美橋：跨在路線上方，跑者從橋下通過 -->
+      <g opacity=".92">
+        <path d="M 322 222 L 322 347" stroke="#8a93b8" stroke-width="18" stroke-linecap="round"/>
+        <path d="M 322 222 L 322 347" stroke="#5c6590" stroke-width="18" stroke-linecap="round" stroke-dasharray="0 26 4 200"/>
+        <path d="M 311 240 L 333 240" stroke="#414a70" stroke-width="3"/>
+        <path d="M 311 329 L 333 329" stroke="#414a70" stroke-width="3"/>
+      </g>
+
+      <!-- 過河的兩座橋：西端成美長壽橋、東端成功橋 -->
       <g stroke="#fff6e0" stroke-width="8" stroke-linecap="round">
         <path d="M 668 63 L 668 161"/>
         <path d="M 100 297 L 100 393"/>
@@ -470,25 +478,26 @@
         <path d="M -10 -8 L 8 0 L -10 8 Z" fill="#c9a9f0" transform="translate(216 272) rotate(164)"/>
       </g>
 
-      <!-- 起點 / 終點 -->
-      <circle cx="405" cy="297" r="17" fill="#fff6e0" stroke="#160a2e" stroke-width="4"/>
-      <circle cx="405" cy="297" r="6" fill="#160a2e"/>
+      <!-- 起點 / 終點：成美長壽橋南端的籃球場 -->
+      <circle cx="131" cy="388" r="17" fill="#fff6e0" stroke="#160a2e" stroke-width="4"/>
+      <circle cx="131" cy="388" r="6" fill="#160a2e"/>
 
       <g font-family="'Noto Sans TC',sans-serif" font-weight="700">
-        <text x="296" y="292" font-size="24" fill="#dff0ff" opacity=".95" text-anchor="middle"
-              transform="rotate(-20 296 292)">基隆河</text>
+        <text x="465" y="218" font-size="24" fill="#dff0ff" opacity=".95" text-anchor="middle"
+              transform="rotate(-25 465 218)">基隆河</text>
+        <text x="100" y="272" font-size="22" fill="#fff6e0" text-anchor="middle">成美長壽橋</text>
+        <text x="322" y="204" font-size="22" fill="#c3cbe8" text-anchor="middle">成美橋</text>
         <text x="668" y="38" font-size="23" fill="#fff6e0" text-anchor="middle">成功橋</text>
-        <text x="100" y="427" font-size="23" fill="#fff6e0" text-anchor="middle">成美橋</text>
-        <text x="428" y="331" font-size="23" fill="#fff6e0">起點・終點</text>
-        <text x="255" y="409" font-size="21" fill="#8ad9f0">去程 · 南岸</text>
+        <text x="152" y="428" font-size="23" fill="#fff6e0">起點・終點</text>
+        <text x="372" y="400" font-size="21" fill="#8ad9f0">去程 · 南岸</text>
         <text x="432" y="146" font-size="21" fill="#c9a9f0" text-anchor="end">回程 · 北岸</text>
       </g>
     </svg>
 
     <ul class="route-legend">
-      <li><span class="rl-dot start"></span><div><b>成美長壽橋籃球場</b><span>起點・終點・接力交接區<br>Google 地圖搜「成美左岸河濱公園籃球場」</span></div></li>
-      <li><span class="rl-dot out"></span><div><b>去程・南岸往東</b><span>沿成美左岸河濱公園跑到成功橋</span></div></li>
-      <li><span class="rl-dot back"></span><div><b>回程・北岸往西</b><span>過成功橋沿對岸河濱往回，經成美橋過河回到籃球場</span></div></li>
+      <li><span class="rl-dot start"></span><div><b>成美長壽橋籃球場</b><span>起點・終點・接力交接區<br>成美長壽橋南端橋下、松河街河濱</span></div></li>
+      <li><span class="rl-dot out"></span><div><b>去程・南岸往東</b><span>沿松河街河濱跑到成功橋，中途從<b>成美橋下</b>通過</span></div></li>
+      <li><span class="rl-dot back"></span><div><b>回程・北岸往西</b><span>過成功橋沿對岸河濱往西，從<b>成美長壽橋</b>過河回到起點</span></div></li>
     </ul>
     <p class="route-foot">↑ 路線示意圖，實際跑法以當天現場公告為準。</p>
   </div>
