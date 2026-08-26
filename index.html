@@ -655,6 +655,12 @@
         <p class="err" data-for="email">請填寫正確的 Email</p>
       </div>
 
+      <div class="field">
+        <label for="phone">手機號碼 <span class="req">*</span></label>
+        <input type="tel" id="phone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="09xx-xxx-xxx" />
+        <p class="err" data-for="phone">請填寫正確的手機號碼</p>
+      </div>
+
       <!-- 隊友資料（依組別動態產生） -->
       <div class="field" id="membersField"></div>
 
@@ -799,12 +805,13 @@
         +   '<input type="text"  name="member' + i + 'Name"  class="friend-input" placeholder="姓名（必填）" autocomplete="off" />'
         +   '<select name="member' + i + 'Club" class="member-select">' + clubOptionsHtml() + '</select>'
         +   '<input type="email" name="member' + i + 'Email" class="friend-input" placeholder="Email（必填）" autocomplete="off" />'
+        +   '<input type="tel"   name="member' + i + 'Phone" class="friend-input" placeholder="手機號碼（必填）" inputmode="tel" autocomplete="off" />'
         + '</div>';
     }
     html += '<p style="font-size:12px;color:#666;line-height:1.6;margin-top:4px;">'
-         +  '💡 每位隊友的姓名、戰隊、Email 皆為<strong>必填</strong>；報名成功後，每個人都會收到自己的確認信與手環編碼。'
+         +  '💡 每位隊友的姓名、戰隊、Email、手機皆為<strong>必填</strong>；報名成功後，每個人都會收到自己的確認信與手環編碼。'
          +  '</p>'
-         +  '<p class="err" id="membersErr" style="margin-top:6px;">請完整填寫所有隊友的姓名、戰隊與 Email</p>';
+         +  '<p class="err" id="membersErr" style="margin-top:6px;">請完整填寫所有隊友的姓名、戰隊、Email 與手機號碼</p>';
     membersField.innerHTML = html;
     membersField.classList.add("show");
     membersField.querySelectorAll(".member-select").forEach(function (s) {
@@ -858,6 +865,7 @@
   }
 
   const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  const PHONE_RE = /^[0-9+\-\s()]{8,}$/;
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -875,6 +883,7 @@
     if (!(payload.name || "").trim())  { showErr("name", true);  valid = false; }
     if (!payload.club)                 { showErr("club", true);  valid = false; }
     if (!payload.email || !EMAIL_RE.test(payload.email)) { showErr("email", true); valid = false; }
+    if (!payload.phone || !PHONE_RE.test(payload.phone.trim())) { showErr("phone", true); valid = false; }
 
     if (cfg && cfg.size > 1) {
       let membersValid = true;
@@ -882,9 +891,11 @@
         const nm = (payload["member" + i + "Name"]  || "").trim();
         const cl = (payload["member" + i + "Club"]  || "").trim();
         const em = (payload["member" + i + "Email"] || "").trim();
+        const ph = (payload["member" + i + "Phone"] || "").trim();
         if (!nm) { form.querySelector('[name="member' + i + 'Name"]').classList.add("has-error");  valid = false; membersValid = false; }
         if (!cl) { form.querySelector('[name="member' + i + 'Club"]').classList.add("has-error");  valid = false; membersValid = false; }
         if (!em || !EMAIL_RE.test(em)) { form.querySelector('[name="member' + i + 'Email"]').classList.add("has-error"); valid = false; membersValid = false; }
+        if (!ph || !PHONE_RE.test(ph)) { form.querySelector('[name="member' + i + 'Phone"]').classList.add("has-error"); valid = false; membersValid = false; }
       }
       const membersErr = document.getElementById("membersErr");
       if (membersErr) membersErr.classList.toggle("show", !membersValid);

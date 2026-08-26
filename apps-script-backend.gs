@@ -75,11 +75,12 @@ const ALLOWED_REASON = [
 const MAX_LEN_NAME       = 40;
 const MAX_LEN_EMAIL      = 100;
 const MAX_LEN_TEAMNAME   = 40;
+const MAX_LEN_PHONE      = 30;
 const MAX_SUBMITS_PER_MIN = 60;
 
 const HEADERS = [
   '報名時間', '組別', '隊伍編號', '隊伍名稱', '棒次', '手環編碼',
-  '姓名', '隸屬戰隊', 'Email', '需繳費', '金額', '負責圈數',
+  '姓名', '隸屬戰隊', 'Email', '電話', '需繳費', '金額', '負責圈數',
   '報名原因', '代表人Email'
 ];
 const C = {};   // 欄位名 -> 1-based 欄號
@@ -91,9 +92,18 @@ function getSheet_() {
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
   }
-  if (sheet.getLastRow() === 0) {
+  const last = sheet.getLastRow();
+  if (last === 0) {
     sheet.appendRow(HEADERS);
     sheet.setFrozenRows(1);
+  } else if (last === 1) {
+    // 只有表頭、還沒有報名資料 —— 欄位定義若有調整就直接補上
+    const cur = sheet.getRange(1, 1, 1, sheet.getMaxColumns()).getValues()[0]
+                     .slice(0, HEADERS.length).join('\u0001');
+    if (cur !== HEADERS.join('\u0001')) {
+      sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
+      sheet.setFrozenRows(1);
+    }
   }
   return sheet;
 }
@@ -179,6 +189,7 @@ function esc_(v) {
 }
 
 function isEmail_(s) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(s || '')); }
+function isPhone_(s) { return /^[0-9+\-\s()]{8,}$/.test(String(s || '')); }
 
 // 全站每分鐘送出上限（跑瘋掉時的保險）
 function rateLimited_() {
@@ -238,15 +249,18 @@ function validate_(raw) {
     const nameKey  = seat === 1 ? 'name'  : 'member' + seat + 'Name';
     const clubKey  = seat === 1 ? 'club'  : 'member' + seat + 'Club';
     const emailKey = seat === 1 ? 'email' : 'member' + seat + 'Email';
+    const phoneKey = seat === 1 ? 'phone' : 'member' + seat + 'Phone';
     const who = seat === 1 ? '報名代表人' : ('第 ' + seat + ' 棒');
 
     const name  = clean_(raw[nameKey], MAX_LEN_NAME);
     const club  = clean_(raw[clubKey], MAX_LEN_NAME);
     const email = clean_(raw[emailKey], MAX_LEN_EMAIL).toLowerCase();
+    const phone = clean_(raw[phoneKey], MAX_LEN_PHONE);
 
     if (!name)  return { ok: false, message: '請填寫' + who + '的姓名。' };
     if (ALLOWED_CLUBS.indexOf(club) === -1) return { ok: false, message: '請從清單選擇' + who + '的隸屬戰隊。' };
     if (!isEmail_(email)) return { ok: false, message: who + '的 Email 格式不正確。' };
+    if (!isPhone_(phone)) return { ok: false, message: '請填寫' + who + '的手機號碼（至少 8 位數字）。' };
     if (seenEmail[email]) return { ok: false, message: '同一隊裡的 Email 不能重複（' + email + '）。' };
     seenEmail[email] = true;
 
@@ -255,6 +269,7 @@ function validate_(raw) {
       name: name,
       club: club,
       email: email,
+      phone: phone,
       fee: (club === NON_MEMBER) ? FEE_PER_PERSON : 0
     });
   }
@@ -276,6 +291,7 @@ function rowsFromData_(d, teamNo, stamp) {
     row[C['姓名'] - 1]       = safeCell_(m.name);
     row[C['隸屬戰隊'] - 1]   = m.club;
     row[C['Email'] - 1]      = safeCell_(m.email);
+    row[C['電話'] - 1]       = safeCell_(m.phone);
     row[C['需繳費'] - 1]     = m.fee > 0 ? '是' : '否';
     row[C['金額'] - 1]       = m.fee;
     row[C['負責圈數'] - 1]   = cfg.laps;
@@ -322,6 +338,7 @@ function teamTable_(d, teamNo) {
     + '<td style="border:1px solid #ddd;background:#f7f7f7;padding:6px"><b>手環編碼</b></td>'
     + '<td style="border:1px solid #ddd;background:#f7f7f7;padding:6px"><b>姓名</b></td>'
     + '<td style="border:1px solid #ddd;background:#f7f7f7;padding:6px"><b>戰隊</b></td>'
+    + '<td style="border:1px solid #ddd;background:#f7f7f7;padding:6px"><b>電話</b></td>'
     + '<td style="border:1px solid #ddd;background:#f7f7f7;padding:6px"><b>材料費</b></td></tr>';
   d.members.forEach(function (m) {
     html += '<tr>'
@@ -329,6 +346,7 @@ function teamTable_(d, teamNo) {
       + '<td style="border:1px solid #ddd;padding:6px"><b>' + esc_(bibCode_(d.category, teamNo, m.seat)) + '</b></td>'
       + '<td style="border:1px solid #ddd;padding:6px">' + esc_(m.name) + '</td>'
       + '<td style="border:1px solid #ddd;padding:6px">' + esc_(m.club) + '</td>'
+      + '<td style="border:1px solid #ddd;padding:6px">' + esc_(m.phone) + '</td>'
       + '<td style="border:1px solid #ddd;padding:6px">' + (m.fee > 0 ? 'NT$' + m.fee : '免費') + '</td>'
       + '</tr>';
   });
