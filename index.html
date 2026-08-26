@@ -156,13 +156,14 @@
 
   /* ───── 路線 ───── */
   .route{padding:0 28px 26px;max-width:1100px;margin:0 auto;position:relative;z-index:2;}
-  .route-card{background:rgba(20,26,68,.6);border:1.5px solid var(--line);border-radius:20px;padding:20px 24px 18px;box-shadow:0 2px 18px rgba(0,0,0,.28);display:grid;grid-template-columns:1.25fr 1fr;gap:8px 30px;align-items:center;}
+  .route-card{background:rgba(20,26,68,.6);border:1.5px solid var(--line);border-radius:20px;padding:20px 24px 18px;box-shadow:0 2px 18px rgba(0,0,0,.28);display:grid;grid-template-columns:1.3fr 1fr;gap:8px 28px;align-items:center;}
   .route-map{width:100%;height:auto;display:block;grid-row:span 2;}
-  .route-legend{list-style:none;display:flex;flex-direction:column;gap:14px;align-self:center;}
-  .route-legend li{display:flex;gap:12px;align-items:flex-start;}
-  .rl-num{flex:0 0 26px;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;line-height:1;font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--ink);margin-top:1px;}
-  .rl-num.one{background:var(--cream);}
-  .rl-num.two{background:var(--calm);}
+  .route-legend{list-style:none;display:flex;flex-direction:column;gap:13px;align-self:center;}
+  .route-legend li{display:flex;gap:11px;align-items:flex-start;}
+  .rl-dot{flex:0 0 13px;width:13px;height:13px;border-radius:50%;margin-top:5px;}
+  .rl-dot.start{background:var(--cream);box-shadow:0 0 0 3px rgba(255,246,224,.18);}
+  .rl-dot.out{background:#8ad9f0;box-shadow:0 0 0 3px rgba(138,217,240,.18);}
+  .rl-dot.back{background:#c9a9f0;box-shadow:0 0 0 3px rgba(201,169,240,.18);}
   .route-legend b{display:block;font-size:15px;color:var(--cream);margin-bottom:3px;}
   .route-legend span{display:block;font-size:13px;line-height:1.6;color:var(--muted);}
   .route-foot{grid-column:2;font-size:12px;color:var(--muted-2);margin-top:4px;}
@@ -421,58 +422,74 @@
   <div class="sec-head">
     <span class="sec-eyebrow">THE ROUTE</span>
     <h2 class="section-title alt">一圈 <em>3K</em></h2>
-    <p class="sec-lead">沿<b>基隆河</b>繞一圈：從籃球場出發跑到<b>成功橋</b>，過橋後沿對岸河濱跑回籃球場。跑滿 <b>4 圈 ＝ 12K</b>。</p>
+    <p class="sec-lead">沿<b>基隆河</b>繞一圈：從籃球場往東跑到<b>成功橋</b>，過橋後沿對岸河濱往西跑，再從<b>成美橋</b>過河回到籃球場。跑滿 <b>4 圈 ＝ 12K</b>。</p>
   </div>
 
   <div class="route-card">
-    <svg class="route-map" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="路線示意圖：從成美長壽橋籃球場出發，沿基隆河跑到成功橋，過橋後沿對岸跑回籃球場，一圈約 3 公里">
+    <svg class="route-map" viewBox="0 0 720 470" xmlns="http://www.w3.org/2000/svg" role="img"
+         aria-label="路線示意圖：從成美長壽橋籃球場沿基隆河南岸往東跑到成功橋，過橋後沿北岸往西跑，再經成美橋過河回到籃球場，一圈約 3 公里">
       <defs>
-        <linearGradient id="rtRiver" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#2f5f96"/><stop offset="100%" stop-color="#27476f"/>
-        </linearGradient>
-        <linearGradient id="rtLine" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#8ad9f0"/><stop offset="100%" stop-color="#c9a9f0"/>
+        <linearGradient id="rtRiver" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#2f5f96"/><stop offset="100%" stop-color="#4384c0"/>
         </linearGradient>
         <filter id="rtGlow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="6" result="b"/>
+          <feGaussianBlur stdDeviation="5" result="b"/>
           <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
       </defs>
 
-      <g transform="rotate(-32 320 210)">
-        <!-- 基隆河 -->
-        <rect x="60" y="182" width="520" height="56" rx="28" fill="url(#rtRiver)" opacity=".75"/>
-        <!-- 跑步路線 -->
-        <rect x="42" y="164" width="556" height="92" rx="46" fill="none"
-              stroke="url(#rtLine)" stroke-width="7" filter="url(#rtGlow)"/>
-      </g>
+      <!-- 河濱綠地 -->
+      <path d="M 70 345 C 220 325, 400 252, 665 112" fill="none"
+            stroke="#3d8f6b" stroke-width="134" stroke-linecap="round" opacity=".13"/>
+      <!-- 基隆河 -->
+      <path d="M 70 345 C 220 325, 400 252, 665 112" fill="none"
+            stroke="url(#rtRiver)" stroke-width="52" stroke-linecap="round"/>
 
-      <!-- 河名 -->
-      <text x="320" y="215" text-anchor="middle" transform="rotate(-32 320 215)"
-            font-family="'Noto Sans TC',sans-serif" font-size="22" font-weight="700"
-            fill="#9fc6e8" opacity=".85">基隆河</text>
+      <!-- 回程：北岸往西 -->
+      <path d="M 668 63 C 425 203, 245 277, 100 297" fill="none"
+            stroke="#c9a9f0" stroke-width="7" stroke-linecap="round" filter="url(#rtGlow)"/>
+      <!-- 去程：南岸往東 -->
+      <path d="M 100 393 C 245 373, 425 301, 668 161" fill="none"
+            stroke="#8ad9f0" stroke-width="7" stroke-linecap="round" filter="url(#rtGlow)"/>
+
+      <!-- 兩座橋 -->
+      <g stroke="#fff6e0" stroke-width="8" stroke-linecap="round">
+        <path d="M 668 63 L 668 161"/>
+        <path d="M 100 297 L 100 393"/>
+      </g>
+      <g stroke="#fff6e0" stroke-width="3" opacity=".85">
+        <path d="M 655 88 L 681 88"/><path d="M 655 136 L 681 136"/>
+        <path d="M 87 320 L 113 320"/><path d="M 87 370 L 113 370"/>
+      </g>
 
       <!-- 跑向箭頭 -->
-      <g fill="#8ad9f0">
-        <path d="M -11 -9 L 9 0 L -11 9 Z" transform="translate(395 217) rotate(-32)"/>
-        <path d="M -11 -9 L 9 0 L -11 9 Z" transform="translate(245 203) rotate(148)"/>
+      <g>
+        <path d="M -10 -8 L 8 0 L -10 8 Z" fill="#8ad9f0" transform="translate(241 361) rotate(-17)"/>
+        <path d="M -10 -8 L 8 0 L -10 8 Z" fill="#8ad9f0" transform="translate(530 237) rotate(-27)"/>
+        <path d="M -10 -8 L 8 0 L -10 8 Z" fill="#c9a9f0" transform="translate(435 186) rotate(155)"/>
+        <path d="M -10 -8 L 8 0 L -10 8 Z" fill="#c9a9f0" transform="translate(216 272) rotate(164)"/>
       </g>
 
-      <!-- ① 起點/終點：籃球場 -->
-      <circle cx="277" cy="291" r="19" fill="#fff6e0" stroke="#160a2e" stroke-width="4"/>
-      <text x="277" y="298" text-anchor="middle" font-family="'DM Mono',monospace"
-            font-size="19" font-weight="700" fill="#160a2e">1</text>
+      <!-- 起點 / 終點 -->
+      <circle cx="405" cy="297" r="17" fill="#fff6e0" stroke="#160a2e" stroke-width="4"/>
+      <circle cx="405" cy="297" r="6" fill="#160a2e"/>
 
-      <!-- ② 成功橋 -->
-      <circle cx="556" cy="63" r="16" fill="#8ad9f0" stroke="#160a2e" stroke-width="4"/>
-      <text x="556" y="69" text-anchor="middle" font-family="'DM Mono',monospace"
-            font-size="17" font-weight="700" fill="#160a2e">2</text>
+      <g font-family="'Noto Sans TC',sans-serif" font-weight="700">
+        <text x="296" y="292" font-size="24" fill="#dff0ff" opacity=".95" text-anchor="middle"
+              transform="rotate(-20 296 292)">基隆河</text>
+        <text x="668" y="38" font-size="23" fill="#fff6e0" text-anchor="middle">成功橋</text>
+        <text x="100" y="427" font-size="23" fill="#fff6e0" text-anchor="middle">成美橋</text>
+        <text x="428" y="331" font-size="23" fill="#fff6e0">起點・終點</text>
+        <text x="255" y="409" font-size="21" fill="#8ad9f0">去程 · 南岸</text>
+        <text x="432" y="146" font-size="21" fill="#c9a9f0" text-anchor="end">回程 · 北岸</text>
+      </g>
     </svg>
 
-    <ol class="route-legend">
-      <li><span class="rl-num one">1</span><div><b>成美長壽橋籃球場</b><span>起點・終點・接力交接區<br>Google 地圖搜「成美左岸河濱公園籃球場」</span></div></li>
-      <li><span class="rl-num two">2</span><div><b>成功橋</b><span>過橋後沿對岸河濱跑回籃球場</span></div></li>
-    </ol>
+    <ul class="route-legend">
+      <li><span class="rl-dot start"></span><div><b>成美長壽橋籃球場</b><span>起點・終點・接力交接區<br>Google 地圖搜「成美左岸河濱公園籃球場」</span></div></li>
+      <li><span class="rl-dot out"></span><div><b>去程・南岸往東</b><span>沿成美左岸河濱公園跑到成功橋</span></div></li>
+      <li><span class="rl-dot back"></span><div><b>回程・北岸往西</b><span>過成功橋沿對岸河濱往回，經成美橋過河回到籃球場</span></div></li>
+    </ul>
     <p class="route-foot">↑ 路線示意圖，實際跑法以當天現場公告為準。</p>
   </div>
 </section>
