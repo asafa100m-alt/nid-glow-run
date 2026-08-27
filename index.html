@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>NID FAMILY DAY ’26 — 螢光路跑 GLOW RUN 12K</title>
-<meta name="description" content="9/12 成美長壽橋籃球場・NID Family Day｜一圈 3K、跑滿 4 圈 12K。個人組、兩人接力、四人接力，各組前三名獎品由 Viimun 贊助（最高價值 NT$1,398），參賽者人人有派對侍者乙包！" />
+<meta name="description" content="9/12 成美長壽橋籃球場・NID Family Day｜一圈 3K、跑滿 4 圈 12K。個人組、兩人接力、四人接力，各組前三名獎品由 Viimun 贊助（最高價值 NT$1,398），參賽者人人有派對侍者乙包。報名至 9/9 24:00 截止！" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -334,6 +334,26 @@
   .qbox .qu{font-size:11px;font-weight:700;color:#5a5470;}
   @media(max-width:520px){.quota-grid{grid-template-columns:1fr;gap:8px;}.qbox{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;}.qbox .qv{font-size:22px;}}
 
+  /* ───── 報名截止 / 聯絡 / 額滿 ───── */
+  .deadline-bar{max-width:560px;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
+    background:rgba(9,12,34,.55);border:1.5px solid var(--yolk);border-radius:14px;padding:12px 18px;
+    font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.04em;color:var(--yolk);text-align:center;}
+  .deadline-bar b{color:#fff;font-size:14.5px;}
+  .contact-box{max-width:560px;margin:0 auto 30px;background:rgba(20,26,68,.6);border:1.5px solid var(--line);
+    border-radius:16px;padding:16px 20px;font-size:13.5px;line-height:1.75;color:var(--muted);text-align:center;}
+  .contact-box b{color:var(--cream);}
+  .contact-box a{color:var(--calm);text-decoration:none;border-bottom:1.5px solid var(--calm-dim);}
+  .contact-box a:hover{color:#fff;border-bottom-color:#fff;}
+  .opt.is-full span{opacity:.45;text-decoration:line-through;cursor:not-allowed;}
+  .opt.is-full input{pointer-events:none;}
+  .opt .full-tag{display:inline-block;margin-left:8px;font-family:'DM Mono',monospace;font-size:11px;
+    letter-spacing:.08em;color:var(--hotpink);text-decoration:none;}
+  .qbox.is-full .qv{color:var(--hotpink);}
+  .closed-note{background:rgba(9,12,34,.6);border:2px solid var(--hotpink);border-radius:18px;padding:28px 24px;text-align:center;color:var(--cream);}
+  .closed-note h3{font-family:'Bagel Fat One',sans-serif;font-weight:normal;font-size:26px;margin-bottom:10px;}
+  .closed-note p{font-size:14px;line-height:1.8;color:var(--muted);}
+  .closed-note a{color:var(--calm);}
+
   /* ───── 隊友 / 費用 ───── */
   #teamNameField{display:none;}
   #teamNameField.show{display:block;animation:slideDown .25s ease;}
@@ -432,7 +452,7 @@
   <div class="card">
     <div class="card-label">FEE / 費用</div>
     <div class="card-value">學員免費</div>
-    <div class="card-note">非當期學員 NT$350／人・現場現金</div>
+    <div class="card-note">非當期學員 NT$350／人・現場現金<br>報名至 <b>9/9（三）24:00</b></div>
   </div>
 </section>
 
@@ -624,11 +644,15 @@
       <li><strong>報到領什麼：</strong>黃色螢光手環 ×1（工作人員幫你貼上號碼編碼）＋ <b>Viimun 派對侍者 乙包</b> ×1（價值 NT$100）。</li>
       <li><strong>怎麼記圈：</strong>每圈跑回籃球場，教練依編碼畫正字，滿 4 圈（12K）即完賽。</li>
       <li><strong>接力交接：</strong>交接區固定在籃球場終點線，跑回終點後由下一棒接續出發。</li>
-      <li><strong>費用：</strong>NID 當期學員免費；非當期學員每人 NT$350，當天報到時現場現金繳。</li>
+      <li><strong>報名截止：</strong><b>2026/9/9（三）24:00</b>，額滿或截止即關閉，不再開放。</li>
+      <li><strong>費用：</strong>NID 當期學員免費；非當期學員每人 NT$350，當天報到時現場現金繳。<b>學員身分於報到時現場查核。</b></li>
+      <li><strong>未成年：</strong>未滿 18 歲須由家長或監護人<b>全程陪同</b>，報到時一併說明；未滿 12 歲不建議參加 12K。</li>
+      <li><strong>取消／改期：</strong>報名後如需取消或更換隊友，請到 <b>NID 官方 LINE</b> 私訊小編。</li>
       <li><strong>造型自備：</strong>現場只發手環，發光配件、亮色服裝請自行準備，越亮越好認 ✨</li>
       <li><strong>安全第一：</strong>夜跑請跟隨教練指引，未成年須家長陪同。</li>
       <li><strong>雨天備案：</strong>若天候不佳，將於前一日 18:00 前公告延期，報名自動保留。</li>
       <li><strong>拍照分享：</strong>歡迎標記 <strong>@NIDRUNCLUB</strong>，一起把這一夜傳出去。</li>
+      <li><strong>個人資料：</strong>報名填寫的姓名、Email、電話與緊急聯絡人，僅用於<b>本場活動的報到、聯繫與緊急處理</b>，不會提供給第三方（含合作廠商）。活動結束三個月後刪除。</li>
     </ul>
   </div>
 </section>
@@ -639,10 +663,17 @@
     <p class="form-eyebrow">// REGISTRATION OPEN //</p>
     <h2 class="form-title">立刻 <em>報名</em></h2>
 
+    <div class="deadline-bar">報名截止 <b>2026/9/9（三）24:00</b> · 額滿或截止即關閉</div>
+
     <div class="quota-grid">
       <div class="qbox"><div class="qn">個人組</div><div class="qv" id="qSolo">…</div><div class="qu">/ 22 名額</div></div>
       <div class="qbox"><div class="qn">兩人接力</div><div class="qv" id="qDuo">…</div><div class="qu">/ 15 隊</div></div>
       <div class="qbox"><div class="qn">四人接力</div><div class="qv" id="qQuad">…</div><div class="qu">/ 12 隊</div></div>
+    </div>
+
+    <div class="contact-box">
+      報名前有問題？想<b>取消或改期</b>？<br>
+      直接到 <b>NID 官方 LINE</b> 私訊小編 —— <a href="https://line.me/ti/g2/5BBOmVbrCiD6m8Uzy6xigwzM1qihEJ_U0JUcKA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener noreferrer">點這裡加入／私訊</a>
     </div>
 
     <form id="regForm" novalidate>
@@ -699,6 +730,18 @@
         <p class="err" data-for="phone">請填寫正確的手機號碼</p>
       </div>
 
+      <div class="field">
+        <label for="emgName">緊急聯絡人 <span class="req">*</span></label>
+        <input type="text" id="emgName" name="emgName" required autocomplete="off" placeholder="姓名（例如：家人、朋友）" />
+        <p class="err" data-for="emgName">請填寫緊急聯絡人姓名</p>
+      </div>
+
+      <div class="field">
+        <label for="emgPhone">緊急聯絡人電話 <span class="req">*</span></label>
+        <input type="tel" id="emgPhone" name="emgPhone" required inputmode="tel" autocomplete="off" placeholder="09xx-xxx-xxx" />
+        <p class="err" data-for="emgPhone">請填寫正確的緊急聯絡人電話</p>
+      </div>
+
       <!-- 隊友資料（依組別動態產生） -->
       <div class="field" id="membersField"></div>
 
@@ -707,7 +750,7 @@
         <div class="fee-live">
           <span class="fee-amt" id="feeAmount">NT$0</span>
           <span id="feeDetail">選好組別與戰隊後，這裡會自動算出當天要繳的金額。</span><br>
-          <small>💵 非 NID 當期學員每人 NT$350，當天報到時現場現金繳款即可。</small>
+          <small>💵 非 NID 當期學員每人 NT$350，當天報到時現場現金繳款即可。學員身分於報到時現場查核。</small>
         </div>
       </div>
 
@@ -735,6 +778,8 @@
               <li style="margin-bottom:12px;">本人出於自由意志同意參與恩艾迪有限公司主辦的運動課程。本人已詳細閱覽本活動相關說明及規定，知悉本活動具有一定的風險，本人同意承擔本活動可能發生之所有風險。本活動可能發生的風險包括但不限於活動過程中可能會有推擠、碰撞、翻滾等行為，且該等行為可能會造人身上傷害及財產上損失。</li>
               <li style="margin-bottom:12px;">為將本活動可能產生之風險降至最低，本人遵守本活動相關規定及配合工作人員的指示，做好自我管理，避免造成自己或他人人身上傷害或財產上損失，並承諾在本活動期間不會從事不正當行為。如有違反，恩艾迪有限公司及其人員有權禁止本人參與活動，並無庸負擔任何損害賠償責任。</li>
               <li style="margin-bottom:12px;">本人知悉本課程不包含保險，如須個人保險，請自行加保。</li>
+              <li style="margin-bottom:12px;">本人同意恩艾迪有限公司為辦理本活動之報到、聯繫、緊急處理及成績公告之目的，蒐集、處理及利用本人於報名時所填寫之姓名、電子郵件、電話及緊急聯絡人資料。上述資料不會提供予第三人（含合作廠商）作行銷使用，並於活動結束三個月後刪除。本人得依個人資料保護法規定，隨時請求查詢、更正或刪除，請洽 NID 官方 LINE。</li>
+              <li style="margin-bottom:12px;">未滿十八歲之參加者，須由家長或法定監護人陪同參加並同意本聲明；報到時應配合工作人員確認。</li>
               <li style="margin-bottom:12px;">本人同意並授權恩艾迪有限公司拍攝、使用、改做、修飾、公開展示本人之肖像(包含照片及視訊影像，以下簡稱肖像)、名字、聲音…等，於本活動中所拍攝之作品。本人同意恩艾迪有限公司就上述著作（內含上述授權之肖像、名字、聲音等）享有完整之著作權，其被授權人及繼受人得使用本人之肖像、名字、聲音…等於所有形式的著作載體及媒體。恩艾迪有限公司得以各種管道或印刷方式呈現授權內容之全部或部分、並可公開發表，無須再通知或經由本人同意。（若不希望工作室使用，請提前告知）</li>
               <li style="margin-bottom:12px;">本人於此聲明並保證健康狀況良好，無心臟病、高血壓、糖尿病、氣喘及其它重大疾病；健康狀況適合參加本活動。若活動中發生任何意外事件，願自行負責。</li>
               <li style="margin-bottom:12px;">主辦單位保有修改、變更或暫停本活動之權利，如有未盡事宜，悉依主辦單位相關規定或解釋，並得隨時補充公告之。參加者一旦參加本活動，則表示同意接受本辦法之規範。</li>
@@ -799,6 +844,8 @@
   };
 
   const DEMO = !SCRIPT_URL || SCRIPT_URL.indexOf("REPLACE_WITH") !== -1;
+  let REG_CLOSED = false;
+  const QUOTA_LEFT = { solo: null, duo: null, quad: null };
 
   const form            = document.getElementById("regForm");
   const submitBtn       = document.getElementById("submitBtn");
@@ -844,12 +891,14 @@
         +   '<select name="member' + i + 'Club" class="member-select">' + clubOptionsHtml() + '</select>'
         +   '<input type="email" name="member' + i + 'Email" class="friend-input" placeholder="Email（必填）" autocomplete="off" />'
         +   '<input type="tel"   name="member' + i + 'Phone" class="friend-input" placeholder="手機號碼（必填）" inputmode="tel" autocomplete="off" />'
+        +   '<input type="text"  name="member' + i + 'EmgName"  class="friend-input" placeholder="緊急聯絡人姓名（必填）" autocomplete="off" />'
+        +   '<input type="tel"   name="member' + i + 'EmgPhone" class="friend-input" placeholder="緊急聯絡人電話（必填）" inputmode="tel" autocomplete="off" />'
         + '</div>';
     }
     html += '<p style="font-size:12px;color:#666;line-height:1.6;margin-top:4px;">'
-         +  '💡 每位隊友的姓名、戰隊、Email、手機皆為<strong>必填</strong>；報名成功後，每個人都會收到自己的確認信與手環編碼。'
+         +  '💡 每位隊友的姓名、戰隊、Email、手機與緊急聯絡人皆為<strong>必填</strong>；報名成功後，每個人都會收到自己的確認信與手環編碼。'
          +  '</p>'
-         +  '<p class="err" id="membersErr" style="margin-top:6px;">請完整填寫所有隊友的姓名、戰隊、Email 與手機號碼</p>';
+         +  '<p class="err" id="membersErr" style="margin-top:6px;">請完整填寫所有隊友的姓名、戰隊、Email、手機與緊急聯絡人</p>';
     membersField.innerHTML = html;
     membersField.classList.add("show");
     membersField.querySelectorAll(".member-select").forEach(function (s) {
@@ -913,15 +962,23 @@
     const payload = Object.fromEntries(new FormData(form).entries());
     let valid = true;
 
+    if (REG_CLOSED) { alert("報名已於 2026/9/9（三）24:00 截止。\n如仍想參加，請到 NID 官方 LINE 私訊小編。"); return; }
+
     const cat = payload.category || "";
     const cfg = CATS[cat];
     if (!cfg) { showErr("category", true); valid = false; }
+    else if (QUOTA_LEFT[cfg.quotaKey] === 0) {
+      alert("「" + cat + "」已經額滿了 😢\n可以換另一個組別，或到 NID 官方 LINE 問問看。");
+      return;
+    }
 
     if (cfg && cfg.size > 1 && !(payload.teamName || "").trim()) { showErr("teamName", true); valid = false; }
     if (!(payload.name || "").trim())  { showErr("name", true);  valid = false; }
     if (!payload.club)                 { showErr("club", true);  valid = false; }
     if (!payload.email || !EMAIL_RE.test(payload.email)) { showErr("email", true); valid = false; }
     if (!payload.phone || !PHONE_RE.test(payload.phone.trim())) { showErr("phone", true); valid = false; }
+    if (!(payload.emgName || "").trim()) { showErr("emgName", true); valid = false; }
+    if (!payload.emgPhone || !PHONE_RE.test(payload.emgPhone.trim())) { showErr("emgPhone", true); valid = false; }
 
     if (cfg && cfg.size > 1) {
       let membersValid = true;
@@ -930,10 +987,14 @@
         const cl = (payload["member" + i + "Club"]  || "").trim();
         const em = (payload["member" + i + "Email"] || "").trim();
         const ph = (payload["member" + i + "Phone"] || "").trim();
+        const en = (payload["member" + i + "EmgName"]  || "").trim();
+        const ep = (payload["member" + i + "EmgPhone"] || "").trim();
         if (!nm) { form.querySelector('[name="member' + i + 'Name"]').classList.add("has-error");  valid = false; membersValid = false; }
         if (!cl) { form.querySelector('[name="member' + i + 'Club"]').classList.add("has-error");  valid = false; membersValid = false; }
         if (!em || !EMAIL_RE.test(em)) { form.querySelector('[name="member' + i + 'Email"]').classList.add("has-error"); valid = false; membersValid = false; }
         if (!ph || !PHONE_RE.test(ph)) { form.querySelector('[name="member' + i + 'Phone"]').classList.add("has-error"); valid = false; membersValid = false; }
+        if (!en) { form.querySelector('[name="member' + i + 'EmgName"]').classList.add("has-error"); valid = false; membersValid = false; }
+        if (!ep || !PHONE_RE.test(ep)) { form.querySelector('[name="member' + i + 'EmgPhone"]').classList.add("has-error"); valid = false; membersValid = false; }
       }
       const membersErr = document.getElementById("membersErr");
       if (membersErr) membersErr.classList.toggle("show", !membersValid);
@@ -988,6 +1049,12 @@
         return;
       }
 
+      if (result.status === "closed") {
+        alert(result.message || "報名已截止。");
+        lockForm("報名已截止", result.message || "");
+        return;
+      }
+
       if (result.status === "full") {
         alert("很可惜，「" + (result.category || "這個組別") + "」的名額已經滿了 😢\n可以換另一個組別，或關注 NID 之後的活動！");
       } else {
@@ -1004,8 +1071,19 @@
     }
   });
 
+  // 把整個表單換成一段說明（截止時用）
+  function lockForm(title, msg) {
+    const box = document.createElement("div");
+    box.className = "closed-note";
+    box.innerHTML = '<h3>' + title + '</h3><p>' + msg +
+      '<br>如仍想參加，請到 <a href="https://line.me/ti/g2/5BBOmVbrCiD6m8Uzy6xigwzM1qihEJ_U0JUcKA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" rel="noopener noreferrer">NID 官方 LINE</a> 私訊小編。</p>';
+    form.style.display = "none";
+    form.parentNode.insertBefore(box, form);
+  }
+
   async function loadQuota() {
     const map = { solo: "qSolo", duo: "qDuo", quad: "qQuad" };
+    const catOf = { solo: "個人組", duo: "兩人接力", quad: "四人接力" };
     if (DEMO) {
       Object.values(map).forEach(function (id) { document.getElementById(id).textContent = "—"; });
       return;
@@ -1013,10 +1091,35 @@
     try {
       const res = await fetch(SCRIPT_URL + "?action=quota");
       const j = await res.json();
+
       Object.keys(map).forEach(function (k) {
         const el = document.getElementById(map[k]);
-        el.textContent = (j[k] && typeof j[k].left === "number") ? j[k].left : "—";
+        const left = (j[k] && typeof j[k].left === "number") ? j[k].left : null;
+        QUOTA_LEFT[k] = left;
+        el.textContent = (left === null) ? "—" : left;
+        el.closest(".qbox").classList.toggle("is-full", left === 0);
+
+        // 額滿的組別直接鎖住，不要讓人填完才被擋
+        const radio = form.querySelector('input[name="category"][value="' + catOf[k] + '"]');
+        if (radio) {
+          const opt = radio.closest(".opt");
+          const isFull = left === 0;
+          radio.disabled = isFull;
+          opt.classList.toggle("is-full", isFull);
+          if (isFull && !opt.querySelector(".full-tag")) {
+            const tag = document.createElement("span");
+            tag.className = "full-tag";
+            tag.textContent = "已額滿";
+            opt.querySelector("span").appendChild(tag);
+          }
+          if (isFull && radio.checked) { radio.checked = false; renderMembers(""); updateFee(); }
+        }
       });
+
+      if (j.closed) {
+        REG_CLOSED = true;
+        lockForm("報名已截止", "本場報名已於 <b>" + (j.deadline || "2026/9/9（三）24:00") + "</b> 截止。");
+      }
     } catch (e) {
       Object.values(map).forEach(function (id) { document.getElementById(id).textContent = "—"; });
     }

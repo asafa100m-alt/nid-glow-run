@@ -19,6 +19,7 @@
  *   兩人接力 1 人跑 2 圈   · 15 隊名額
  *   四人接力 1 人跑 1 圈   · 12 隊名額
  *   三組各取前三名，獎品由合作廠商 Viimun 提供；每位參賽者另有派對侍者乙包（價值 100 元）
+ *   報名截止：2026/9/9 24:00（REG_DEADLINE），截止後 POST 一律回 status:"closed" 
  *
  * 名單編碼：個人 A01…／兩人 B01-1、B01-2…／四人 C01-1…C01-4
  *          列印頁把編碼剪下貼在（黃色）螢光手環上，教練依名單畫正字記圈。
@@ -48,6 +49,10 @@ const PRIZES = [
 ];
 const LINE_GROUP_URL = 'https://line.me/ti/g2/5BBOmVbrCiD6m8Uzy6xigwzM1qihEJ_U0JUcKA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default';
 // ───────────────────────────────────────
+
+// 報名截止：2026/9/9 24:00（＝9/10 00:00 之前都可報名）
+const REG_DEADLINE      = new Date('2026-09-09T23:59:59+08:00');
+const REG_DEADLINE_TEXT = '2026/9/9（三）24:00';
 
 const SHEET_ID   = '__SHEET_ID__';   // 實際值只設在 Apps Script 專案裡，不放進這個公開 repo
 const SHEET_NAME = '12K報名名單';   // 舊的 5K/7K 名單保留在原分頁，不動它
@@ -87,7 +92,8 @@ const MAX_SUBMITS_PER_MIN = 60;
 
 const HEADERS = [
   '報名時間', '組別', '隊伍編號', '隊伍名稱', '棒次', '手環編碼',
-  '姓名', '隸屬戰隊', 'Email', '電話', '需繳費', '金額', '負責圈數',
+  '姓名', '隸屬戰隊', 'Email', '電話', '緊急聯絡人', '緊急聯絡電話',
+  '需繳費', '金額', '已收款', '負責圈數', '完賽名次',
   '報名原因', '代表人Email'
 ];
 const C = {};   // 欄位名 -> 1-based 欄號
@@ -154,9 +160,21 @@ function quotaSnapshot_(rows) {
 // 下一個隊伍編號，例如 A01 / B07 / C12
 function nextTeamNo_(rows, cat) {
   const cfg = CATEGORIES[cat];
-  const used = usedByCategory_(rows);
-  const n = used[cat] + 1;
+  // 取「現有最大號 + 1」，不能用數量+1：
+  // 若中途刪掉某一隊（有人取消），數量會變少，下一號就會跟現有隊伍撞號。
+  let max = 0;
+  rows.forEach(function (r) {
+    if (String(r[C['組別'] - 1] || '').trim() !== cat) return;
+    const m = String(r[C['隊伍編號'] - 1] || '').trim().match(/^([A-Z])(\d+)$/);
+    if (m && m[1] === cfg.prefix) max = Math.max(max, Number(m[2]));
+  });
+  const n = max + 1;
   return cfg.prefix + (n < 10 ? '0' + n : String(n));
+}
+
+// 報名是否已截止
+function regClosed_() {
+  return new Date().getTime() > REG_DEADLINE.getTime();
 }
 
 // 手環編碼：個人組就是隊伍編號；接力組是「隊伍編號-棒次」
@@ -256,18 +274,24 @@ function validate_(raw) {
     const nameKey  = seat === 1 ? 'name'  : 'member' + seat + 'Name';
     const clubKey  = seat === 1 ? 'club'  : 'member' + seat + 'Club';
     const emailKey = seat === 1 ? 'email' : 'member' + seat + 'Email';
-    const phoneKey = seat === 1 ? 'phone' : 'member' + seat + 'Phone';
+    const phoneKey = seat === 1 ? 'phone'    : 'member' + seat + 'Phone';
+    const emgNKey  = seat === 1 ? 'emgName'  : 'member' + seat + 'EmgName';
+    const emgPKey  = seat === 1 ? 'emgPhone' : 'member' + seat + 'EmgPhone';
     const who = seat === 1 ? '報名代表人' : ('第 ' + seat + ' 棒');
 
     const name  = clean_(raw[nameKey], MAX_LEN_NAME);
     const club  = clean_(raw[clubKey], MAX_LEN_NAME);
     const email = clean_(raw[emailKey], MAX_LEN_EMAIL).toLowerCase();
     const phone = clean_(raw[phoneKey], MAX_LEN_PHONE);
+    const emgName  = clean_(raw[emgNKey], MAX_LEN_NAME);
+    const emgPhone = clean_(raw[emgPKey], MAX_LEN_PHONE);
 
     if (!name)  return { ok: false, message: '請填寫' + who + '的姓名。' };
     if (ALLOWED_CLUBS.indexOf(club) === -1) return { ok: false, message: '請從清單選擇' + who + '的隸屬戰隊。' };
     if (!isEmail_(email)) return { ok: false, message: who + '的 Email 格式不正確。' };
     if (!isPhone_(phone)) return { ok: false, message: '請填寫' + who + '的手機號碼（至少 8 位數字）。' };
+    if (!emgName) return { ok: false, message: '請填寫' + who + '的緊急聯絡人姓名。' };
+    if (!isPhone_(emgPhone)) return { ok: false, message: who + '的緊急聯絡人電話格式不正確。' };
     if (seenEmail[email]) return { ok: false, message: '同一隊裡的 Email 不能重複（' + email + '）。' };
     seenEmail[email] = true;
 
@@ -277,6 +301,8 @@ function validate_(raw) {
       club: club,
       email: email,
       phone: phone,
+      emgName: emgName,
+      emgPhone: emgPhone,
       fee: (club === NON_MEMBER) ? FEE_PER_PERSON : 0
     });
   }
@@ -300,6 +326,10 @@ function rowsFromData_(d, teamNo, stamp) {
     row[C['Email'] - 1]      = safeCell_(m.email);
     // 前面加單引號強制存成文字，否則 09xxxxxxxx 會被試算表當數字、開頭的 0 會不見
     row[C['電話'] - 1]       = m.phone ? "'" + m.phone : '';
+    row[C['緊急聯絡人'] - 1]   = safeCell_(m.emgName);
+    row[C['緊急聯絡電話'] - 1] = m.emgPhone ? "'" + m.emgPhone : '';
+    row[C['已收款'] - 1]      = '';
+    row[C['完賽名次'] - 1]    = '';
     row[C['需繳費'] - 1]     = m.fee > 0 ? '是' : '否';
     row[C['金額'] - 1]       = m.fee;
     row[C['負責圈數'] - 1]   = cfg.laps;
@@ -347,6 +377,7 @@ function teamTable_(d, teamNo) {
     + '<td style="border:1px solid #ddd;background:#f7f7f7;padding:6px"><b>姓名</b></td>'
     + '<td style="border:1px solid #ddd;background:#f7f7f7;padding:6px"><b>戰隊</b></td>'
     + '<td style="border:1px solid #ddd;background:#f7f7f7;padding:6px"><b>電話</b></td>'
+    + '<td style="border:1px solid #ddd;background:#f7f7f7;padding:6px"><b>緊急聯絡人</b></td>'
     + '<td style="border:1px solid #ddd;background:#f7f7f7;padding:6px"><b>材料費</b></td></tr>';
   d.members.forEach(function (m) {
     html += '<tr>'
@@ -355,6 +386,7 @@ function teamTable_(d, teamNo) {
       + '<td style="border:1px solid #ddd;padding:6px">' + esc_(m.name) + '</td>'
       + '<td style="border:1px solid #ddd;padding:6px">' + esc_(m.club) + '</td>'
       + '<td style="border:1px solid #ddd;padding:6px">' + esc_(m.phone) + '</td>'
+      + '<td style="border:1px solid #ddd;padding:6px">' + esc_(m.emgName) + ' ' + esc_(m.emgPhone) + '</td>'
       + '<td style="border:1px solid #ddd;padding:6px">' + (m.fee > 0 ? 'NT$' + m.fee : '免費') + '</td>'
       + '</tr>';
   });
@@ -530,6 +562,8 @@ function printPage_(rows) {
     + '· 工作人員共 <b>3 位</b>：建議 1 位負責報到 / 發手環 / 收現金，2 位在終點線負責計圈畫正字與接力交接。<br>'
     + '· 沿基隆河繞一圈（東端成功橋過河走北岸，西端成美長壽橋過河回來；中途從成美橋下通過），每跑回成美長壽橋籃球場算一圈，依編碼在計圈表畫正字；個人組 4 圈、兩人接力每人 2 圈、四人接力每人 1 圈。<br>'
     + '· 每人報到時發一份 <b>' + esc_(GIFT_ALL) + '</b>，跟手環一起給，發完在名單上打勾。<br>'
+    + '· 收 <b>NT$350</b> 時同時<b>核對是否為 NID 當期學員</b>，收到後在「材料費／收款」欄打勾。<br>'
+    + '· 名次欄當場寫，賽後回填到試算表的「完賽名次」欄。<br>'
     + '· 三組各取<b>前三名</b>，務必記錄每組的完賽順序。獎品（' + esc_(SPONSOR_NAME) + ' 提供）：'
     + PRIZES.map(function (p) { return p.rank + '＝' + p.item; }).join('；') + '。</div>';
 
@@ -550,7 +584,7 @@ function printPage_(rows) {
     if (!group.length) { html += '<p class="sub">目前沒有這個組別的報名。</p>'; return; }
     html += '<table><tr><th style="width:92px">手環編碼</th><th style="width:96px">姓名</th>'
       + '<th style="width:96px">戰隊</th>' + (CATEGORIES[cat].size > 1 ? '<th style="width:110px">隊伍</th>' : '')
-      + '<th style="width:120px">圈數 □</th><th>正字紀錄</th><th style="width:58px">參加禮</th><th style="width:78px">材料費</th><th style="width:86px">完賽時間</th></tr>';
+      + '<th style="width:120px">圈數 □</th><th>正字紀錄</th><th style="width:52px">參加禮</th><th style="width:96px">材料費／收款</th><th style="width:62px">名次</th></tr>';
     let lastNo = '';
     group.forEach(function (p) {
       let boxes = '';
@@ -563,7 +597,7 @@ function printPage_(rows) {
         + '<td class="lapbox">' + boxes + '</td>'
         + '<td class="tally"></td>'
         + '<td style="text-align:center">□</td>'
-        + '<td class="' + (p.pay ? 'pay' : 'free') + '">' + (p.pay ? 'NT$' + p.fee : '免費') + '</td>'
+        + '<td class="' + (p.pay ? 'pay' : 'free') + '">' + (p.pay ? 'NT$' + p.fee + '　□收' : '免費') + '</td>'
         + '<td></td></tr>';
     });
     html += '</table>';
@@ -584,7 +618,10 @@ function doGet(e) {
   const action = p.action || '';
 
   if (action === 'quota') {
-    return jsonOut_(quotaSnapshot_(allRows_(getSheet_())));
+    const snap = quotaSnapshot_(allRows_(getSheet_()));
+    snap.closed = regClosed_();
+    snap.deadline = REG_DEADLINE_TEXT;
+    return jsonOut_(snap);
   }
 
   if (action === 'print') {
@@ -611,6 +648,11 @@ function doPost(e) {
     }
     if (!raw || typeof raw !== 'object') {
       return jsonOut_({ status: 'error', message: '報名資料格式不正確，請重新整理頁面再試一次。' });
+    }
+
+    if (regClosed_()) {
+      return jsonOut_({ status: 'closed',
+        message: '報名已於 ' + REG_DEADLINE_TEXT + ' 截止了。如仍想參加，請到 NID 官方 LINE 私訊小編詢問。' });
     }
 
     if (rateLimited_()) {
