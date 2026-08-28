@@ -783,7 +783,10 @@ function doPost(e) {
 
       const dup = findDuplicateEmail_(rows, d.members.map(function (m) { return m.email; }));
       if (dup) {
-        return jsonOut_({ status: 'error', message: '這個 Email（' + dup + '）已經報名過了。如需修改資料或換組別，請直接聯絡 NID 教練。' });
+        // 有人可能是「送出成功但網路斷了」才重送，訊息要講清楚他其實已經報成功了
+        return jsonOut_({ status: 'error', message: '這個 Email（' + dup + '）已經報名過了。'
+          + '如果你剛剛送出過，代表已經報名成功，確認信會寄到這個信箱（也請看一下垃圾郵件匣）。'
+          + '如需修改資料或換組別，請私訊 NID 官方 LINE。' });
       }
 
       const cfg = CATEGORIES[d.category];
