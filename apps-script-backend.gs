@@ -924,16 +924,19 @@ function buildSticker_(ss) {
     const used = seatsUsed_(cat);
     const rows = closed ? Math.max(used, 1) : seatsOf_(cat);
     const sample = cfg.size === 1 ? cfg.prefix + '01、' + cfg.prefix + '02…'
-                                  : cfg.prefix + '01-1 ～ ' + cfg.prefix + '01-' + cfg.size + '，下一隊 ' + cfg.prefix + '02-1…';
+                                  : cfg.prefix + '01-1…' + cfg.prefix + '01-' + cfg.size + '、' + cfg.prefix + '02-1…';
 
+    const label = cat + '　·　' + (cfg.size === 1 ? '1 人跑 ' + cfg.laps + ' 圈'
+                                                   : cfg.size + ' 人接力 · 每人 ' + cfg.laps + ' 圈') +
+                  '　·　' + sample + '　·　';
+    // 人數用公式即時算，不然報名進來標題還停在舊數字
     sh.getRange(r, 1, 1, COLS).merge()
-      .setValue(cat + '　｜　' + (cfg.size === 1 ? '1 人跑 ' + cfg.laps + ' 圈'
-                                                : cfg.size + ' 人接力，每人 ' + cfg.laps + ' 圈') +
-                '　｜　編碼 ' + sample + '　｜　目前 ' + used + ' 人 / 上限 ' + seatsOf_(cat) + ' 人')
+      .setFormula('="' + label + '"&COUNTA(' + "'" + SHEET_NAMES[cat] + "'" + '!F2:F)&" / ' + seatsOf_(cat) + ' 人"')
+      .setWrap(true)
       .setFontWeight('bold').setFontSize(12)
       .setBackground('#4a5288').setFontColor('#ffffff')
       .setVerticalAlignment('middle');
-    sh.setRowHeight(r, 28);
+    sh.setRowHeight(r, 34);
     r++;
 
     sh.getRange(r, 1, 1, COLS).setValues([HDR])
