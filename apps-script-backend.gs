@@ -24,7 +24,8 @@
  * 名單編碼：個人 A01…／兩人 B01-1、B01-2…／四人 C01-1…C01-4
  *          列印頁把編碼剪下貼在（黃色）螢光手環上，教練依名單畫正字記圈。
  *
- * 資料表：每一位參賽者一列（接力隊伍會有多列，用同一個「隊伍編號」串起來）。
+ * 資料表：三個組別各一個分頁（個人組 / 兩人接力 / 四人接力），欄位完全相同。
+ *         每一位參賽者一列（接力隊伍會有多列，用同一個「隊伍編號」串起來）。
  */
 
 // ─────────────── 寄信設定 ───────────────
@@ -56,7 +57,12 @@ const REG_DEADLINE      = new Date('2026-09-09T23:59:59+08:00');
 const REG_DEADLINE_TEXT = '2026/9/9（三）24:00';
 
 const SHEET_ID   = '__SHEET_ID__';   // 實際值只設在 Apps Script 專案裡，不放進這個公開 repo
-const SHEET_NAME = '12K報名名單';   // 舊的 5K/7K 名單保留在原分頁，不動它
+// 三個組別各自一個分頁，報名進來就寫到對應的那一頁
+const SHEET_NAMES = {
+  '個人組':   '個人組',
+  '兩人接力': '兩人接力',
+  '四人接力': '四人接力'
+};
 
 // 列印頁鑰匙：網址要帶 ?action=print&key=<這串>，避免名單被路過的人看到
 const PRINT_KEY = '__PRINT_KEY__';   // 實際值只設在 Apps Script 專案裡，不放進這個公開 repo
@@ -100,11 +106,13 @@ const HEADERS = [
 const C = {};   // 欄位名 -> 1-based 欄號
 HEADERS.forEach(function (h, i) { C[h] = i + 1; });
 
-function getSheet_() {
+function getSheet_(cat) {
+  const name = SHEET_NAMES[cat];
+  if (!name) throw new Error('未知的組別：' + cat);
   const ss = SpreadsheetApp.openById(SHEET_ID);
-  let sheet = ss.getSheetByName(SHEET_NAME);
+  let sheet = ss.getSheetByName(name);
   if (!sheet) {
-    sheet = ss.insertSheet(SHEET_NAME);
+    sheet = ss.insertSheet(name);
   }
   const last = sheet.getLastRow();
   if (last === 0) {
@@ -192,17 +200,31 @@ function colA1_(idx) {
   return s;
 }
 
-/** 在編輯器手動執行一次，就會把名單分頁排版好。 */
+/** 在編輯器手動執行一次，就會把三個名單分頁都建好並排版。 */
 function setupSheet() {
-  formatSheet_(getSheet_());
-  return '已整理：' + SHEET_NAME;
+  const names = [];
+  CATEGORY_ORDER.forEach(function (cat) {
+    formatSheet_(getSheet_(cat));
+    names.push(SHEET_NAMES[cat]);
+  });
+  return '已整理：' + names.join('、');
 }
 
-// 讀出所有報名資料列（不含表頭）
-function allRows_(sheet) {
+// 讀出單一分頁的報名資料列（不含表頭）
+function sheetRows_(sheet) {
   const last = sheet.getLastRow();
   if (last < 2) return [];
   return sheet.getRange(2, 1, last - 1, HEADERS.length).getValues();
+}
+
+// 讀出三個分頁的所有報名資料列
+// 名額、Email 重複、隊伍編號都要看全部，所以一律用這個
+function allRows_() {
+  let out = [];
+  CATEGORY_ORDER.forEach(function (cat) {
+    out = out.concat(sheetRows_(getSheet_(cat)));
+  });
+  return out;
 }
 
 // 每個組別已經用掉幾個名額（個人組算人、接力組算不重複的隊伍編號）
@@ -697,7 +719,7 @@ function doGet(e) {
   const action = p.action || '';
 
   if (action === 'quota') {
-    const snap = quotaSnapshot_(allRows_(getSheet_()));
+    const snap = quotaSnapshot_(allRows_());
     snap.closed = regClosed_();
     snap.deadline = REG_DEADLINE_TEXT;
     return jsonOut_(snap);
@@ -707,7 +729,7 @@ function doGet(e) {
     if (p.key !== PRINT_KEY) {
       return HtmlService.createHtmlOutput('<p style="font-family:sans-serif;padding:24px">網址不完整，請向工作人員索取正確的列印頁連結。</p>');
     }
-    return printPage_(allRows_(getSheet_()));
+    return printPage_(allRows_());
   }
 
   return jsonOut_({ status: 'ok', message: 'NID Glow Run 12K backend running' });
@@ -753,8 +775,7 @@ function doPost(e) {
     let teamNo = '';
     let quota;
     try {
-      const sheet = getSheet_();
-      const rows = allRows_(sheet);
+      const rows = allRows_();
 
       const dup = findDuplicateEmail_(rows, d.members.map(function (m) { return m.email; }));
       if (dup) {
@@ -770,6 +791,7 @@ function doPost(e) {
       teamNo = nextTeamNo_(rows, d.category);
       const stamp = new Date();
       const newRows = rowsFromData_(d, teamNo, stamp);
+      const sheet = getSheet_(d.category);   // 依組別寫進對應的分頁
       sheet.getRange(sheet.getLastRow() + 1, 1, newRows.length, HEADERS.length).setValues(newRows);
       SpreadsheetApp.flush();
 
@@ -804,13 +826,15 @@ function printUrl() {
 }
 
 /**
- * 【上線前一次性使用】清除 12K 報名名單的所有資料列（保留第 1 列表頭）。
+ * 【上線前一次性使用】清除三個報名分頁的所有資料列（保留第 1 列表頭）。
  * 用法：上方函式下拉選 resetSheet → 執行。正式開放後勿再執行。
  */
 function resetSheet() {
-  const sheet = getSheet_();
-  const last = sheet.getLastRow();
-  if (last > 1) {
-    sheet.getRange(2, 1, last - 1, sheet.getMaxColumns()).clearContent();
-  }
+  CATEGORY_ORDER.forEach(function (cat) {
+    const sheet = getSheet_(cat);
+    const last = sheet.getLastRow();
+    if (last > 1) {
+      sheet.getRange(2, 1, last - 1, sheet.getMaxColumns()).clearContent();
+    }
+  });
 }
