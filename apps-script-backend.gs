@@ -47,7 +47,8 @@ const PRIZES = [
   { rank: '第二名', item: '派對侍者 乙盒',                   value: 'NT$799'   },
   { rank: '第三名', item: '夜寧使者 乙盒',                   value: 'NT$599'   }
 ];
-const LINE_GROUP_URL = 'https://line.me/ti/g2/5BBOmVbrCiD6m8Uzy6xigwzM1qihEJ_U0JUcKA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default';
+const LINE_GROUP_URL    = 'https://line.me/ti/g2/5BBOmVbrCiD6m8Uzy6xigwzM1qihEJ_U0JUcKA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default'; // 活動 LINE 社群（當天公告用）
+const LINE_OFFICIAL_URL = 'https://page.line.me/eei8717i'; // NID 官方 LINE（詢問／取消／改期）
 // ───────────────────────────────────────
 
 // 報名截止：2026/9/9 24:00（＝9/10 00:00 之前都可報名）
@@ -108,17 +109,93 @@ function getSheet_() {
   const last = sheet.getLastRow();
   if (last === 0) {
     sheet.appendRow(HEADERS);
-    sheet.setFrozenRows(1);
+    formatSheet_(sheet);
   } else if (last === 1) {
     // 只有表頭、還沒有報名資料 —— 欄位定義若有調整就直接補上
     const cur = sheet.getRange(1, 1, 1, sheet.getMaxColumns()).getValues()[0]
                      .slice(0, HEADERS.length).join('\u0001');
     if (cur !== HEADERS.join('\u0001')) {
       sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
-      sheet.setFrozenRows(1);
+      formatSheet_(sheet);
     }
   }
   return sheet;
+}
+
+// 欄寬（對應 HEADERS 的順序）
+const COL_WIDTHS = [150, 90, 80, 130, 55, 90, 100, 130, 200, 110, 100, 115, 70, 70, 70, 75, 80, 220, 200];
+
+/**
+ * 把名單整理成當天現場好用的樣子：
+ * 凍結＋加粗標題、設欄寬、「已收款」變核取方塊、「完賽名次」變下拉、
+ * 並把「要收錢但還沒收」的列標成淡紅色。
+ * 只動格式與驗證，不會動到任何報名資料。
+ */
+function formatSheet_(sheet) {
+  const n = HEADERS.length;
+  sheet.setFrozenRows(1);
+
+  sheet.getRange(1, 1, 1, n)
+       .setFontWeight('bold')
+       .setFontColor('#ffffff')
+       .setBackground('#2b3157')
+       .setVerticalAlignment('middle')
+       .setWrap(false);
+  sheet.setRowHeight(1, 32);
+
+  COL_WIDTHS.forEach(function (w, i) { sheet.setColumnWidth(i + 1, w); });
+
+  const maxRows = sheet.getMaxRows();
+  if (maxRows < 2) return;
+  const bodyRows = maxRows - 1;
+
+  // 已收款 -> 核取方塊（現場點一下就好）
+  sheet.getRange(2, C['已收款'], bodyRows, 1)
+       .setDataValidation(SpreadsheetApp.newDataValidation().requireCheckbox().build())
+       .setHorizontalAlignment('center');
+
+  // 完賽名次 -> 下拉，但仍可自行輸入
+  sheet.getRange(2, C['完賽名次'], bodyRows, 1)
+       .setDataValidation(SpreadsheetApp.newDataValidation()
+         .requireValueInList(['1', '2', '3', '完賽', '未完賽', '棄賽'], true)
+         .setAllowInvalid(true).build())
+       .setHorizontalAlignment('center');
+
+  // 電話欄位一律當文字，開頭的 0 才不會不見
+  sheet.getRange(2, C['電話'], bodyRows, 1).setNumberFormat('@');
+  sheet.getRange(2, C['緊急聯絡電話'], bodyRows, 1).setNumberFormat('@');
+
+  // 「需繳費 = 是」但「已收款」還沒打勾 -> 整列淡紅，收錢時一眼就看到
+  const body = sheet.getRange(2, 1, bodyRows, n);
+  const col1 = colA1_(C['需繳費']);
+  const col2 = colA1_(C['已收款']);
+  const formula = '=AND(' + '$' + col1 + '2="是", ' + '$' + col2 + '2<>TRUE)';
+  const rule = SpreadsheetApp.newConditionalFormatRule()
+    .whenFormulaSatisfied(formula)
+    .setBackground('#fdeaea')
+    .setRanges([body])
+    .build();
+  // 先移掉自己上次加的同一條規則，避免重複執行時越疊越多
+  const kept = sheet.getConditionalFormatRules().filter(function (r) {
+    const c = r.getBooleanCondition();
+    if (!c) return true;
+    return String(c.getCriteriaValues()[0] || '') !== formula;
+  });
+  kept.push(rule);
+  sheet.setConditionalFormatRules(kept);
+}
+
+// 1 -> 'A', 2 -> 'B' …（欄號轉 A1 表示法）
+function colA1_(idx) {
+  let s = '';
+  while (idx > 0) { const m = (idx - 1) % 26; s = String.fromCharCode(65 + m) + s; idx = (idx - m - 1) / 26; }
+  return s;
+}
+
+/** 在編輯器手動執行一次，就會把名單分頁排版好。 */
+function setupSheet() {
+  formatSheet_(getSheet_());
+  return '已整理：' + SHEET_NAME;
 }
 
 // 讀出所有報名資料列（不含表頭）
@@ -445,6 +522,8 @@ function runnerBody_(d, teamNo, m) {
     + (isSolo ? '' : teamTable_(d, teamNo))
     + '<p>當天集合地點、注意事項都會在活動 LINE 社群公告，請務必加入：<br>'
     + '<a href="' + esc_(LINE_GROUP_URL) + '">加入活動 LINE 社群</a></p>'
+    + '<p style="font-size:14px">需要<b>取消或更換隊友</b>，請私訊 '
+    + '<a href="' + esc_(LINE_OFFICIAL_URL) + '">NID 官方 LINE</a>。</p>'
     + '<p style="margin-top:20px">— ' + esc_(SENDER_NAME) + '</p></div>';
 }
 
