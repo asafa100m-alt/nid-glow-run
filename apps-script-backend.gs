@@ -844,10 +844,29 @@ function buildRaceDaySheets() {
   const ss = SpreadsheetApp.openById(SHEET_ID);
   CATEGORY_ORDER.forEach(function (c) { getSheet_(c); });   // 確保三個報名分頁都在
   const n = allRows_().length;
-  const rows = n + 10;                                      // 多留 10 列給現場補人
-  buildSticker_(ss, rows);
-  buildTally_(ss, rows);
-  return '已更新：' + STICKER_SHEET + '、' + TALLY_SHEET + '（目前 ' + n + ' 人）';
+  buildSticker_(ss);
+  buildTally_(ss, regClosed_() ? n + 2 : maxSeats_());
+  return '已更新：' + STICKER_SHEET + '（三組分開）、' + TALLY_SHEET +
+         '（目前 ' + n + ' 人' + (regClosed_() ? '，已收成實際人數' : '，還在報名，先留滿額空間') + '）';
+}
+
+// 某一組滿額時的總人數（個人組 22、兩人接力 15×2、四人接力 12×4）
+function seatsOf_(cat) {
+  const cfg = CATEGORIES[cat];
+  return cfg.quota * cfg.size;
+}
+
+function maxSeats_() {
+  let t = 0;
+  CATEGORY_ORDER.forEach(function (c) { t += seatsOf_(c); });
+  return t;
+}
+
+// 某一組目前實際報名幾個人
+function seatsUsed_(cat) {
+  return sheetRows_(getSheet_(cat)).filter(function (r) {
+    return String(r[C['手環編碼'] - 1] || '').trim() !== '';
+  }).length;
 }
 
 function titleRow_(sh, cols, text) {
@@ -874,28 +893,67 @@ function headerRow_(sh, headers) {
   sh.setFrozenRows(3);
 }
 
-function buildSticker_(ss, rows) {
+/**
+ * 手環編碼貼紙：個人組 / 兩人接力 / 四人接力 三段分開，各自從 1 開始編號，
+ * 中間空一列方便裁開分袋。報名中會先留到滿額的列數（不會爆版），
+ * 報名截止後再跑一次就會收成實際人數。
+ */
+function buildSticker_(ss) {
   const sh = ss.getSheetByName(STICKER_SHEET) || ss.insertSheet(STICKER_SHEET);
   sh.clear();
   sh.clearConditionalFormatRules();
 
-  const HDR = ['序', '手環編碼', '姓名', '組別', '隊伍名稱'];
-  titleRow_(sh, HDR.length, 'NID 螢光路跑 GLOW RUN 12K｜手環編碼貼紙（沿框裁開，貼在黃色手環上）');
-  noteRow_(sh, HDR.length, '自動連動三個報名分頁。順序＝個人組 → 兩人接力 → 四人接力，組內是報名順序。');
-  headerRow_(sh, HDR);
+  const COLS = 5;
+  const HDR = ['序', '手環編碼', '姓名', '隸屬戰隊', '隊伍名稱'];
+  const closed = regClosed_();
 
-  sh.getRange('A4').setFormula('=ARRAYFORMULA(IF(B4:B="","",ROW(B4:B)-3))');
-  sh.getRange('B4').setFormula(stackQuery_('Col6, Col7, Col2, Col4'));
+  titleRow_(sh, COLS, 'NID 螢光路跑 GLOW RUN 12K｜手環編碼貼紙（沿框裁開，貼在黃色手環上）');
+  noteRow_(sh, COLS, '三組分開、各自從 1 開始編，中間空一列可直接裁開分袋。自動連動報名分頁，組內是報名順序。' +
+    (closed ? '' : '　報名截止後再跑一次 buildRaceDaySheets，空白列就會收乾淨。'));
+  sh.setFrozenRows(2);
 
-  [46, 120, 110, 100, 150].forEach(function (w, i) { sh.setColumnWidth(i + 1, w); });
+  [46, 130, 110, 130, 150].forEach(function (w, i) { sh.setColumnWidth(i + 1, w); });
 
-  const body = sh.getRange(4, 1, rows, HDR.length);
-  body.setBorder(true, true, true, true, true, true, '#333333', SpreadsheetApp.BorderStyle.SOLID)
+  let r = 4;
+  CATEGORY_ORDER.forEach(function (cat) {
+    const cfg  = CATEGORIES[cat];
+    const used = seatsUsed_(cat);
+    const rows = closed ? Math.max(used, 1) : seatsOf_(cat);
+    const sample = cfg.size === 1 ? cfg.prefix + '01、' + cfg.prefix + '02…'
+                                  : cfg.prefix + '01-1 ～ ' + cfg.prefix + '01-' + cfg.size + '，下一隊 ' + cfg.prefix + '02-1…';
+
+    sh.getRange(r, 1, 1, COLS).merge()
+      .setValue(cat + '　｜　' + (cfg.size === 1 ? '1 人跑 ' + cfg.laps + ' 圈'
+                                                : cfg.size + ' 人接力，每人 ' + cfg.laps + ' 圈') +
+                '　｜　編碼 ' + sample + '　｜　目前 ' + used + ' 人 / 上限 ' + seatsOf_(cat) + ' 人')
+      .setFontWeight('bold').setFontSize(12)
+      .setBackground('#4a5288').setFontColor('#ffffff')
       .setVerticalAlignment('middle');
-  sh.setRowHeights(4, rows, 34);
-  sh.getRange(4, 1, rows, 1).setHorizontalAlignment('center');
-  sh.getRange(4, 2, rows, 1).setFontSize(16).setFontWeight('bold').setHorizontalAlignment('center');
-  sh.getRange(4, 4, rows, 1).setHorizontalAlignment('center');
+    sh.setRowHeight(r, 28);
+    r++;
+
+    sh.getRange(r, 1, 1, COLS).setValues([HDR])
+      .setFontWeight('bold').setBackground('#e8eaf3')
+      .setHorizontalAlignment('center').setVerticalAlignment('middle');
+    sh.setRowHeight(r, 24);
+    r++;
+
+    const first = r;
+    const last  = first + rows - 1;
+    sh.getRange(first, 1).setFormula(
+      '=ARRAYFORMULA(IF(B' + first + ':B' + last + '="","",ROW(B' + first + ':B' + last + ')-' + (first - 1) + '))');
+    sh.getRange(first, 2).setFormula(
+      '=IFERROR(QUERY(' + "'" + SHEET_NAMES[cat] + "'" + '!A2:S, "select Col6, Col7, Col8, Col4 where Col6 is not null", 0), "")');
+
+    const body = sh.getRange(first, 1, rows, COLS);
+    body.setBorder(true, true, true, true, true, true, '#333333', SpreadsheetApp.BorderStyle.SOLID)
+        .setVerticalAlignment('middle');
+    sh.setRowHeights(first, rows, 34);
+    sh.getRange(first, 1, rows, 1).setHorizontalAlignment('center');
+    sh.getRange(first, 2, rows, 1).setFontSize(16).setFontWeight('bold').setHorizontalAlignment('center');
+
+    r = last + 2;   // 空一列再接下一組
+  });
 }
 
 function buildTally_(ss, rows) {
