@@ -816,8 +816,130 @@ function doPost(e) {
   }
 }
 
+
+// ── 現場用分頁：手環編碼貼紙 / 教練計圈表 ──────────────────────────
+// 兩張表都用公式連動三個報名分頁，開起來永遠是最新的。
+// 只有「框線要包到第幾列」是產生當下決定的，報名截止後再跑一次 buildRaceDaySheets 就會重排。
+const STICKER_SHEET = '手環編碼貼紙';
+const TALLY_SHEET   = '教練計圈表';
+
+// 三個報名分頁疊起來：個人組 → 兩人接力 → 四人接力（組內就是報名順序）
+function stackRef_() {
+  return CATEGORY_ORDER.map(function (c) {
+    return "'" + SHEET_NAMES[c] + "'!A2:S";
+  }).join('; ');
+}
+
+function stackQuery_(cols) {
+  return '=IFERROR(QUERY({' + stackRef_() + '}, "select ' + cols +
+         ' where Col6 is not null", 0), "")';
+}
+
+/**
+ * 產生／更新「手環編碼貼紙」與「教練計圈表」兩個分頁。
+ * 用法：上方函式下拉選 buildRaceDaySheets → 執行。
+ * 資料是公式連動的，平常不用重跑；報名截止後跑一次，框線會依實際人數收乾淨。
+ */
+function buildRaceDaySheets() {
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  CATEGORY_ORDER.forEach(function (c) { getSheet_(c); });   // 確保三個報名分頁都在
+  const n = allRows_().length;
+  const rows = n + 10;                                      // 多留 10 列給現場補人
+  buildSticker_(ss, rows);
+  buildTally_(ss, rows);
+  return '已更新：' + STICKER_SHEET + '、' + TALLY_SHEET + '（目前 ' + n + ' 人）';
+}
+
+function titleRow_(sh, cols, text) {
+  sh.getRange(1, 1, 1, cols).merge()
+    .setValue(text)
+    .setFontWeight('bold').setFontSize(13)
+    .setBackground('#2b3157').setFontColor('#ffffff')
+    .setHorizontalAlignment('center').setVerticalAlignment('middle');
+  sh.setRowHeight(1, 30);
+}
+
+function noteRow_(sh, cols, text) {
+  sh.getRange(2, 1, 1, cols).merge()
+    .setValue(text).setFontSize(9).setFontColor('#666666')
+    .setVerticalAlignment('middle');
+  sh.setRowHeight(2, 22);
+}
+
+function headerRow_(sh, headers) {
+  sh.getRange(3, 1, 1, headers.length).setValues([headers])
+    .setFontWeight('bold').setBackground('#e8eaf3')
+    .setHorizontalAlignment('center').setVerticalAlignment('middle');
+  sh.setRowHeight(3, 26);
+  sh.setFrozenRows(3);
+}
+
+function buildSticker_(ss, rows) {
+  const sh = ss.getSheetByName(STICKER_SHEET) || ss.insertSheet(STICKER_SHEET);
+  sh.clear();
+  sh.clearConditionalFormatRules();
+
+  const HDR = ['序', '手環編碼', '姓名', '組別', '隊伍名稱'];
+  titleRow_(sh, HDR.length, 'NID 螢光路跑 GLOW RUN 12K｜手環編碼貼紙（沿框裁開，貼在黃色手環上）');
+  noteRow_(sh, HDR.length, '自動連動三個報名分頁。順序＝個人組 → 兩人接力 → 四人接力，組內是報名順序。');
+  headerRow_(sh, HDR);
+
+  sh.getRange('A4').setFormula('=ARRAYFORMULA(IF(B4:B="","",ROW(B4:B)-3))');
+  sh.getRange('B4').setFormula(stackQuery_('Col6, Col7, Col2, Col4'));
+
+  [46, 120, 110, 100, 150].forEach(function (w, i) { sh.setColumnWidth(i + 1, w); });
+
+  const body = sh.getRange(4, 1, rows, HDR.length);
+  body.setBorder(true, true, true, true, true, true, '#333333', SpreadsheetApp.BorderStyle.SOLID)
+      .setVerticalAlignment('middle');
+  sh.setRowHeights(4, rows, 34);
+  sh.getRange(4, 1, rows, 1).setHorizontalAlignment('center');
+  sh.getRange(4, 2, rows, 1).setFontSize(16).setFontWeight('bold').setHorizontalAlignment('center');
+  sh.getRange(4, 4, rows, 1).setHorizontalAlignment('center');
+}
+
+function buildTally_(ss, rows) {
+  const sh = ss.getSheetByName(TALLY_SHEET) || ss.insertSheet(TALLY_SHEET);
+  sh.clear();
+  sh.clearConditionalFormatRules();
+
+  const HDR = ['序', '手環編碼', '姓名', '組別', '隊伍名稱', '負責圈數',
+               '第1圈', '第2圈', '第3圈', '第4圈', '備註'];
+  titleRow_(sh, HDR.length, 'NID 螢光路跑 GLOW RUN 12K｜教練計圈表（每跑回籃球場一圈，就在該圈格畫一劃「正」）');
+  noteRow_(sh, HDR.length, '自動連動三個報名分頁。灰色格＝這個人沒有那一圈（兩人接力各 2 圈、四人接力各 1 圈）。');
+  headerRow_(sh, HDR);
+
+  sh.getRange('A4').setFormula('=ARRAYFORMULA(IF(B4:B="","",ROW(B4:B)-3))');
+  sh.getRange('B4').setFormula(stackQuery_('Col6, Col7, Col2, Col4, Col16'));
+
+  [46, 110, 100, 100, 140, 70, 62, 62, 62, 62, 140].forEach(function (w, i) {
+    sh.setColumnWidth(i + 1, w);
+  });
+
+  const body = sh.getRange(4, 1, rows, HDR.length);
+  body.setBorder(true, true, true, true, true, true, '#333333', SpreadsheetApp.BorderStyle.SOLID)
+      .setVerticalAlignment('middle');
+  sh.setRowHeights(4, rows, 30);
+  sh.getRange(4, 1, rows, 1).setHorizontalAlignment('center');
+  sh.getRange(4, 2, rows, 1).setFontWeight('bold').setHorizontalAlignment('center');
+  sh.getRange(4, 4, rows, 2).setHorizontalAlignment('center');
+  sh.getRange(4, 6, rows, 1).setHorizontalAlignment('center');
+
+  // 用不到的圈數格塗灰，教練才不會畫錯格
+  const rules = [];
+  [[7, 1], [8, 2], [9, 3], [10, 4]].forEach(function (p) {
+    rules.push(SpreadsheetApp.newConditionalFormatRule()
+      .whenFormulaSatisfied('=AND($B4<>"", $F4<' + p[1] + ')')
+      .setBackground('#d0d0d0')
+      .setRanges([sh.getRange(4, p[0], rows, 1)])
+      .build());
+  });
+  sh.setConditionalFormatRules(rules);
+}
+
 /**
  * 在編輯器上方選 printUrl → 執行，執行記錄會印出「工作人員列印頁」的網址。
+ * （現在改用試算表裡的「手環編碼貼紙」「教練計圈表」兩個分頁列印，這個網頁版留著備用。）
  */
 function printUrl() {
   const url = ScriptApp.getService().getUrl() + '?action=print&key=' + PRINT_KEY;
