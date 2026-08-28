@@ -200,14 +200,18 @@ function colA1_(idx) {
   return s;
 }
 
-/** 在編輯器手動執行一次，就會把三個名單分頁都建好並排版。 */
+/**
+ * 一鍵整理全部分頁：三個報名分頁排版 ＋ 重建「手環編碼貼紙」「教練計圈表」。
+ * 平常不用跑（資料是公式連動的）；報名截止後跑一次，列印用的空白列會收乾淨。
+ */
 function setupSheet() {
   const names = [];
   CATEGORY_ORDER.forEach(function (cat) {
     formatSheet_(getSheet_(cat));
     names.push(SHEET_NAMES[cat]);
   });
-  return '已整理：' + names.join('、');
+  const printed = buildRaceDaySheets();
+  return '已整理：' + names.join('、') + ' ｜ ' + printed;
 }
 
 // 讀出單一分頁的報名資料列（不含表頭）
