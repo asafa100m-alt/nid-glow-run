@@ -238,6 +238,46 @@
   .notes-list li strong{color:#fff;}
   @media(max-width:760px){.notes-list{grid-template-columns:1fr;}}
 
+  /* ───── 戰隊積分榜 ───── */
+  .standings{padding:60px 28px 70px;max-width:1100px;margin:0 auto;position:relative;z-index:2;border-top:3px solid var(--ink);}
+  .stand-rules{background:rgba(20,26,68,.6);border:1.5px solid var(--line);border-radius:20px;padding:20px 24px;margin-bottom:20px;}
+  .stand-rules>p{margin:0 0 12px;font-size:14px;line-height:1.7;color:var(--muted);}
+  .stand-rules>p b{color:var(--cream);}
+  .rule-list{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px;}
+  .rule-list li{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:6px 14px 6px 8px;font-size:13px;color:var(--muted);}
+  .rule-list .rpt{font-family:'DM Mono',monospace;font-weight:700;font-size:12.5px;color:var(--yolk);background:rgba(255,228,92,.12);border-radius:999px;padding:3px 9px;}
+  .stand-goal{margin:0;padding-top:12px;border-top:1.5px dashed rgba(154,163,214,.22);font-size:13.5px;line-height:1.7;color:var(--muted);}
+  .stand-goal b{color:var(--yolk);}
+
+  .stand-list{background:rgba(20,26,68,.6);border:1.5px solid var(--line);border-radius:20px;padding:12px 20px;}
+  .srow{display:grid;grid-template-columns:34px 108px 1fr 62px;align-items:center;gap:12px;padding:11px 0;border-bottom:1.5px dashed rgba(154,163,214,.18);}
+  .srow:last-child{border-bottom:none;}
+  .sr-rank{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted-2);text-align:center;}
+  .sr-name{font-size:14.5px;font-weight:700;color:#eef0ff;white-space:nowrap;}
+  .sr-bar{height:10px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden;}
+  .sr-bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--calm-dim),var(--calm));}
+  .sr-pt{font-family:'DM Mono',monospace;font-size:15px;font-weight:700;color:var(--cream);text-align:right;}
+  .sr-pt small{font-size:11px;font-weight:400;color:var(--muted-2);margin-left:2px;}
+  .srow.r1 .sr-rank,.srow.r2 .sr-rank,.srow.r3 .sr-rank{font-size:16px;}
+  .srow.r1 .sr-name{color:#ffe45c;} .srow.r2 .sr-name{color:#dfe4f5;} .srow.r3 .sr-name{color:#e0b489;}
+  .srow.r1 .sr-bar i{background:linear-gradient(90deg,#c79b2a,#ffe45c);}
+  .srow.r2 .sr-bar i{background:linear-gradient(90deg,#7b8296,#dfe4f5);}
+  .srow.r3 .sr-bar i{background:linear-gradient(90deg,#8a5c34,#e0b489);}
+
+  .stand-cta{margin-top:20px;text-align:center;}
+  .stand-cta p{font-size:14.5px;line-height:1.75;color:var(--muted);margin:0 0 16px;}
+  .stand-cta p b{color:var(--cream);}
+  .stand-btn{display:inline-block;font-family:'Bagel Fat One',sans-serif;font-size:19px;color:var(--ink);background:var(--yolk);
+    border:3px solid var(--ink);border-radius:999px;padding:12px 30px;text-decoration:none;
+    box-shadow:0 4px 0 var(--ink);transition:transform .12s ease,box-shadow .12s ease;}
+  .stand-btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--ink);}
+  .stand-note{margin-top:14px;font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.06em;color:var(--muted-2);}
+  @media(max-width:620px){
+    .srow{grid-template-columns:26px 1fr 52px;gap:8px;}
+    .sr-bar{grid-column:1 / -1;}
+    .sr-name{font-size:14px;}
+  }
+
   /* ───── FORM (night) ───── */
   .form-wrap{
     padding:60px 28px 70px;position:relative;z-index:2;border-top:3px solid var(--ink);
@@ -848,6 +888,93 @@
         加入活動 LINE 社群
       </a>
     </div>
+  </div>
+</section>
+
+<section class="standings" id="standings">
+  <div class="sec-head">
+    <span class="sec-eyebrow">TEAM STANDINGS</span>
+    <h2 class="section-title alt">教練戰隊 <em>積分榜</em></h2>
+  </div>
+
+  <div class="stand-rules">
+    <p>NID 全年活動<b>累積制</b> —— 每一場有競賽的活動都算分。</p>
+    <ul class="rule-list">
+      <li><span class="rpt">+3</span>🥇 第一名</li>
+      <li><span class="rpt">+2</span>🥈 第二名</li>
+      <li><span class="rpt">+1</span>🥉 第三名</li>
+      <li><span class="rpt">+1</span>該戰隊教練有到場</li>
+    </ul>
+    <p class="stand-goal">🎁 到 <b>12 月底</b>統計全年最強戰隊，由該班級帶走<b>最終獎勵</b>。</p>
+  </div>
+
+  <div class="stand-list">
+      <div class="srow r1">
+        <span class="sr-rank">🥇</span>
+        <span class="sr-name">凱為戰隊</span>
+        <span class="sr-bar"><i style="width:100%"></i></span>
+        <span class="sr-pt">15<small>點</small></span>
+      </div>
+      <div class="srow r2">
+        <span class="sr-rank">🥈</span>
+        <span class="sr-name">佩珊戰隊</span>
+        <span class="sr-bar"><i style="width:93%"></i></span>
+        <span class="sr-pt">14<small>點</small></span>
+      </div>
+      <div class="srow r3">
+        <span class="sr-rank">🥉</span>
+        <span class="sr-name">承勳戰隊</span>
+        <span class="sr-bar"><i style="width:80%"></i></span>
+        <span class="sr-pt">12<small>點</small></span>
+      </div>
+      <div class="srow">
+        <span class="sr-rank">4</span>
+        <span class="sr-name">姚姚戰隊</span>
+        <span class="sr-bar"><i style="width:27%"></i></span>
+        <span class="sr-pt">4<small>點</small></span>
+      </div>
+      <div class="srow">
+        <span class="sr-rank">5</span>
+        <span class="sr-name">竺均戰隊</span>
+        <span class="sr-bar"><i style="width:20%"></i></span>
+        <span class="sr-pt">3<small>點</small></span>
+      </div>
+      <div class="srow">
+        <span class="sr-rank">5</span>
+        <span class="sr-name">明志戰隊</span>
+        <span class="sr-bar"><i style="width:20%"></i></span>
+        <span class="sr-pt">3<small>點</small></span>
+      </div>
+      <div class="srow">
+        <span class="sr-rank">7</span>
+        <span class="sr-name">阿飛戰隊</span>
+        <span class="sr-bar"><i style="width:13%"></i></span>
+        <span class="sr-pt">2<small>點</small></span>
+      </div>
+      <div class="srow">
+        <span class="sr-rank">8</span>
+        <span class="sr-name">智遠戰隊</span>
+        <span class="sr-bar"><i style="width:7%"></i></span>
+        <span class="sr-pt">1<small>點</small></span>
+      </div>
+      <div class="srow">
+        <span class="sr-rank">8</span>
+        <span class="sr-name">柏鈞戰隊</span>
+        <span class="sr-bar"><i style="width:7%"></i></span>
+        <span class="sr-pt">1<small>點</small></span>
+      </div>
+      <div class="srow">
+        <span class="sr-rank">10</span>
+        <span class="sr-name">肯尼戰隊</span>
+        <span class="sr-bar"><i style="width:0%"></i></span>
+        <span class="sr-pt">0<small>點</small></span>
+      </div>
+  </div>
+
+  <div class="stand-cta">
+    <p>這場 12K <b>三組各取前三名</b>，教練到場再加 1 點 ——<br>你跑的每一步，都在幫自己的戰隊加分。</p>
+    <a class="stand-btn" href="#register">為戰隊爭取榮耀 →</a>
+    <p class="stand-note">積分統計至 2026/08/28</p>
   </div>
 </section>
 
