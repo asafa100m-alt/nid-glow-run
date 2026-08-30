@@ -434,6 +434,19 @@
   .fee-live small{color:#5a5470;font-size:12.5px;}
 </style>
 
+<script>
+  // 手機瀏覽器（含 LINE 內建瀏覽器）會記住上次的捲動位置，重開時可能直接停在報名區。
+  // 一律從頁面最上面開始；只有網址帶 #register 這種錨點時才尊重它。
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.addEventListener('pageshow', function () {
+    if (location.hash) return;
+    var el = document.documentElement, prev = el.style.scrollBehavior;
+    el.style.scrollBehavior = 'auto';   // 避免被 smooth 動畫拖著跑
+    window.scrollTo(0, 0);
+    el.style.scrollBehavior = prev;
+  });
+</script>
+
 <body>
 
 <header>
