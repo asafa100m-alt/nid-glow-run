@@ -436,15 +436,27 @@
 
 <script>
   // 手機瀏覽器（含 LINE 內建瀏覽器）會記住上次的捲動位置，重開時可能直接停在報名區。
-  // 一律從頁面最上面開始；只有網址帶 #register 這種錨點時才尊重它。
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  window.addEventListener('pageshow', function () {
-    if (location.hash) return;
-    var el = document.documentElement, prev = el.style.scrollBehavior;
-    el.style.scrollBehavior = 'auto';   // 避免被 smooth 動畫拖著跑
-    window.scrollTo(0, 0);
-    el.style.scrollBehavior = prev;
-  });
+  // 一律從頁面最上面開始；網址帶 #register 這種錨點時才跳到該區塊。
+  (function () {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+    function aim() {
+      var el = document.documentElement, prev = el.style.scrollBehavior;
+      el.style.scrollBehavior = 'auto';   // 避免被 smooth 動畫拖著跑
+      var t = location.hash && document.getElementById(location.hash.slice(1));
+      if (t) t.scrollIntoView(); else window.scrollTo(0, 0);
+      el.style.scrollBehavior = prev;
+    }
+
+    // 一進來（含上一頁返回）就先定位，蓋掉瀏覽器記住的位置
+    window.addEventListener('pageshow', aim);
+
+    // 字體、圖片載完版面會變高，帶錨點進來的要重新對準；
+    // 沒帶錨點就不再動，免得打斷已經開始往下滑的人。
+    function reAim() { if (location.hash) aim(); }
+    window.addEventListener('load', function () { setTimeout(reAim, 120); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { setTimeout(reAim, 60); });
+  })();
 </script>
 
 <body>
