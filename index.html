@@ -242,6 +242,15 @@
   .pp a{font-family:'DM Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:var(--calm);text-decoration:none;}
   .pp a:hover{color:#fff;}
   @media(max-width:620px){.partner-prods{grid-template-columns:1fr;}}
+  .fubon-card{margin-bottom:34px;}
+  .fubon-steps{list-style:none;counter-reset:fs;display:grid;gap:8px;margin:12px 0 14px;}
+  .fubon-steps li{counter-increment:fs;position:relative;padding-left:30px;font-size:13.5px;line-height:1.7;color:var(--muted);}
+  .fubon-steps li::before{content:counter(fs);position:absolute;left:0;top:2px;width:20px;height:20px;border-radius:50%;background:#0a97b0;color:#fff;font-family:'DM Mono',monospace;font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .fubon-steps li b{color:var(--cream);font-weight:700;}
+  .fubon-gift{display:inline-block;font-size:13px;color:var(--cream);background:rgba(10,151,176,.18);border:1px solid #0a97b0;border-radius:50px;padding:6px 14px;margin-bottom:12px;}
+  .fubon-gift b{color:#5fd4e8;}
+  .fubon-btn{display:inline-block;font-family:'DM Mono',monospace;font-size:12.5px;letter-spacing:.06em;color:#fff;background:#0a97b0;border-radius:50px;padding:9px 18px;text-decoration:none;transition:transform .12s ease;}
+  .fubon-btn:hover{transform:translateY(-2px);color:#fff;}
 
   /* ───── 須知 ───── */
   .notes{padding:8px 28px 60px;max-width:1100px;margin:0 auto;position:relative;z-index:2;}
@@ -695,6 +704,23 @@
         </div>
       </div>
       <a class="partner-link" href="https://www.viimun.com" target="_blank" rel="noopener noreferrer">viimun.com →</a>
+    </div>
+  </div>
+
+  <div class="partner-card fubon-card">
+    <a class="partner-logo" href="https://irunner.biji.co/2026fubonrunforgreen" target="_blank" rel="noopener noreferrer" aria-label="富邦金控 Run For Green">
+      <img src="fubon-logo.png" alt="富邦金控" width="349" height="74" />
+    </a>
+    <div class="partner-copy">
+      <span class="partner-tag">OFFICIAL PARTNER · 贊助廠商</span>
+      <p><b>富邦金控</b>同步贊助本場活動。完成下面三步，就能領到贈品：</p>
+      <ol class="fubon-steps">
+        <li>線上註冊富邦 <b>Run For Green</b></li>
+        <li>串聯 <b>Garmin</b> 或 <b>Strava</b></li>
+        <li>加入 <b>NID RUN CLUB</b> 隊伍</li>
+      </ol>
+      <span class="fubon-gift">🎁 完成後可獲得 <b>黃金甲試用品</b></span><br>
+      <a class="fubon-btn" href="https://irunner.biji.co/2026fubonrunforgreen" target="_blank" rel="noopener noreferrer">前往線上註冊 →</a>
     </div>
   </div>
   <div class="sec-head">
