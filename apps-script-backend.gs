@@ -206,15 +206,54 @@ function colA1_(idx) {
  */
 function setupSheet() {
   const names = [];
+  let removed = 0;
   CATEGORY_ORDER.forEach(function (cat) {
-    formatSheet_(getSheet_(cat));
+    const sh = getSheet_(cat);
+    removed += compactSheet_(sh);          // 先把表頭下的空白列收掉
+    ensureRows_(sh, seatsOf_(cat) + 1);    // 再確保名額寫得下
+    formatSheet_(sh);
     names.push(SHEET_NAMES[cat]);
   });
   const printed = buildRaceDaySheets();
-  return '已整理：' + names.join('、') + ' ｜ ' + printed;
+  return '已整理：' + names.join('、') + '（清掉 ' + removed + ' 列空白）｜ ' + printed;
 }
 
 // 讀出單一分頁的報名資料列（不含表頭）
+// getLastRow() 會被「已收款」那欄的核取方塊騙到：未勾選的方塊存的是 FALSE，
+// 空白列因此被算成「有內容」，第一筆報名就被推到第 1006 列去。
+// 一律改用 A 欄（報名時間）判斷真正的最後一筆。
+function firstFreeRow_(sheet) {
+  const maxRows = sheet.getMaxRows();
+  if (maxRows < 2) return 2;
+  const vals = sheet.getRange(2, 1, maxRows - 1, 1).getValues();
+  for (let i = vals.length - 1; i >= 0; i--) {
+    if (String(vals[i][0]).trim() !== '') return i + 3;   // vals[i] 是第 i+2 列
+  }
+  return 2;
+}
+
+// 把表頭和第一筆資料中間的空白列收乾淨（上面那個核取方塊 bug 留下來的）。
+// 資料已經貼著表頭時就什麼都不做。
+function compactSheet_(sheet) {
+  const maxRows = sheet.getMaxRows();
+  if (maxRows < 3) return 0;
+  const vals = sheet.getRange(2, 1, maxRows - 1, 1).getValues();
+  let first = -1;
+  for (let i = 0; i < vals.length; i++) {
+    if (String(vals[i][0]).trim() !== '') { first = i + 2; break; }
+  }
+  if (first < 3) return 0;
+  const n = first - 2;
+  sheet.deleteRows(2, n);
+  return n;
+}
+
+// 確保至少有「表頭 + 該組名額」這麼多列，刪完空白列後才不會沒地方寫
+function ensureRows_(sheet, want) {
+  const cur = sheet.getMaxRows();
+  if (cur < want) sheet.insertRowsAfter(cur, want - cur);
+}
+
 function sheetRows_(sheet) {
   const last = sheet.getLastRow();
   if (last < 2) return [];
@@ -799,7 +838,9 @@ function doPost(e) {
       const stamp = new Date();
       const newRows = rowsFromData_(d, teamNo, stamp);
       const sheet = getSheet_(d.category);   // 依組別寫進對應的分頁
-      sheet.getRange(sheet.getLastRow() + 1, 1, newRows.length, HEADERS.length).setValues(newRows);
+      const startRow = firstFreeRow_(sheet);
+      ensureRows_(sheet, startRow + newRows.length - 1);
+      sheet.getRange(startRow, 1, newRows.length, HEADERS.length).setValues(newRows);
       SpreadsheetApp.flush();
 
       quota = quotaSnapshot_(rows.concat(newRows));
