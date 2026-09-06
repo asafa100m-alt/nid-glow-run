@@ -19,7 +19,7 @@
  *   兩人接力 1 人跑 2 圈   · 15 隊名額
  *   四人接力 1 人跑 1 圈   · 12 隊名額
  *   三組各取前三名，獎品由合作廠商 Viimun 提供；每位參賽者另有派對侍者乙包（價值 100 元）
- *   報名截止：2026/9/9 24:00（REG_DEADLINE），截止後 POST 一律回 status:"closed" 
+ *   報名截止：2026/9/10 24:00（REG_DEADLINE），截止後 POST 一律回 status:"closed" 
  *
  * 名單編碼：個人 A01…／兩人 B01-1、B01-2…／四人 C01-1…C01-4
  *          列印頁把編碼剪下貼在（黃色）螢光手環上，教練依名單畫正字記圈。
@@ -52,9 +52,9 @@ const LINE_GROUP_URL    = 'https://line.me/ti/g2/5BBOmVbrCiD6m8Uzy6xigwzM1qihEJ_
 const LINE_OFFICIAL_URL = 'https://page.line.me/eei8717i'; // NID 官方 LINE（詢問／取消／改期）
 // ───────────────────────────────────────
 
-// 報名截止：2026/9/9 24:00（＝9/10 00:00 之前都可報名）
-const REG_DEADLINE      = new Date('2026-09-09T23:59:59+08:00');
-const REG_DEADLINE_TEXT = '2026/9/9（三）24:00';
+// 報名截止：2026/9/10 24:00（＝9/11 00:00 之前都可報名）
+const REG_DEADLINE      = new Date('2026-09-10T23:59:59+08:00');
+const REG_DEADLINE_TEXT = '2026/9/10（四）24:00';
 
 const SHEET_ID   = '__SHEET_ID__';   // 實際值只設在 Apps Script 專案裡，不放進這個公開 repo
 // 三個組別各自一個分頁，報名進來就寫到對應的那一頁
@@ -822,10 +822,12 @@ function doPost(e) {
 
       const dup = findDuplicateEmail_(rows, d.members.map(function (m) { return m.email; }));
       if (dup) {
-        // 有人可能是「送出成功但網路斷了」才重送，訊息要講清楚他其實已經報成功了
-        return jsonOut_({ status: 'error', message: '這個 Email（' + dup + '）已經報名過了。'
-          + '如果你剛剛送出過，代表已經報名成功，確認信會寄到這個信箱（也請看一下垃圾郵件匣）。'
-          + '如需修改資料或換組別，請私訊 NID 官方 LINE。' });
+        // 這次沒有寫進去，訊息絕對不能讓人以為報名成功了；code/email 給前台做欄位標示
+        return jsonOut_({ status: 'error', code: 'dup_email', email: dup,
+          message: '這個 Email（' + dup + '）先前已經報名過，所以這次沒有送出。'
+            + '每個 Email 只能報名一次。'
+            + '不確定之前有沒有報成功的話，請先找看看信箱（含垃圾郵件匣）有沒有確認信；'
+            + '要查詢、修改資料或換組別，請私訊 NID 官方 LINE。' });
       }
 
       const cfg = CATEGORIES[d.category];
