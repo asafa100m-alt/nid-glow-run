@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>NID RUN CLUB × Viimun 螢光路跑派對 GLOW RUN 12K｜9/12 夜跑</title>
-<meta name="description" content="NID RUN CLUB × Viimun 螢光路跑派對｜9/12 成美長壽橋籃球場，一圈 3K、跑滿 4 圈 12K。個人組、兩人接力、四人接力，各組前三名獎品由 Viimun 贊助（最高價值 NT$1,398）；穿上螢光造型還能拚「螢光打扮大賞」，三組各選一名（隊），得獎整組人每人一頂 NID 2026 全新跑帽（共 8 頂）。人人有派對侍者乙包，報名至 9/9 24:00 截止！" />
+<meta name="description" content="NID RUN CLUB × Viimun 螢光路跑派對｜9/12 成美長壽橋籃球場，一圈 3K、跑滿 4 圈 12K。個人組、兩人接力、四人接力，各組前三名獎品由 Viimun 贊助（最高價值 NT$1,398）；穿上螢光造型還能拚「螢光打扮大賞」，三組各選一名（隊），得獎整組人每人一頂 NID 2026 全新跑帽（共 8 頂）。人人有派對侍者乙包，報名至 9/10 24:00 截止！" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -351,6 +351,15 @@
   .err{color:var(--hotpink);font-size:13px;margin-top:6px;font-weight:500;display:none;}
   .err.show{display:block;}
 
+  /* 送出失敗時直接在表單上講清楚 —— 只靠 alert 在手機上很容易被略過 */
+  .form-alert{display:none;margin:14px 0 4px;padding:16px 18px;border:2.5px solid var(--hotpink);border-radius:14px;background:#ffeef3;color:var(--ink);box-shadow:4px 4px 0 rgba(214,58,106,.25);}
+  .form-alert.show{display:block;animation:slideDown .25s ease;}
+  .form-alert h4{font-size:16px;font-weight:800;margin-bottom:6px;color:var(--hotpink);line-height:1.5;}
+  .form-alert p{font-size:14px;line-height:1.8;}
+  .form-alert .fa-mail{font-weight:800;word-break:break-all;}
+  .form-alert a{color:var(--hotpink);font-weight:700;}
+  .field input.has-error,.field select.has-error{background:#ffebee;border-color:var(--hotpink);}
+
   .success{display:none;background:#e9f6fb;color:var(--ink);border:3px solid var(--ink);border-radius:28px;padding:48px 32px;text-align:center;box-shadow:0 0 0 3px var(--ink),10px 10px 0 rgba(0,0,0,.35);}
   .success.show{display:block;animation:pop .4s ease;}
   @keyframes pop{0%{transform:scale(.85);opacity:0;}60%{transform:scale(1.03);}100%{transform:scale(1);opacity:1;}}
@@ -557,7 +566,7 @@
   <div class="card">
     <div class="card-label">FEE / 費用</div>
     <div class="card-value">學員免費</div>
-    <div class="card-note">非當期學員 NT$350／人・現場現金<br>報名至 <b>9/9（三）24:00</b></div>
+    <div class="card-note">非當期學員 NT$350／人・現場現金<br>報名至 <b>9/10（四）24:00</b></div>
   </div>
 </section>
 
@@ -791,7 +800,7 @@
       <li><strong>報到領什麼：</strong>NID 螢光手環 ×1（工作人員幫你貼上號碼編碼）＋ <b>Viimun 派對侍者 乙包</b> ×1（價值 NT$100）。</li>
       <li><strong>怎麼記圈：</strong>每圈跑回籃球場，教練依編碼畫正字，滿 4 圈（12K）即完賽。</li>
       <li><strong>接力交接：</strong>交接區固定在籃球場終點線，跑回終點後由下一棒接續出發。</li>
-      <li><strong>報名截止：</strong><b>2026/9/9（三）24:00</b>，額滿或截止即關閉，不再開放。</li>
+      <li><strong>報名截止：</strong><b>2026/9/10（四）24:00</b>，額滿或截止即關閉，不再開放。</li>
       <li><strong>費用：</strong>NID 當期學員免費；非當期學員每人 NT$350，當天報到時現場現金繳。<b>學員身分我們會嚴格查核，請務必依報名規範誠實填寫。</b></li>
       <li><strong>未成年：</strong>未滿 18 歲須由家長或監護人<b>全程陪同</b>，報到時一併說明；未滿 12 歲不建議參加 12K。</li>
       <li><strong>取消／改期：</strong>報名後如需取消或更換隊友，請到 <a href="https://page.line.me/eei8717i" target="_blank" rel="noopener noreferrer"><b>NID 官方 LINE</b></a> 私訊小編。</li>
@@ -810,7 +819,7 @@
     <p class="form-eyebrow">// REGISTRATION OPEN //</p>
     <h2 class="form-title">立刻 <em>報名</em></h2>
 
-    <div class="deadline-bar">報名截止 <b>2026/9/9（三）24:00</b> · 額滿或截止即關閉</div>
+    <div class="deadline-bar">報名截止 <b>2026/9/10（四）24:00</b> · 額滿或截止即關閉</div>
 
     <div class="quota-grid">
       <div class="qbox"><div class="qn">個人組</div><div class="qv" id="qSolo">…</div><div class="qu">/ 22 名額</div></div>
@@ -946,6 +955,8 @@
         </label>
         <p class="err" data-for="agree">請先閱讀並勾選「我已閱讀並同意」</p>
       </div>
+
+      <div class="form-alert" id="formAlert" role="alert" aria-live="assertive"></div>
 
       <button type="submit" class="submit-btn" id="submitBtn">SEND IT! →</button>
       <div class="loader" id="loader"></div>
@@ -1166,6 +1177,20 @@
   });
   clubSelect.addEventListener("change", updateFee);
 
+  const LINE_OFFICIAL = "https://page.line.me/eei8717i";
+  const formAlert = document.getElementById("formAlert");
+  function esc(t) {
+    return String(t).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function hideAlert() { formAlert.classList.remove("show"); formAlert.innerHTML = ""; }
+  function showAlert(title, html) {
+    formAlert.innerHTML = "<h4>" + title + "</h4><p>" + html + "</p>";
+    formAlert.classList.add("show");
+    formAlert.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
   function showErr(name, show) {
     const el = document.querySelector('.err[data-for="' + name + '"]');
     if (el) el.classList.toggle("show", show);
@@ -1177,12 +1202,13 @@
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
     document.querySelectorAll(".err").forEach(function (x) { x.classList.remove("show"); });
-    document.querySelectorAll(".friend-input, .member-select").forEach(function (el) { el.classList.remove("has-error"); });
+    document.querySelectorAll(".has-error").forEach(function (el) { el.classList.remove("has-error"); });
+    hideAlert();
 
     const payload = Object.fromEntries(new FormData(form).entries());
     let valid = true;
 
-    if (REG_CLOSED) { alert("報名已於 2026/9/9（三）24:00 截止。\n如仍想參加，請到 NID 官方 LINE 私訊小編。"); return; }
+    if (REG_CLOSED) { alert("報名已於 2026/9/10（四）24:00 截止。\n如仍想參加，請到 NID 官方 LINE 私訊小編。"); return; }
 
     const cat = payload.category || "";
     const cfg = CATS[cat];
@@ -1276,10 +1302,30 @@
       }
 
       if (result.status === "full") {
-        alert("很可惜，「" + (result.category || "這個組別") + "」的名額已經滿了 😢\n可以換另一個組別，或關注 NID 之後的活動！");
+        showAlert("這個組別已經額滿了 😢",
+          "「" + esc(result.category || "這個組別") + "」的名額剛好被搶完，<b>這次沒有送出</b>。<br>" +
+          "可以改選其他還有名額的組別，或到 <a href=\"" + LINE_OFFICIAL + "\" target=\"_blank\" rel=\"noopener noreferrer\">NID 官方 LINE</a> 問問候補。");
+
+      } else if (result.code === "dup_email") {
+        // 重複報名務必講清楚「沒有送出」，不能讓人以為已經報成功
+        const dup = String(result.email || "").trim().toLowerCase();
+        let hit = null;
+        form.querySelectorAll('input[type="email"]').forEach(function (el) {
+          if (el.value.trim().toLowerCase() === dup) {
+            el.classList.add("has-error");
+            if (!hit) hit = el;
+          }
+        });
+        showAlert("這個 Email 已經報名過，<b>這次沒有送出</b>",
+          "<span class=\"fa-mail\">" + esc(result.email || "") + "</span> 先前已經報名過，每個 Email 只能報名一次。<br>" +
+          "不確定之前有沒有報成功，請先看信箱（含垃圾郵件匣）有沒有確認信；<br>" +
+          "要查詢、修改資料或換組別，請私訊 <a href=\"" + LINE_OFFICIAL + "\" target=\"_blank\" rel=\"noopener noreferrer\">NID 官方 LINE</a>。");
+        if (hit) hit.focus({ preventScroll: true });
+
       } else {
         // 後端的資料檢查訊息，直接照原文顯示
-        alert(result.message || "資料好像有地方沒填對，請檢查後再送出一次。");
+        showAlert("還沒送出，有個地方要修正",
+          esc(result.message || "資料好像有地方沒填對，請檢查後再送出一次。"));
       }
       submitBtn.disabled = false; submitBtn.style.display = "block";
       loadQuota();
@@ -1338,7 +1384,7 @@
 
       if (j.closed) {
         REG_CLOSED = true;
-        lockForm("報名已截止", "本場報名已於 <b>" + (j.deadline || "2026/9/9（三）24:00") + "</b> 截止。");
+        lockForm("報名已截止", "本場報名已於 <b>" + (j.deadline || "2026/9/10（四）24:00") + "</b> 截止。");
       }
     } catch (e) {
       Object.values(map).forEach(function (id) { document.getElementById(id).textContent = "—"; });
